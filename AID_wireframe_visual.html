@@ -1,0 +1,501 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AID Wireframe Visual v4</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --surface: #fffdf9;
+      --ink: #201d18;
+      --muted: #666055;
+      --line: #d9cfbf;
+      --accent: #a48762;
+      --accent-soft: #ece2d2;
+      --warn: #b86a4a;
+      --ok: #2d6a4f;
+      --shadow: 0 16px 46px rgba(28, 23, 17, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background: radial-gradient(circle at 0% 0%, #fcfaf6 0%, var(--bg) 60%);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .cover {
+      padding: 52px 46px 28px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(168deg, #fcf9f4 0%, #f2e9de 100%);
+    }
+
+    .kicker {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 8px 0 10px;
+      font-family: "DM Sans", "Pretendard", sans-serif;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .cover p {
+      margin: 0;
+      max-width: 1000px;
+      font-size: 15px;
+      color: #4e473e;
+    }
+
+    .pill-row {
+      margin-top: 16px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.86);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 12px;
+      color: #514940;
+    }
+
+    .deck {
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .sheet {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .id {
+      margin: 0;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .title {
+      margin: 2px 0 0;
+      font-family: "DM Sans", "Pretendard", sans-serif;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .copy {
+      margin: 0;
+      font-size: 13px;
+      color: #5f564d;
+    }
+
+    .map {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 16px;
+      display: grid;
+      gap: 5px;
+      font-size: 13px;
+      color: #4f473d;
+    }
+
+    .list li { margin: 0; }
+
+    .status-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .status-item {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #faf7f2;
+      padding: 9px 10px;
+      font-size: 13px;
+      color: #4f473d;
+      display: flex;
+      gap: 8px;
+      align-items: start;
+    }
+
+    .status-item .badge {
+      margin-top: 1px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 3px 7px;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+
+    .ok { color: var(--ok); border-color: #99c5b4; background: #edf7f2; }
+    .bad { color: var(--warn); border-color: #e0b7a8; background: #fbf1ed; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(290px, 0.65fr);
+      gap: 12px;
+      margin-top: 12px;
+      align-items: start;
+    }
+
+    .art {
+      border: 1px dashed #c8bdac;
+      border-radius: 12px;
+      background: #fdfbf7;
+      padding: 11px;
+      display: grid;
+      gap: 8px;
+      min-height: 372px;
+    }
+
+    .mobile { width: min(100%, 340px); justify-self: center; }
+
+    .label {
+      margin: 0;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #857d71;
+    }
+
+    .bar {
+      border: 1px solid #cbc0af;
+      border-radius: 10px;
+      background: #f0e7da;
+      color: #423a31;
+      padding: 8px 10px;
+      min-height: 34px;
+      font-size: 12px;
+      display: grid;
+      align-content: center;
+    }
+
+    .bar.strong {
+      background: #e5d9c8;
+      border-color: #bfae96;
+      font-weight: 600;
+    }
+
+    .hero {
+      border: 1px solid #beaf99;
+      border-radius: 12px;
+      min-height: 92px;
+      background:
+        linear-gradient(145deg, rgba(164,135,98,0.17), rgba(255,255,255,0.45)),
+        repeating-linear-gradient(130deg, #ece2d5 0 11px, #f7f1e8 11px 22px);
+      padding: 10px;
+      font-size: 12px;
+      color: #3d352c;
+      display: grid;
+      align-content: center;
+    }
+
+    .cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+      align-items: center;
+    }
+
+    .node {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      min-height: 68px;
+      padding: 9px;
+      font-size: 12px;
+      color: #4a4339;
+      display: grid;
+      align-content: center;
+      text-align: center;
+    }
+
+    .arrow { text-align: center; color: #8d8272; font-size: 18px; }
+
+    .foot-note {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f7f2ea;
+      padding: 10px;
+      font-size: 12px;
+      color: #575046;
+    }
+
+    @media (max-width: 980px) {
+      .cover { padding: 32px 20px 20px; }
+      .deck { padding: 10px; }
+      .map,
+      .grid,
+      .cols-3,
+      .cols-2 { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); }
+    }
+
+    @media print {
+      @page { size: A4; margin: 9mm; }
+      body { background: #fff; }
+      .cover { background: #fff; padding: 20px; }
+      .deck { padding: 10px 0 0; }
+      .sheet {
+        border-radius: 0;
+        box-shadow: none;
+        break-after: page;
+        page-break-after: always;
+      }
+      .sheet:last-child {
+        break-after: auto;
+        page-break-after: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="cover">
+    <p class="kicker">AID External Wireframe · v3 (Plan-Locked)</p>
+    <h1>AID 부동산 홈페이지 시각 와이어프레임</h1>
+    <p>
+      본 버전은 기획안 원문을 항목별로 고정하고 화면에 직접 매핑한 문서입니다.
+      <strong>레이아웃은 cmlandco 구조</strong>, <strong>문구/타이포 전달 방식은 ohoi 스타일</strong>로 분리 적용했습니다.
+    </p>
+    <div class="pill-row">
+      <span class="pill">필수 섹션: PROJECTS / COMPANY / SEARCH / OUR PARTNERS</span>
+      <span class="pill">필수 톤: 짧고 단단한 한 줄 메시지</span>
+      <span class="pill">필수 무드: 베이지/아이보리, 이미지 중심, 여백</span>
+      <span class="pill">지양: 네이버부동산형 과밀 리스트/배너 남발</span>
+    </div>
+  </header>
+
+  <main class="deck">
+    <section class="sheet">
+      <div class="head">
+        <div>
+          <p class="id">Requirement Lock</p>
+          <h2 class="title">기획안 고정 체크리스트</h2>
+        </div>
+        <p class="copy">원문 항목을 수정 없이 구조화</p>
+      </div>
+
+      <div class="map">
+        <article class="card">
+          <h3>레이아웃 기준 (cmlandco)</h3>
+          <ul class="list">
+            <li>섹션을 크게 사용</li>
+            <li>여백 중심 레이아웃</li>
+            <li>한 섹션당 하나의 메시지</li>
+            <li>이미지 중심 구성 (디벨롭 건물 이미지)</li>
+            <li>정보 과다 지양</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>문구/타이포 기준 (ohoi)</h3>
+          <ul class="list">
+            <li>긴 설명 대신 짧고 단단한 전달</li>
+            <li>강한 한 줄 메시지</li>
+            <li>회사 소개(인스타그램/유튜브 연결)</li>
+            <li>프로젝트 중심 구성</li>
+            <li>문의 전환 중심</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="status-list">
+        <div class="status-item"><span class="badge ok">필수</span><span>포지셔닝: 일반 중개업소가 아닌 공간 기획/브랜딩/사옥 디벨롭/인플루언서 자산관리 회사</span></div>
+        <div class="status-item"><span class="badge ok">필수</span><span>페이지 구조: 풀스크린 비주얼+슬로건 → COMPANY → SEARCH(필터/리스트·지도/상세·문의CTA) → OUR PARTNERS</span></div>
+        <div class="status-item"><span class="badge ok">필수</span><span>기능: 관리자 등록·수정, 문의폼 수집+알림, 모바일 최적화, 기본 SEO, 과도한 애니메이션 금지</span></div>
+        <div class="status-item"><span class="badge bad">지양</span><span>네이버 부동산형 리스트 중심, 배너 다수, 동네 중개업소 인상, 색상 과다, 기능 위주 딱딱한 UI</span></div>
+      </div>
+    </section>
+
+    <section class="sheet">
+      <div class="head">
+        <div>
+          <p class="id">01</p>
+          <h2 class="title">Home + Hero (PROJECTS 진입)</h2>
+        </div>
+        <p class="copy">풀스크린 비주얼 + 강한 한 줄 메시지</p>
+      </div>
+
+      <div class="grid">
+        <article class="art">
+          <p class="label">Desktop</p>
+          <div class="bar strong">상단 네비: PROJECTS / COMPANY / SEARCH / CONTACT</div>
+          <div class="hero">풀스크린 비주얼 + 슬로건 + CTA (프로젝트 보기 / 상담 요청)</div>
+          <div class="bar">프로젝트 카드 그리드 (3열, 이미지 우선, 텍스트 최소)</div>
+          <div class="bar">카멜 shop 구조 참고: 디벨롭 건물 이미지 중심 배치</div>
+          <div class="cols-2">
+            <div class="bar">한 줄 메시지 유지 (긴 설명 금지)</div>
+            <div class="bar">문의 CTA로 즉시 전환</div>
+          </div>
+          <div class="bar">Footer: 회사 소개 + SNS(인스타그램/유튜브)</div>
+        </article>
+
+        <article class="art mobile">
+          <p class="label">Mobile</p>
+          <div class="bar strong">Compact Header</div>
+          <div class="hero">Hero + 슬로건</div>
+          <div class="bar">Projects 2열</div>
+          <div class="bar">문의 CTA</div>
+          <div class="bar">회사/SNS 푸터</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sheet">
+      <div class="head">
+        <div>
+          <p class="id">02</p>
+          <h2 class="title">COMPANY</h2>
+        </div>
+        <p class="copy">Where visibility becomes value. + 자필싸인 + 회사정보</p>
+      </div>
+
+      <div class="grid">
+        <article class="art">
+          <p class="label">Desktop</p>
+          <div class="hero">한 줄 메시지: Where visibility becomes value.</div>
+          <div class="cols-2">
+            <div class="bar">대표님 자필 싸인 영역</div>
+            <div class="bar">우리가 하는 일 요약 (짧고 단단하게)</div>
+          </div>
+          <div class="bar">회사 소개 + 인스타그램/유튜브 연결</div>
+          <div class="bar">주소/번호/상호명/사업자등록번호</div>
+        </article>
+
+        <article class="art mobile">
+          <p class="label">Mobile</p>
+          <div class="hero">한 줄 메시지</div>
+          <div class="bar">자필 싸인</div>
+          <div class="bar">우리가 하는 일</div>
+          <div class="bar">주소/번호/상호명/사업자등록번호</div>
+          <div class="bar">인스타그램/유튜브</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sheet">
+      <div class="head">
+        <div>
+          <p class="id">03</p>
+          <h2 class="title">SEARCH + Detail</h2>
+        </div>
+        <p class="copy">기획안 필터 항목 고정 반영 + 상세 CTA</p>
+      </div>
+
+      <div class="grid">
+        <article class="art">
+          <p class="label">Search Desktop</p>
+          <div class="bar strong">필터: 지역/업종/면적/보증금/월세/권리금/층/주차</div>
+          <div class="cols-2">
+            <div class="bar">리스트 뷰 (이미지+핵심요약+문의 버튼)</div>
+            <div class="bar">지도 뷰 (선택 제공)</div>
+          </div>
+          <div class="bar">상세페이지: 사진 + 핵심요약 + 위치(지도) + 문의 CTA(전화/폼)</div>
+          <div class="bar">No Result: 유사조건 추천 + 문의 전환</div>
+        </article>
+
+        <article class="art mobile">
+          <p class="label">Search Mobile</p>
+          <div class="bar strong">필터 버튼/드로어</div>
+          <div class="bar">결과 카드 1</div>
+          <div class="bar">결과 카드 2</div>
+          <div class="bar">List/Map 토글</div>
+          <div class="bar">하단 고정 문의 CTA</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sheet">
+      <div class="head">
+        <div>
+          <p class="id">04</p>
+          <h2 class="title">OUR PARTNERS + 전환 플로우</h2>
+        </div>
+        <p class="copy">OUR PARTNERS는 기획안 기준 미정 상태 표시</p>
+      </div>
+
+      <div class="grid">
+        <article class="art">
+          <p class="label">OUR PARTNERS</p>
+          <div class="bar strong">OUR PARTNERS (미정) 영역 확보</div>
+          <div class="bar">파트너 로고/사례 카드 배치 예정</div>
+          <div class="bar">정보 과다 없이 신뢰 증명 역할만 수행</div>
+        </article>
+
+        <article class="art mobile">
+          <p class="label">Core Flow</p>
+          <div class="flow">
+            <div class="node">Home</div>
+            <div class="arrow">→</div>
+            <div class="node">Projects</div>
+            <div class="arrow">→</div>
+            <div class="node">Search/Detail</div>
+            <div class="arrow">→</div>
+            <div class="node">Contact</div>
+          </div>
+          <div class="foot-note">핵심 KPI: 문의전환율 / Search 사용률 / Detail 진입률</div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

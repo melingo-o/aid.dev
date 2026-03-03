@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AID Clickable Prototype v4 (Plan Locked)</title>
+  <meta name="description" content="Plan-locked prototype for AID real estate branding site. Layout reference: cmlandco.kr, copy tone reference: ohoi.xyz." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap");
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+    :root {
+      --bg: #f3eee6;
+      --surface: #fcf8f2;
+      --card: #ffffff;
+      --ink: #1f1a15;
+      --muted: #685f54;
+      --line: #d9ccba;
+      --accent: #8f7455;
+      --accent-soft: #ebe0d2;
+      --cta: #2c251d;
+      --shadow: 0 24px 54px rgba(34, 27, 19, 0.12);
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --container: min(1320px, calc(100vw - 48px));
+      --t: 180ms ease;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Pretendard", "Malgun Gothic", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, #fbf8f3 0%, var(--bg) 62%),
+        linear-gradient(145deg, rgba(143,116,85,0.08), transparent 46%);
+      line-height: 1.55;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(8px);
+      background: rgba(252, 248, 242, 0.9);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      width: var(--container);
+      margin: 0 auto;
+      min-height: 70px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: "DM Sans", "Pretendard", sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .main-nav {
+      justify-self: center;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .main-nav a {
+      text-decoration: none;
+      color: #3f372d;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 11px;
+      transition: background var(--t), border-color var(--t);
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      background: var(--accent-soft);
+      border-color: #b79c7a;
+    }
+
+    .header-cta {
+      text-decoration: none;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--cta);
+      border: 1px solid var(--cta);
+      border-radius: 999px;
+      padding: 9px 13px;
+      white-space: nowrap;
+    }
+
+    .section {
+      min-height: 100svh;
+      padding: clamp(56px, 10vh, 92px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-inner {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-family: "DM Sans", "Pretendard", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #776c5d;
+    }
+
+    .headline {
+      margin: 8px 0 0;
+      font-family: "Cormorant Garamond", "Pretendard", serif;
+      letter-spacing: -0.01em;
+      line-height: 0.95;
+      font-size: clamp(46px, 9vw, 128px);
+      font-weight: 600;
+    }
+
+    .subline {
+      margin: 16px 0 0;
+      max-width: 760px;
+      color: #4f463d;
+      font-size: clamp(15px, 2vw, 20px);
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #3d352c;
+      text-decoration: none;
+      font: inherit;
+      font-size: 13px;
+      padding: 9px 14px;
+      cursor: pointer;
+      transition: transform var(--t), box-shadow var(--t), background var(--t);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(43, 33, 22, 0.1);
+    }
+
+    .btn.primary {
+      background: var(--cta);
+      color: #fff;
+      border-color: var(--cta);
+    }
+
+    .projects-shell {
+      margin-top: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(148deg, rgba(143,116,85,0.18), rgba(255,255,255,0.52));
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 3vw, 34px);
+    }
+
+    .shop-strip {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .project-card {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #cfc0ab;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: grid;
+      cursor: pointer;
+      transition: border-color var(--t), transform var(--t);
+    }
+
+    .project-card:hover,
+    .project-card.active {
+      border-color: #a98b67;
+      transform: translateY(-2px);
+    }
+
+    .project-thumb {
+      min-height: 170px;
+      background:
+        linear-gradient(160deg, rgba(164,134,98,0.28), transparent 58%),
+        repeating-linear-gradient(120deg, #ece1d2 0 14px, #f6efe4 14px 28px);
+      border-bottom: 1px solid #d8c9b2;
+    }
+
+    .project-meta {
+      padding: 12px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .project-meta h3 {
+      margin: 0;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .project-meta p {
+      margin: 0;
+      color: #61584d;
+      font-size: 13px;
+    }
+
+    .ref-note {
+      margin: 14px 0 0;
+      color: #645b50;
+      font-size: 13px;
+    }
+
+    .split-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      margin-top: 20px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      margin: 0;
+      font-family: "DM Sans", "Pretendard", sans-serif;
+      font-size: clamp(28px, 4vw, 46px);
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+    }
+
+    .panel p {
+      margin: 10px 0 0;
+      color: #5f5549;
+      font-size: 14px;
+    }
+
+    .signature {
+      border: 1px dashed #c8bba7;
+      border-radius: var(--radius-sm);
+      min-height: 130px;
+      display: grid;
+      place-items: center;
+      margin-top: 14px;
+      color: #756a5d;
+      font-size: 13px;
+      background: #faf5ee;
+    }
+
+    .service-list,
+    .company-info {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 7px;
+      color: #4f463c;
+      font-size: 14px;
+    }
+
+    .company-info strong {
+      display: inline-block;
+      min-width: 118px;
+      color: #2f281f;
+      font-weight: 600;
+    }
+
+    .social-row {
+      margin-top: 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 12px;
+      color: #5a5044;
+      background: #fff;
+      white-space: nowrap;
+    }
+
+    .search-top {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .filters {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: #faf5ee;
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 8px;
+    }
+
+    .view-toggle button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #4f4539;
+      font: inherit;
+      font-size: 12px;
+      padding: 7px 11px;
+      cursor: pointer;
+    }
+
+    .view-toggle button.active {
+      background: var(--cta);
+      color: #fff;
+      border-color: var(--cta);
+    }
+
+    .search-layout {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 12px;
+    }
+
+    .result-list {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .result-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: #fff;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 11px;
+      cursor: pointer;
+      transition: border-color var(--t), transform var(--t);
+    }
+
+    .result-item:hover,
+    .result-item.active {
+      border-color: #a88a66;
+      transform: translateY(-1px);
+    }
+
+    .result-thumb {
+      border: 1px dashed #ccbca6;
+      border-radius: var(--radius-sm);
+      background:
+        linear-gradient(145deg, rgba(164,134,98,0.2), transparent 60%),
+        repeating-linear-gradient(130deg, #efe5d9 0 10px, #f8f2e8 10px 20px);
+      min-height: 96px;
+    }
+
+    .result-text h3 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .result-text p {
+      margin: 5px 0 0;
+      font-size: 13px;
+      color: #645b50;
+    }
+
+    .detail-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: #fff;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .detail-gallery {
+      min-height: 180px;
+      border: 1px dashed #c8b9a3;
+      border-radius: var(--radius-sm);
+      background:
+        linear-gradient(170deg, rgba(164,134,98,0.24), transparent 56%),
+        repeating-linear-gradient(120deg, #ece1d2 0 12px, #f7efe4 12px 24px);
+      display: grid;
+      place-items: center;
+      color: #5f5548;
+      font-size: 12px;
+    }
+
+    .detail-meta {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 6px;
+      font-size: 14px;
+      color: #51473b;
+    }
+
+    .detail-map {
+      min-height: 120px;
+      border: 1px solid #d0c1ab;
+      border-radius: var(--radius-sm);
+      background: #f5ede1;
+      display: grid;
+      place-items: center;
+      color: #63594d;
+      font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .detail-cta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .map-only {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      min-height: 340px;
+      background:
+        linear-gradient(160deg, rgba(143,116,85,0.16), transparent 60%),
+        repeating-linear-gradient(45deg, #f0e8dc 0 12px, #f8f2e8 12px 24px);
+      display: none;
+      place-items: center;
+      text-align: center;
+      padding: 16px;
+      color: #5e5346;
+      font-size: 13px;
+    }
+
+    .partner-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .partner-slot {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: #fff;
+      min-height: 130px;
+      display: grid;
+      place-items: center;
+      color: #716657;
+      font-size: 13px;
+    }
+
+    .contact-wrap {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 12px;
+    }
+
+    .contact-form {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      padding: 16px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font: inherit;
+      background: #fff;
+    }
+
+    .status {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font-size: 13px;
+      color: #5c5246;
+      background: #faf6ef;
+    }
+
+    .status.ok {
+      border-color: #96bea8;
+      color: #31553e;
+      background: #ecf6ee;
+    }
+
+    .ops-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      color: #50463a;
+    }
+
+    .ops-list li {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: #faf6ef;
+      padding: 9px 10px;
+    }
+
+    .footer {
+      width: var(--container);
+      margin: 0 auto;
+      padding: 24px 0 40px;
+      font-size: 12px;
+      color: #6a6053;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1140px) {
+      .shop-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .split-2,
+      .search-layout,
+      .contact-wrap { grid-template-columns: 1fr; }
+      .partner-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 760px) {
+      :root { --container: calc(100vw - 24px); }
+      .header-inner { grid-template-columns: auto 1fr; min-height: 62px; }
+      .header-cta { display: none; }
+      .main-nav { justify-self: end; }
+      .main-nav a { font-size: 11px; padding: 6px 9px; }
+      .section { min-height: auto; padding: 54px 0; }
+      .shop-strip,
+      .partner-grid { grid-template-columns: 1fr; }
+      .result-item { grid-template-columns: 1fr; }
+      .headline { font-size: clamp(44px, 17vw, 78px); }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#projects">AID</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#projects" data-nav="projects">Projects</a>
+        <a href="#company" data-nav="company">Company</a>
+        <a href="#search" data-nav="search">Search</a>
+        <a href="#partners" data-nav="partners">Our Partners</a>
+        <a href="#contact" data-nav="contact">Contact</a>
+      </nav>
+      <a class="header-cta" href="#contact">Inquiry</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="projects" data-section="projects">
+      <div class="section-inner">
+        <p class="eyebrow">PROJECTS</p>
+        <h1 class="headline">Where visibility<br/>becomes value.</h1>
+        <p class="subline">Positioned as a space branding and development company, not a listing-heavy brokerage site.</p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#search">Search by Conditions</a>
+          <a class="btn" href="#company">View Company</a>
+          <a class="btn" href="#contact">Project Inquiry</a>
+        </div>
+
+        <div class="projects-shell">
+          <p class="eyebrow">Camel Shop-Style Layout Reference</p>
+          <div class="shop-strip" id="projectStrip"></div>
+          <p class="ref-note">Layout lock: large sections + generous whitespace + image-first cards (reference: cmlandco.kr).</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="company" data-section="company">
+      <div class="section-inner">
+        <p class="eyebrow">COMPANY</p>
+        <div class="split-2">
+          <article class="panel">
+            <h2>Where visibility becomes value.</h2>
+            <p>Copy lock: short, compact, and direct messaging style (reference: ohoi.xyz).</p>
+            <ul class="service-list">
+              <li>Location planning for brand-fit and visibility</li>
+              <li>Headquarters development and building strategy</li>
+              <li>Influencer asset planning with space utilization</li>
+            </ul>
+          </article>
+
+          <article class="panel">
+            <p class="eyebrow">CEO Signature</p>
+            <div class="signature">Signature Placeholder</div>
+            <ul class="company-info">
+              <li><strong>Company Name</strong>AID Real Estate Co., Ltd. (sample)</li>
+              <li><strong>Representative</strong>Hong Gil-dong (sample)</li>
+              <li><strong>Address</strong>Seoul, Gangnam-gu, 00-ro 00</li>
+              <li><strong>Phone</strong>02-0000-0000</li>
+              <li><strong>Business Number</strong>000-00-00000</li>
+            </ul>
+            <div class="social-row">
+              <a class="btn" href="#" aria-label="Instagram link">Instagram</a>
+              <a class="btn" href="#" aria-label="YouTube link">YouTube</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="search" data-section="search">
+      <div class="section-inner">
+        <p class="eyebrow">SEARCH</p>
+        <div class="search-top">
+          <div class="filters">
+            <div class="filter-row">
+              <span class="chip">Type: Office (&#49324;&#47924;&#49892;)</span>
+              <span class="chip">Type: Retail (&#49345;&#50629;)</span>
+              <span class="chip">Type: Residential (&#51452;&#44144;)</span>
+              <span class="chip">Type: Building (&#44148;&#47932;)</span>
+            </div>
+            <div class="filter-row">
+              <span class="chip">Region (&#51648;&#50669;)</span>
+              <span class="chip">Category (&#50629;&#51333;)</span>
+              <span class="chip">Area (&#47732;&#51201;)</span>
+              <span class="chip">Deposit (&#48372;&#51613;&#44552;)</span>
+              <span class="chip">Monthly Rent (&#50900;&#49464;)</span>
+              <span class="chip">Premium (&#44428;&#47532;&#44552;)</span>
+              <span class="chip">Floor (&#52735;)</span>
+              <span class="chip">Parking (&#51452;&#52264;)</span>
+            </div>
+          </div>
+
+          <div class="view-toggle" role="tablist" aria-label="Search view toggle">
+            <button class="active" type="button" data-view="list">List</button>
+            <button type="button" data-view="map">Map</button>
+          </div>
+        </div>
+
+        <div class="search-layout" id="searchLayout">
+          <div class="result-list" id="searchList"></div>
+          <aside class="detail-panel" id="detailPanel"></aside>
+        </div>
+
+        <div class="map-only" id="mapOnly">Optional map mode for implementation phase.<br/>Current block is fixed for proposal review.</div>
+      </div>
+    </section>
+
+    <section class="section" id="partners" data-section="partners">
+      <div class="section-inner">
+        <p class="eyebrow">OUR PARTNERS</p>
+        <h2 style="margin:8px 0 0;font-size:clamp(30px,5vw,60px);line-height:1;font-family:'DM Sans','Pretendard',sans-serif;letter-spacing:-0.02em;">Our Partners</h2>
+        <p class="subline" style="max-width:640px;">Status lock: TBD in plan. Reserve the section and keep it minimal until partner assets are finalized.</p>
+        <div class="partner-grid">
+          <div class="partner-slot">Partner Slot 01</div>
+          <div class="partner-slot">Partner Slot 02</div>
+          <div class="partner-slot">Partner Slot 03</div>
+          <div class="partner-slot">Partner Slot 04</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" data-section="contact">
+      <div class="section-inner">
+        <p class="eyebrow">CONTACT</p>
+        <div class="contact-wrap">
+          <form class="contact-form" id="contactForm">
+            <select required>
+              <option value="">Select Inquiry Type</option>
+              <option>Location Consultation</option>
+              <option>HQ Development</option>
+              <option>Listing Review</option>
+            </select>
+            <input type="text" placeholder="Name" required />
+            <input type="tel" placeholder="Phone" required />
+            <input type="email" placeholder="Email (optional)" />
+            <textarea rows="6" placeholder="Write your inquiry" required></textarea>
+            <label style="font-size:12px;color:#5f5548;"><input type="checkbox" required /> Consent to personal information collection</label>
+            <div class="hero-actions" style="margin-top:2px;">
+              <button class="btn primary" type="submit">Submit Inquiry</button>
+              <a class="btn" href="tel:02-0000-0000">Call Now</a>
+            </div>
+            <div class="status" id="contactStatus">Form collection + alert integration target area</div>
+          </form>
+
+          <article class="panel">
+            <h2 style="font-size:clamp(24px,4vw,40px);">Implementation Checklist</h2>
+            <p>Functional requirements are pinned here to avoid omissions in production.</p>
+            <ul class="ops-list">
+              <li>Admin can create and update listings</li>
+              <li>Inquiry form collection and alert integration</li>
+              <li>Mobile-first optimization</li>
+              <li>Basic SEO setup (title/meta/open graph)</li>
+              <li>No heavy animation, only soft transitions</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>AID Prototype v4 - Plan Locked</span>
+    <span>Avoid: dense listing look, excessive banners, excessive color noise</span>
+  </footer>
+
+  <script>
+    const projects = [
+      {
+        id: 1,
+        title: "Seongsu Brand Retail Building",
+        area: "Seongsu",
+        type: "Retail",
+        size: "412m2",
+        deposit: "Deposit KRW 200M",
+        monthly: "Monthly KRW 12M",
+        premium: "No premium",
+        floor: "Floor 1-4",
+        parking: "6 spaces",
+        summary: "Flow redesign improved dwell time and conversion"
+      },
+      {
+        id: 2,
+        title: "Cheongdam Beauty HQ Develop",
+        area: "Cheongdam",
+        type: "Building",
+        size: "960m2",
+        deposit: "Development model",
+        monthly: "Operating model based",
+        premium: "No premium",
+        floor: "B1-5F",
+        parking: "10 spaces",
+        summary: "Influencer IP-linked headquarter scenario"
+      },
+      {
+        id: 3,
+        title: "Yeonnam Flagship Repositioning",
+        area: "Yeonnam",
+        type: "Retail",
+        size: "288m2",
+        deposit: "Deposit KRW 120M",
+        monthly: "Monthly KRW 7.6M",
+        premium: "KRW 70M",
+        floor: "1-2F",
+        parking: "2 spaces",
+        summary: "Visibility-driven location repositioning"
+      },
+      {
+        id: 4,
+        title: "Seocho Office Rebranding",
+        area: "Seocho",
+        type: "Office",
+        size: "520m2",
+        deposit: "Deposit KRW 300M",
+        monthly: "Monthly KRW 14.5M",
+        premium: "No premium",
+        floor: "7F",
+        parking: "12 spaces",
+        summary: "Tenant mix redesign for vacancy recovery"
+      },
+      {
+        id: 5,
+        title: "Hannam Mixed-Use Planning",
+        area: "Hannam",
+        type: "Residential",
+        size: "610m2",
+        deposit: "Deposit KRW 280M",
+        monthly: "Monthly KRW 10M",
+        premium: "Negotiable",
+        floor: "1-3F",
+        parking: "4 spaces",
+        summary: "Extended stay model with brand exposure"
+      },
+      {
+        id: 6,
+        title: "Yeouido Work Hub Setup",
+        area: "Yeouido",
+        type: "Office",
+        size: "730m2",
+        deposit: "Deposit KRW 400M",
+        monthly: "Monthly KRW 19M",
+        premium: "No premium",
+        floor: "12F",
+        parking: "16 spaces",
+        summary: "Large-team circulation optimization"
+      }
+    ];
+
+    const strip = document.getElementById("projectStrip");
+    const searchList = document.getElementById("searchList");
+    const detailPanel = document.getElementById("detailPanel");
+    const mapOnly = document.getElementById("mapOnly");
+    const searchLayout = document.getElementById("searchLayout");
+    const status = document.getElementById("contactStatus");
+
+    let selectedId = projects[0].id;
+
+    const escapeHtml = (value) => String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+
+    function projectCard(item, compact = false) {
+      const active = item.id === selectedId ? "active" : "";
+      return `
+        <article class="${compact ? "result-item" : "project-card"} ${active}" data-project-id="${item.id}">
+          <div class="${compact ? "result-thumb" : "project-thumb"}"></div>
+          <div class="${compact ? "result-text" : "project-meta"}">
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.area)} - ${escapeHtml(item.type)} - ${escapeHtml(item.size)}</p>
+            <p>${escapeHtml(item.summary)}</p>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderLists() {
+      strip.innerHTML = projects.slice(0, 3).map((item) => projectCard(item)).join("");
+      searchList.innerHTML = projects.map((item) => projectCard(item, true)).join("");
+    }
+
+    function renderDetail() {
+      const item = projects.find((entry) => entry.id === selectedId) || projects[0];
+      detailPanel.innerHTML = `
+        <p class="eyebrow">DETAIL PAGE</p>
+        <h3 style="margin:0;font-size:24px;line-height:1.2;">${escapeHtml(item.title)}</h3>
+        <div class="detail-gallery">Photo block (hero + sub photos)</div>
+        <ul class="detail-meta">
+          <li><strong>Summary:</strong> ${escapeHtml(item.summary)}</li>
+          <li><strong>Location:</strong> ${escapeHtml(item.area)}</li>
+          <li><strong>Type/Size:</strong> ${escapeHtml(item.type)} / ${escapeHtml(item.size)}</li>
+          <li><strong>Condition:</strong> ${escapeHtml(item.deposit)} - ${escapeHtml(item.monthly)} - ${escapeHtml(item.premium)}</li>
+          <li><strong>Floor/Parking:</strong> ${escapeHtml(item.floor)} - ${escapeHtml(item.parking)}</li>
+        </ul>
+        <div class="detail-map">Location map block (API integration in production)</div>
+        <div class="detail-cta">
+          <a class="btn primary" href="tel:02-0000-0000">Call CTA</a>
+          <a class="btn" href="#contact">Form CTA</a>
+        </div>
+      `;
+    }
+
+    function setSelected(id) {
+      selectedId = id;
+      renderLists();
+      renderDetail();
+    }
+
+    document.addEventListener("click", (event) => {
+      const card = event.target.closest("[data-project-id]");
+      if (card) {
+        setSelected(Number(card.dataset.projectId));
+      }
+
+      const modeButton = event.target.closest("[data-view]");
+      if (modeButton) {
+        const mode = modeButton.dataset.view;
+        document.querySelectorAll("[data-view]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.view === mode);
+        });
+        const listMode = mode === "list";
+        searchLayout.style.display = listMode ? "grid" : "none";
+        mapOnly.style.display = listMode ? "none" : "grid";
+      }
+    });
+
+    const form = document.getElementById("contactForm");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      status.classList.add("ok");
+      status.textContent = "Submitted. Response target: within 24 business hours.";
+    });
+
+    const navLinks = [...document.querySelectorAll(".main-nav a[data-nav]")];
+    const sections = [...document.querySelectorAll("[data-section]")];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.getAttribute("data-section");
+        navLinks.forEach((link) => {
+          link.classList.toggle("active", link.dataset.nav === id);
+        });
+      });
+    }, { threshold: 0.45 });
+
+    sections.forEach((section) => observer.observe(section));
+
+    renderLists();
+    renderDetail();
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+﻿{
+  "name": "aid-cheongdam-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AID Cheongdam real-estate website",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "serve -l 4173 .",
+    "check": "node --check assets/scripts/main.js",
+    "vercel:dev": "vercel dev",
+    "deploy:vercel": "vercel --prod"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4",
+    "vercel": "^39.1.0"
+  }
+}
