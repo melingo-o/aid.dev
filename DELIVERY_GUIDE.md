@@ -42,7 +42,7 @@
 ## 5) 프론트 설정값 반영
 `config/app-config.js` 파일 수정
 
-- `adminPassword`: 운영 비밀번호와 동일하게
+- `adminPassword`: 로컬 단독 모드에서만 사용 (cloud.enabled=true면 서버 검증 우선)
 - `cloud.enabled`: `true`
 - `cloud.baseUrl`: `/api`
 
