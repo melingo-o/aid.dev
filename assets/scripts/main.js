@@ -1023,10 +1023,9 @@
 
     if (state.cloudEnabled && cloudStore && typeof cloudStore.verifyAdmin === "function") {
       try {
-        const ok = await cloudStore.verifyAdmin(password);
-        if (ok) return true;
+        return Boolean(await cloudStore.verifyAdmin(password));
       } catch (_err) {
-        // Fallback to local verification below.
+        return false;
       }
     }
 
