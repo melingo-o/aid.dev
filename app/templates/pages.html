@@ -1,0 +1,344 @@
+﻿    <section class="page is-active" data-page="projects" aria-labelledby="page-projects-title">
+      <div class="lamp-control" aria-label="본문 배경 톤 변경">
+        <button id="lampTrigger" class="lamp-trigger" type="button" aria-label="배경 톤 바꾸기">
+          <span class="switch-plate" aria-hidden="true">
+            <span class="switch-toggle"></span>
+          </span>
+        </button>
+      </div>
+      <div class="page-head">
+        <h1 id="page-projects-title">Where visibility becomes value</h1>
+        <p class="project-tagline">공간의 인상을 설계하고 브랜드의 가치를 높입니다.</p>
+      </div>
+      <div class="project-stage" id="projectStage">
+        <div class="project-viewport" id="projectViewport">
+          <div class="project-grid" id="projectGrid" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-page="company" aria-labelledby="page-company-title">
+      <div class="page-head compact">
+        <p class="eyebrow">회사 소개</p>
+        <h2 id="page-company-title">단순 중개가 아닌 공간 전략을 설계합니다.</h2>
+      </div>
+      <div class="company-layout">
+        <article class="card-block">
+          <p class="copy">
+            AID는 브랜드에 맞는 입지를 찾고, 사옥 개발 전략을 설계하며, 인플루언서 기반 자산 운영 모델까지 연결합니다.
+          </p>
+          <ul class="plain-list">
+            <li>브랜드 가시성 중심의 입지 기획</li>
+            <li>사옥 개발 및 운영 모델 설계</li>
+            <li>인플루언서/IP 기반 공간 자산 관리</li>
+          </ul>
+        </article>
+
+        <article class="card-block">
+          <p class="eyebrow">대표 서명</p>
+          <div class="signature-box">서명</div>
+          <ul class="meta-list">
+            <li><strong>회사명</strong>부동산 중개법인 에이드청담</li>
+            <li><strong>대표자</strong>홍길동</li>
+            <li><strong>주소</strong>서울 강남구 강남대로 126길 76, 1~3층</li>
+            <li><strong>대표번호</strong>02-0000-0000</li>
+            <li><strong>사업자번호</strong>000-00-00000</li>
+          </ul>
+          <div class="social-row">
+            <a href="https://www.instagram.com" target="_blank" rel="noreferrer">인스타그램</a>
+            <a href="https://www.youtube.com" target="_blank" rel="noreferrer">유튜브</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page" data-page="search" aria-labelledby="page-search-title">
+      <div class="page-head compact">
+        <p class="eyebrow">매물 검색</p>
+        <h2 id="page-search-title">조건 기반 매물 검색</h2>
+      </div>
+
+      <form id="filterForm" class="filter-box" autocomplete="off">
+        <div>
+          <p class="field-label">매물 유형</p>
+          <div class="type-row">
+            <label><input type="checkbox" name="type" value="Office" checked />오피스</label>
+            <label><input type="checkbox" name="type" value="Retail" checked />리테일</label>
+            <label><input type="checkbox" name="type" value="Residential" checked />주거</label>
+            <label><input type="checkbox" name="type" value="Building" checked />빌딩</label>
+          </div>
+        </div>
+
+        <div class="filter-grid">
+          <label><span>지역</span><select name="region" id="filterRegion"><option value="">전체 지역</option></select></label>
+          <label><span>카테고리</span><input type="text" name="category" placeholder="뷰티, F&B" /></label>
+          <label><span>최소 면적 (m2)</span><input type="number" name="areaMin" min="0" step="1" /></label>
+          <label><span>최대 면적 (m2)</span><input type="number" name="areaMax" min="0" step="1" /></label>
+          <label><span>최대 보증금 (백만원)</span><input type="number" name="depositMax" min="0" step="1" /></label>
+          <label><span>최대 월세 (백만원)</span><input type="number" name="monthlyMax" min="0" step="1" /></label>
+          <label><span>최대 권리금 (백만원)</span><input type="number" name="premiumMax" min="0" step="1" /></label>
+          <label><span>최소 층수</span><input type="number" name="floorMin" min="0" step="1" /></label>
+          <label><span>최소 주차대수</span><input type="number" name="parkingMin" min="0" step="1" /></label>
+          <label><span>정렬</span><select name="sort"><option value="new">최신순</option><option value="monthlyAsc">월세 낮은순</option><option value="depositAsc">보증금 낮은순</option><option value="areaDesc">면적 큰순</option></select></label>
+        </div>
+
+        <div class="form-row">
+          <button type="submit">필터 적용</button>
+          <button type="button" id="resetFilters">초기화</button>
+        </div>
+      </form>
+
+      <div class="search-head">
+        <p id="resultCount">0개 결과</p>
+        <div class="toggle-row">
+          <button type="button" class="is-active" data-mode="list">목록</button>
+          <button type="button" data-mode="map">지도</button>
+        </div>
+      </div>
+
+      <div class="search-layout" id="searchLayout" data-mode="list">
+        <div class="primary-panel">
+          <div id="listPane" class="list-pane" aria-live="polite"></div>
+          <div id="mapPane" class="map-pane is-hidden"><div id="mapCanvas"></div></div>
+        </div>
+        <aside id="detailPane" class="detail-pane" aria-live="polite"></aside>
+      </div>
+
+      <div id="emptyState" class="empty-state is-hidden">
+        <h3>현재 조건에 맞는 매물이 없습니다.</h3>
+        <p>조건을 완화하거나 오프마켓 추천을 요청해보세요.</p>
+        <a href="#inquiry" data-route="inquiry">추천 요청하기</a>
+      </div>
+    </section>
+
+    <section class="page" data-page="partners" aria-labelledby="page-partners-title">
+      <div class="page-head compact">
+        <p class="eyebrow">파트너</p>
+        <h2 id="page-partners-title">파트너사 전용 소개 영역입니다.</h2>
+      </div>
+      <div class="partner-grid">
+        <article>파트너 슬롯 01</article>
+        <article>파트너 슬롯 02</article>
+        <article>파트너 슬롯 03</article>
+        <article>파트너 슬롯 04</article>
+      </div>
+    </section>
+
+    <section class="page" data-page="contact" aria-labelledby="page-contact-title">
+      <div class="page-head compact">
+        <p class="eyebrow">위치</p>
+        <h2 id="page-contact-title">AID 본사 위치 안내</h2>
+      </div>
+      <div class="contact-layout location-layout">
+        <article class="card-block location-info">
+          <h3 id="locationOfficeTitle">Head Office</h3>
+          <p id="locationLine1">부동산 중개법인 에이드청담</p>
+          <p id="locationLine2">서울 강남구 강남대로 126길 76, 1~3층</p>
+          <p id="locationLine3">02-0000-0000</p>
+          <div class="location-divider" aria-hidden="true"></div>
+          <h4 id="locationTransitTitle">How to Reach</h4>
+          <ul class="plain-list location-transit">
+            <li id="locationTransitItem1">5 min walk from Yeoksam Station, Exit 3</li>
+            <li id="locationTransitItem2">Visitor parking available upon reservation</li>
+            <li id="locationTransitItem3">Weekdays 09:30-18:30 (KST)</li>
+          </ul>
+        </article>
+
+        <article class="card-block location-map-card">
+          <iframe
+            id="locationMapFrame"
+            title="AID Office Map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EA%B0%95%EB%82%A8%EB%8C%80%EB%A1%9C%20126%EA%B8%B8%2076%201~3%EC%B8%B5&output=embed"
+          ></iframe>
+          <div class="form-row">
+            <a id="locationMapLink" class="tel-link" href="https://maps.google.com/?q=%EC%84%9C%EC%9A%B8%20%EA%B0%95%EB%82%A8%EA%B5%AC%20%EA%B0%95%EB%82%A8%EB%8C%80%EB%A1%9C%20126%EA%B8%B8%2076%201~3%EC%B8%B5" target="_blank" rel="noreferrer">Open in map</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page" data-page="inquiry" aria-labelledby="page-inquiry-title">
+      <div class="page-head compact">
+        <p class="eyebrow">문의</p>
+        <h2 id="page-inquiry-title">문의 접수</h2>
+      </div>
+      <div class="contact-layout">
+        <form id="contactForm" class="card-block" autocomplete="off">
+          <label><span>문의 유형</span><select name="inquiryType" required><option value="">선택</option><option value="Location Consultation">입지 컨설팅</option><option value="HQ Development">사옥 개발</option><option value="Asset Management">자산 운영</option><option value="Listing Inquiry">매물 문의</option></select></label>
+          <label><span>이름</span><input type="text" name="name" required /></label>
+          <label><span>연락처</span><input type="tel" name="phone" required /></label>
+          <label><span>이메일</span><input type="email" name="email" /></label>
+          <label><span>문의 내용</span><textarea name="message" rows="6" required></textarea></label>
+          <label class="agree"><input type="checkbox" name="consent" required />문의 응답을 위한 개인정보 수집 및 이용에 동의합니다.</label>
+          <div class="form-row">
+            <button type="submit">문의 접수</button>
+            <a class="tel-link" href="tel:02-0000-0000">전화 문의</a>
+          </div>
+          <p id="contactStatus" class="status">문의가 접수되면 관리자 페이지에서 즉시 확인할 수 있습니다.</p>
+        </form>
+
+        <article class="card-block">
+          <h3>운영 체크리스트</h3>
+          <ul class="plain-list">
+            <li>관리자 페이지에서 매물 등록 및 수정</li>
+            <li>문의 데이터 저장 및 웹훅 연동</li>
+            <li>모바일 대응 레이아웃</li>
+            <li>기본 SEO 메타 태그 적용</li>
+            <li>과도한 애니메이션 배제</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="page" data-page="admin" aria-labelledby="page-admin-title">
+      <div class="page-head compact">
+        <p class="eyebrow">관리자</p>
+        <h2 id="page-admin-title">운영 관리 콘솔</h2>
+      </div>
+      <div class="admin-login-row">
+        <button id="adminLogout" type="button">로그아웃</button>
+      </div>
+
+      <div class="admin-workspace">
+        <aside class="card-block admin-sidebar" aria-label="관리 메뉴">
+          <button type="button" class="admin-side-link is-active" data-admin-panel-target="overview" aria-current="true">운영 개요</button>
+          <button type="button" class="admin-side-link" data-admin-panel-target="listing">매물 관리</button>
+          <button type="button" class="admin-side-link" data-admin-panel-target="inquiry">문의 관리</button>
+          <button type="button" class="admin-side-link" data-admin-panel-target="assets">사이트 자산</button>
+          <button type="button" class="admin-side-link" data-admin-panel-target="analytics">통계 대시보드</button>
+        </aside>
+
+        <div class="admin-main">
+          <section class="admin-panel is-active" data-admin-panel="overview" aria-label="운영 개요 패널">
+            <article class="card-block">
+              <div class="admin-head">
+                <h3>오늘의 운영 현황</h3>
+                <button type="button" data-admin-jump="inquiry">문의 관리로 이동</button>
+              </div>
+              <div id="adminOverviewStats" class="analytics-grid"></div>
+              <div class="analytics-columns single">
+                <div>
+                  <h4>우선 확인 항목</h4>
+                  <div id="adminAlertList" class="analytics-list"></div>
+                </div>
+              </div>
+              <div class="admin-quick-row">
+                <button type="button" data-admin-jump="listing">매물 등록</button>
+                <button type="button" data-admin-jump="assets">로고/자산 수정</button>
+                <button type="button" data-admin-jump="analytics">통계 확인</button>
+              </div>
+            </article>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="listing" aria-label="매물 관리 패널">
+            <div class="admin-layout">
+              <form id="adminForm" class="card-block admin-form" autocomplete="off">
+                <input type="hidden" name="id" />
+                <label><span>매물명</span><input name="title" type="text" required /></label>
+                <label><span>유형</span><select name="type" required><option value="Office">오피스</option><option value="Retail">리테일</option><option value="Residential">주거</option><option value="Building">빌딩</option></select></label>
+                <label><span>지역</span><input name="region" type="text" required /></label>
+                <label><span>카테고리</span><input name="category" type="text" required /></label>
+                <label><span>면적 (m2)</span><input name="area" type="number" min="1" step="1" required /></label>
+                <label><span>보증금 (백만원)</span><input name="deposit" type="number" min="0" step="1" required /></label>
+                <label><span>월세 (백만원)</span><input name="monthly" type="number" min="0" step="1" required /></label>
+                <label><span>권리금 (백만원)</span><input name="premium" type="number" min="0" step="1" required /></label>
+                <label><span>층수</span><input name="floor" type="number" min="0" step="1" required /></label>
+                <label><span>주차대수</span><input name="parking" type="number" min="0" step="1" required /></label>
+                <label><span>주소</span><input name="address" type="text" required /></label>
+                <label><span>위도</span><input name="lat" type="number" step="0.000001" required /></label>
+                <label><span>경도</span><input name="lng" type="number" step="0.000001" required /></label>
+                <label><span>이미지 URL</span><input name="image" type="url" placeholder="https://..." /></label>
+                <label><span>이미지 파일 업로드</span><input name="imageFile" type="file" accept="image/*" /></label>
+                <label class="full"><span>요약 설명</span><textarea name="summary" rows="3" required></textarea></label>
+                <label class="full"><input name="featured" type="checkbox" />메인 노출 매물</label>
+                <div class="form-row full">
+                  <button type="submit">매물 저장</button>
+                  <button type="button" id="adminReset">입력 초기화</button>
+                </div>
+                <p id="adminStatus" class="status full">대기 중</p>
+              </form>
+
+              <article class="card-block">
+                <div class="admin-head">
+                  <h3>등록된 매물</h3>
+                  <button id="restoreDefaults" type="button">샘플 복원</button>
+                </div>
+                <div id="adminList" class="admin-list" aria-live="polite"></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="inquiry" aria-label="문의 관리 패널">
+            <article class="card-block">
+              <div class="admin-head admin-head-stack">
+                <h3>문의함</h3>
+                <div class="admin-toolbar">
+                  <label for="inquiryStageFilter">단계 필터</label>
+                  <select id="inquiryStageFilter">
+                    <option value="all">전체</option>
+                    <option value="new">신규</option>
+                    <option value="contacted">1차 연락</option>
+                    <option value="meeting">미팅 예정</option>
+                    <option value="active">진행 중</option>
+                    <option value="closed">계약 완료</option>
+                    <option value="hold">보류</option>
+                  </select>
+                  <button id="clearInquiries" type="button">전체 삭제</button>
+                </div>
+              </div>
+              <div id="inquiryList" class="admin-list" aria-live="polite"></div>
+            </article>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="assets" aria-label="사이트 자산 패널">
+            <article class="card-block">
+              <div class="admin-head">
+                <h3>사이트 자산 관리</h3>
+              </div>
+              <div class="asset-manager">
+                <label><span>로고 텍스트</span><input id="logoTextInput" type="text" maxlength="24" placeholder="AID" /></label>
+                <label><span>로고 파일 업로드</span><input id="logoFileInput" type="file" accept="image/*" /></label>
+              </div>
+              <div class="form-row">
+                <button id="saveAssets" type="button">로고 적용</button>
+                <button id="resetAssets" type="button">기본값 복원</button>
+              </div>
+              <p id="assetStatus" class="status">로고 텍스트를 수정하거나 파일을 업로드하세요.</p>
+            </article>
+          </section>
+
+          <section class="admin-panel" data-admin-panel="analytics" aria-label="통계 패널">
+            <article class="card-block">
+              <div class="admin-head">
+                <h3>성과 대시보드</h3>
+                <button id="refreshAnalytics" type="button">새로고침</button>
+              </div>
+              <div id="analyticsSummary" class="analytics-grid"></div>
+              <div class="analytics-columns">
+                <div>
+                  <h4>유입 경로</h4>
+                  <div id="sourceStats" class="analytics-list"></div>
+                </div>
+                <div>
+                  <h4>페이지 조회</h4>
+                  <div id="routeStats" class="analytics-list"></div>
+                </div>
+                <div>
+                  <h4>관심 매물</h4>
+                  <div id="listingStats" class="analytics-list"></div>
+                </div>
+              </div>
+              <div class="analytics-columns single">
+                <div>
+                  <h4>SEO 점검</h4>
+                  <div id="seoStats" class="analytics-list"></div>
+                </div>
+              </div>
+              <p class="status">참고 수치: 커뮤니티에서 공유되는 온라인 리드 전환율은 통상 1~3% 수준, 성과가 좋은 유료 채널은 약 5% 내외 사례가 보고됩니다.</p>
+            </article>
+          </section>
+        </div>
+      </div>
+    </section>
