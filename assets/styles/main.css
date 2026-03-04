@@ -864,7 +864,7 @@ body.route-projects .project-brief {
 
 .page[data-page="projects"].is-prelanding .project-item[data-loop-copy="1"] {
   opacity: 0;
-  transform: translate3d(0, 34px, 0) scale(0.982);
+  transform: translate3d(0, 34px, 0);
 }
 
 .page[data-page="projects"].is-landing .page-head h1 {
@@ -877,8 +877,8 @@ body.route-projects .project-brief {
 
 .page[data-page="projects"].is-landing .project-item[data-loop-copy="1"] {
   opacity: 0;
-  transform: translate3d(0, 34px, 0) scale(0.982);
-  animation: projectLandingCard 0.96s cubic-bezier(0.18, 0.88, 0.28, 1) both;
+  transform: translate3d(0, 34px, 0);
+  animation: projectLandingCard 0.9s cubic-bezier(0.22, 0.74, 0.2, 1) both;
   animation-delay: calc((var(--entry-index, 0) * 0.12s) + 0.28s);
 }
 
@@ -909,15 +909,11 @@ body.route-projects .project-brief {
 @keyframes projectLandingCard {
   0% {
     opacity: 0;
-    transform: translate3d(0, 34px, 0) scale(0.982);
-  }
-  62% {
-    opacity: 1;
-    transform: translate3d(0, 4px, 0) scale(0.997);
+    transform: translate3d(0, 34px, 0);
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0);
   }
 }
 
