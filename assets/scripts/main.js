@@ -721,8 +721,8 @@
       openProjectListingById(id, "click");
     });
 
-    if (el.projectViewport) {
-      el.projectViewport.addEventListener(
+    if (el.projectPage) {
+      el.projectPage.addEventListener(
         "wheel",
         (event) => {
           if (state.currentRoute !== "projects") return;
@@ -732,7 +732,9 @@
         },
         { passive: false }
       );
+    }
 
+    if (el.projectViewport) {
       el.projectViewport.addEventListener("pointerdown", onProjectPointerDown);
       window.addEventListener("pointermove", onProjectPointerMove);
       window.addEventListener("pointerup", onProjectPointerUp);
