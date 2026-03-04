@@ -741,7 +741,8 @@ body.route-projects .project-stage {
   min-height: 0;
   padding-top: 0;
   padding-bottom: clamp(44px, 6.8vh, 78px);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 body.route-projects .project-main-typo {
@@ -752,7 +753,8 @@ body.route-projects .project-viewport {
   position: relative;
   margin-top: 0;
   display: block;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   padding-top: clamp(12px, 2vh, 22px);
   padding-bottom: clamp(10px, 1.6vh, 20px);
 }
@@ -799,8 +801,7 @@ body.route-projects .project-viewport.is-dragging {
 body.route-projects .project-grid {
   padding-top: 10px;
   align-items: start;
-  overflow: hidden;
-  contain: paint;
+  overflow: visible;
 }
 
 body.route-projects .project-index {
