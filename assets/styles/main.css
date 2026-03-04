@@ -895,9 +895,9 @@ body.route-projects .project-brief {
     opacity: 0;
     transform: translate3d(0, 34px, 0) scale(0.982);
   }
-  68% {
+  62% {
     opacity: 1;
-    transform: translate3d(0, -4px, 0) scale(1.004);
+    transform: translate3d(0, 4px, 0) scale(0.997);
   }
   100% {
     opacity: 1;
