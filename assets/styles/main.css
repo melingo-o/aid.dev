@@ -791,26 +791,6 @@ body.route-projects .project-viewport {
   padding-bottom: clamp(10px, 1.6vh, 20px);
 }
 
-body.route-projects .project-viewport::before,
-body.route-projects .project-viewport::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--content-bg);
-  pointer-events: none;
-  z-index: 2;
-}
-
-body.route-projects .project-viewport::before {
-  left: 0;
-}
-
-body.route-projects .project-viewport::after {
-  right: 0;
-}
-
 body.route-projects .project-item {
   gap: 8px;
   align-content: start;

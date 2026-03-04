@@ -1748,8 +1748,7 @@
   }
 
   function applyProjectTransform() {
-    const displayX = Math.round(state.projectX);
-    el.projectGrid.style.transform = `translate3d(${displayX}px, 0, 0)`;
+    el.projectGrid.style.transform = `translate3d(${state.projectX.toFixed(3)}px, 0, 0)`;
   }
 
   function getProjectShowcaseSource() {
