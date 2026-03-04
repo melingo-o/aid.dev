@@ -79,6 +79,7 @@
       const result = await request("/bootstrap", { method: "GET" });
       if (!result || typeof result !== "object") return null;
       return {
+        hasListingsDoc: Boolean(result.hasListingsDoc),
         listings: Array.isArray(result.listings) ? result.listings : null,
         siteSettings: result.siteSettings && typeof result.siteSettings === "object" ? result.siteSettings : null
       };

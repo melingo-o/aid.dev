@@ -20,7 +20,10 @@ module.exports = async function handler(req, res) {
 
     return json(res, 200, {
       ok: true,
-      listings: Array.isArray(listingData.items) ? listingData.items : [],
+      hasListingsDoc: listingDoc.exists,
+      listings: listingDoc.exists
+        ? (Array.isArray(listingData.items) ? listingData.items : [])
+        : null,
       siteSettings: settingsData.value && typeof settingsData.value === "object" ? settingsData.value : null
     });
   } catch (error) {

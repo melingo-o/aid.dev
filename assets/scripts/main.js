@@ -1049,7 +1049,7 @@
 
       let changed = false;
 
-      if (Array.isArray(remote.listings)) {
+      if (remote.hasListingsDoc && Array.isArray(remote.listings)) {
         state.listings = [...remote.listings];
         saveListingsLocal(state.listings);
         changed = true;
