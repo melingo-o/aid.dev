@@ -1206,6 +1206,7 @@
     const isProjectRoute = state.currentRoute === "projects";
     document.body.classList.toggle("route-projects", isProjectRoute);
     document.documentElement.classList.toggle("route-projects", isProjectRoute);
+    applyRootScrollLock(isProjectRoute);
 
     el.pages.forEach((page) => {
       page.classList.toggle("is-active", page.dataset.page === state.currentRoute);
@@ -1264,6 +1265,20 @@
     }
 
     return previousRoute !== state.currentRoute;
+  }
+
+  function applyRootScrollLock(locked) {
+    if (locked) {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      return;
+    }
+
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
   }
 
   function normalizeLanguage(value) {
