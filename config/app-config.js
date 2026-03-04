@@ -1,8 +1,8 @@
-﻿window.__AID_APP_CONFIG__ = {
-  adminPassword: "aidadmin",
+window.__AID_APP_CONFIG__ = {
+  adminPassword: "",
   alertWebhookUrl: "",
   cloud: {
-    enabled: false,
+    enabled: true,
     baseUrl: "/api",
     timeoutMs: 10000
   }
