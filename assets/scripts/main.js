@@ -14,9 +14,9 @@
   };
   const SESSION_KEYS = {
     adminAuth: "aid_admin_auth_v1",
-    heroIntroPlayed: "aid_hero_intro_played_v1",
     adminSecret: "aid_admin_secret_v1"
   };
+  const PROJECT_WHEEL_THRESHOLD = 140;
   const ADMIN_PASSWORD = String(APP_CONFIG.adminPassword || "aidadmin");
   const INQUIRY_STAGES = ["new", "contacted", "meeting", "active", "closed", "hold"];
   const INQUIRY_STAGE_LABELS = {
@@ -94,7 +94,7 @@
         title: "조건 기반 매물 검색",
         typeLabel: "매물 유형",
         types: ["오피스", "리테일", "주거", "빌딩"],
-        filters: ["지역", "카테고리", "최소 면적 (m2)", "최대 면적 (m2)", "최대 보증금 (백만원)", "최대 월세 (백만원)", "최대 권리금 (백만원)", "최소 층수", "최소 주차대수", "정렬"],
+        filters: ["지역", "카테고리", "최소 면적 (m²)", "최대 면적 (m²)", "최대 보증금 (백만원)", "최대 월세 (백만원)", "최대 권리금 (백만원)", "최소 층수", "최소 주차대수", "정렬"],
         categoryPlaceholder: "뷰티, F&B",
         sort: { new: "최신순", monthlyAsc: "월세 낮은순", depositAsc: "보증금 낮은순", areaDesc: "면적 큰순" },
         apply: "필터 적용",
@@ -176,7 +176,7 @@
         title: "Filter-based listing search",
         typeLabel: "Property Type",
         types: ["Office", "Retail", "Residential", "Building"],
-        filters: ["Region", "Category", "Area Min (m2)", "Area Max (m2)", "Deposit Max (M KRW)", "Monthly Max (M KRW)", "Premium Max (M KRW)", "Floor Min", "Parking Min", "Sort"],
+        filters: ["Region", "Category", "Area Min (m²)", "Area Max (m²)", "Deposit Max (M KRW)", "Monthly Max (M KRW)", "Premium Max (M KRW)", "Floor Min", "Parking Min", "Sort"],
         categoryPlaceholder: "Beauty, F&B",
         sort: { new: "Newest", monthlyAsc: "Monthly Low", depositAsc: "Deposit Low", areaDesc: "Area Large" },
         apply: "Apply Filter",
@@ -258,7 +258,7 @@
         title: "?件別物件?索",
         typeLabel: "物件タイプ",
         types: ["オフィス", "リテ?ル", "住居", "ビル"],
-        filters: ["地域", "カテゴリ", "最小面積 (m2)", "最大面積 (m2)", "最大保?金 (百万KRW)", "最大月賃料 (百万KRW)", "最大?利金 (百万KRW)", "最小階?", "最小駐車台?", "?び替え"],
+        filters: ["地域", "カテゴリ", "最小面積 (m²)", "最大面積 (m²)", "最大保?金 (百万KRW)", "最大月賃料 (百万KRW)", "最大?利金 (百万KRW)", "最小階?", "最小駐車台?", "?び替え"],
         categoryPlaceholder: "ビュ?ティ?, F&B",
         sort: { new: "新着順", monthlyAsc: "賃料の安い順", depositAsc: "保?金の安い順", areaDesc: "面積の大きい順" },
         apply: "適用",
@@ -340,7 +340,7 @@
         title: "按?件??房源",
         typeLabel: "房源?型",
         types: ["?公", "零?", "住宅", "整??"],
-        filters: ["?域", "??", "最小面? (m2)", "最大面? (m2)", "最高保?金 (百万?元)", "最高月租 (百万?元)", "最高??? (百万?元)", "最小??", "最小?位", "排序"],
+        filters: ["?域", "??", "最小面? (m²)", "最大面? (m²)", "最高保?金 (百万?元)", "最高月租 (百万?元)", "最高??? (百万?元)", "最小??", "最小?位", "排序"],
         categoryPlaceholder: "美?, 餐?",
         sort: { new: "最新", monthlyAsc: "月租?低到高", depositAsc: "保?金?低到高", areaDesc: "面??大到小" },
         apply: "?用??",
@@ -576,11 +576,10 @@
     adminPanel: "overview",
     sessionSource: detectTrafficSource(),
     isAdminAuthenticated: sessionStorage.getItem(SESSION_KEYS.adminAuth) === "1",
-    heroIntroPlayed: sessionStorage.getItem(SESSION_KEYS.heroIntroPlayed) === "1",
-    heroIntroTimerId: 0,
     projectLoopWidth: 0,
     projectX: 0,
     projectVelocity: 0,
+    projectWheelCarry: 0,
     projectRafId: 0,
     projectSnapRafId: 0,
     projectStepWidth: 0,
@@ -661,7 +660,6 @@
       cloudStore.setAdminPassword(state.adminCredential);
     }
 
-    syncHeroIntroState();
     applyLanguage(false);
     bindEvents();
     applyTheme(state.theme);
@@ -727,7 +725,7 @@
         if (state.currentRoute !== "projects") return;
         if (Math.abs(event.deltaY) < 2) return;
         event.preventDefault();
-        pushProjectVelocity(-event.deltaY);
+        handleProjectWheel(-event.deltaY);
       },
       { passive: false }
     );
@@ -1137,12 +1135,6 @@
 
     if (state.currentRoute === "projects") {
       renderProjectPage();
-      if (!state.heroIntroPlayed && !state.heroIntroTimerId) {
-        state.heroIntroTimerId = window.setTimeout(() => {
-          state.heroIntroTimerId = 0;
-          markHeroIntroPlayed();
-        }, 1600);
-      }
     } else {
       stopProjectFlow();
     }
@@ -1176,17 +1168,6 @@
     }
 
     return previousRoute !== state.currentRoute;
-  }
-
-  function syncHeroIntroState() {
-    document.body.classList.toggle("hero-cycle-done", state.heroIntroPlayed);
-  }
-
-  function markHeroIntroPlayed() {
-    if (state.heroIntroPlayed) return;
-    state.heroIntroPlayed = true;
-    sessionStorage.setItem(SESSION_KEYS.heroIntroPlayed, "1");
-    syncHeroIntroState();
   }
 
   function normalizeLanguage(value) {
@@ -1435,8 +1416,7 @@
               <img class="project-thumb" src="${escapeHtml(item.image || fallbackImage())}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${fallbackImage()}'" />
               <div class="project-meta">
                 <p>${escapeHtml(item.title)}</p>
-                <span class="project-brief">${escapeHtml(item.category)} · ${number.format(item.area)} m2 · ${escapeHtml(locale.project.parking)} ${number.format(item.parking)}</span>
-                <span class="stock">${escapeHtml(locale.project.viewDetail)}</span>
+                <span class="project-brief">${escapeHtml(item.category)} · ${number.format(item.area)} m² · ${escapeHtml(locale.project.parking)} ${number.format(item.parking)}</span>
               </div>
             </button>
           </article>
@@ -1475,6 +1455,7 @@
 
     state.projectTrackReady = true;
     state.projectVelocity = 0;
+    state.projectWheelCarry = 0;
     if (copyZeroItems.length >= 2) {
       const firstRect = copyZeroItems[0].getBoundingClientRect();
       const secondRect = copyZeroItems[1].getBoundingClientRect();
@@ -1490,15 +1471,22 @@
     applyProjectTransform();
   }
 
-  function pushProjectVelocity(deltaY) {
+  function handleProjectWheel(deltaY) {
     if (!state.projectTrackReady) return;
 
-    const direction = Math.sign(deltaY);
+    state.projectWheelCarry += deltaY;
+    const direction = Math.sign(state.projectWheelCarry);
     if (!direction) return;
+
+    const magnitude = Math.abs(state.projectWheelCarry);
+    if (magnitude < PROJECT_WHEEL_THRESHOLD) return;
+
+    const steps = Math.max(1, Math.floor(magnitude / PROJECT_WHEEL_THRESHOLD));
+    state.projectWheelCarry -= direction * steps * PROJECT_WHEEL_THRESHOLD;
 
     const base = state.projectSnapRafId ? state.projectSnapTargetX : getNearestProjectSnapTarget(state.projectX);
     stopProjectSnap();
-    state.projectSnapTargetX = normalizeProjectX(base + direction * state.projectStepWidth);
+    state.projectSnapTargetX = normalizeProjectX(base + direction * steps * state.projectStepWidth);
     startProjectSnap(true);
   }
 
@@ -1534,6 +1522,7 @@
       state.projectRafId = 0;
     }
     state.projectVelocity = 0;
+    state.projectWheelCarry = 0;
     stopProjectSnap();
   }
 
@@ -1586,7 +1575,7 @@
       }
 
       const diff = target - state.projectX;
-      const easing = Math.abs(diff) > 42 ? 0.14 : 0.19;
+      const easing = Math.abs(diff) > 42 ? 0.1 : 0.14;
       state.projectX += diff * easing;
       wrapProjectPosition();
       applyProjectTransform();
@@ -1705,7 +1694,7 @@
               <p>${escapeHtml(item.region)} | ${escapeHtml(item.category)} | ${escapeHtml(item.type)}</p>
               <p>${escapeHtml(item.summary)}</p>
               <div class="list-tags">
-                <span>${number.format(item.area)} m2</span>
+                <span>${number.format(item.area)} m²</span>
                 <span>${escapeHtml(locale.misc.deposit)} ${number.format(item.deposit)}M</span>
                 <span>${escapeHtml(locale.misc.monthly)} ${number.format(item.monthly)}M</span>
                 <span>${escapeHtml(locale.misc.parking)} ${number.format(item.parking)}</span>
@@ -1736,7 +1725,7 @@
         <li><strong>${escapeHtml(locale.misc.detail.region)}</strong>${escapeHtml(item.region)}</li>
         <li><strong>${escapeHtml(locale.misc.detail.address)}</strong>${escapeHtml(item.address)}</li>
         <li><strong>${escapeHtml(locale.misc.detail.type)}</strong>${escapeHtml(formatTypeLabel(item.type))} / ${escapeHtml(item.category)}</li>
-        <li><strong>${escapeHtml(locale.misc.detail.area)}</strong>${number.format(item.area)} m2</li>
+        <li><strong>${escapeHtml(locale.misc.detail.area)}</strong>${number.format(item.area)} m²</li>
         <li><strong>${escapeHtml(locale.misc.detail.terms)}</strong>${escapeHtml(locale.misc.deposit)} ${number.format(item.deposit)}M | ${escapeHtml(locale.misc.monthly)} ${number.format(item.monthly)}M | ${escapeHtml(locale.misc.premium)} ${number.format(item.premium)}M</li>
         <li><strong>${escapeHtml(locale.misc.detail.floorParking)}</strong>${number.format(item.floor)}F | ${escapeHtml(locale.misc.parking)} ${number.format(item.parking)}</li>
       </ul>
@@ -2017,7 +2006,7 @@
         return `
           <article class="admin-item">
             <h4>#${item.id} ${escapeHtml(item.title)}</h4>
-            <p>${escapeHtml(item.region)} | ${escapeHtml(formatTypeLabel(item.type))} | ${escapeHtml(item.category)} | ${number.format(item.area)} m2</p>
+            <p>${escapeHtml(item.region)} | ${escapeHtml(formatTypeLabel(item.type))} | ${escapeHtml(item.category)} | ${number.format(item.area)} m²</p>
             <p>보증금 ${number.format(item.deposit)}M | 월세 ${number.format(item.monthly)}M | 권리금 ${number.format(item.premium)}M</p>
             <div class="admin-actions">
               <button type="button" data-action="edit" data-id="${item.id}">수정</button>
