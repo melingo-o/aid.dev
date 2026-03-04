@@ -602,8 +602,8 @@ body.route-projects .page[data-page="projects"] {
 
 .lamp-control {
   position: absolute;
-  left: 0;
-  top: clamp(14px, 2.2vh, 24px);
+  left: 10px;
+  top: -2px;
   display: inline-grid;
   place-items: start;
   z-index: 3;
@@ -611,7 +611,7 @@ body.route-projects .page[data-page="projects"] {
 
 .lamp-trigger {
   position: relative;
-  width: 28px;
+  width: 18px;
   height: 92px;
   border: 0;
   background: transparent;
@@ -635,35 +635,12 @@ body.route-projects .page[data-page="projects"] {
   outline-offset: 3px;
 }
 
-.cord-mount {
-  position: relative;
-  display: block;
-  width: 16px;
-  height: 12px;
-  margin: 0 auto;
-  border: 1px solid #1d1d1d;
-  border-radius: 2px;
-  background: #f6f6f3;
-}
-
-.cord-mount::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 2px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.34);
-  transform: translateX(-50%);
-}
-
 .cord-line {
   position: absolute;
   left: 50%;
-  top: 12px;
+  top: 0;
   width: 1px;
-  height: 52px;
+  height: 70px;
   background: #1d1d1d;
   transform: translateX(-50%);
   transform-origin: top center;
@@ -672,12 +649,12 @@ body.route-projects .page[data-page="projects"] {
 .cord-handle {
   position: absolute;
   left: 50%;
-  top: 64px;
-  width: 8px;
-  height: 11px;
+  top: 70px;
+  width: 7px;
+  height: 7px;
   border: 1px solid #1d1d1d;
-  border-radius: 2px;
-  background: #f6f6f3;
+  border-radius: 50%;
+  background: #ffffff;
   transform: translateX(-50%);
   will-change: transform;
 }
@@ -693,10 +670,10 @@ body.route-projects .page[data-page="projects"] {
 @keyframes cordLinePull {
   0%,
   100% {
-    height: 52px;
+    height: 70px;
   }
   42% {
-    height: 64px;
+    height: 82px;
   }
 }
 
@@ -2085,28 +2062,24 @@ textarea {
   }
 
   .lamp-control {
-    top: 8px;
+    left: 6px;
+    top: -2px;
   }
 
   .lamp-trigger {
-    width: 24px;
-    height: 80px;
-  }
-
-  .cord-mount {
-    width: 14px;
-    height: 10px;
+    width: 16px;
+    height: 76px;
   }
 
   .cord-line {
-    top: 10px;
-    height: 46px;
+    top: 0;
+    height: 56px;
   }
 
   .cord-handle {
     top: 56px;
-    width: 7px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
   }
 
   body.route-projects .project-stage {
