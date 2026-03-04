@@ -30,8 +30,8 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
-  overflow-y: scroll;
-  scrollbar-gutter: stable;
+  overflow-y: auto;
+  scrollbar-gutter: auto;
 }
 
 body {
@@ -415,7 +415,7 @@ body:not(.route-projects) .page-head h2 {
 body.route-projects .page-shell {
   height: calc(100svh - var(--header-h) - var(--footer-h));
   padding: 0;
-  overflow: visible;
+  overflow: hidden;
   background: transparent;
 }
 
@@ -595,13 +595,6 @@ body.route-projects .page[data-page="projects"] {
   z-index: 3;
 }
 
-.lamp-control--ghost {
-  pointer-events: none;
-  z-index: 6;
-  opacity: 0;
-  animation: lampGhostFade 0.36s ease-out forwards;
-}
-
 .lamp-trigger {
   position: relative;
   width: 18px;
@@ -680,16 +673,6 @@ body.route-projects .page[data-page="projects"] {
   }
 }
 
-@keyframes lampGhostFade {
-  0%,
-  74% {
-    opacity: 0.98;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 body.route-projects .page[data-page="projects"] .page-head {
   display: grid;
   width: 100%;
@@ -756,6 +739,7 @@ body.route-projects .project-main-typo {
 }
 
 body.route-projects .project-viewport {
+  position: relative;
   margin-top: 0;
   display: block;
   overflow-x: hidden;
@@ -764,10 +748,43 @@ body.route-projects .project-viewport {
   padding-bottom: clamp(10px, 1.6vh, 20px);
 }
 
+body.route-projects .project-viewport::before,
+body.route-projects .project-viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--content-bg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+body.route-projects .project-viewport::before {
+  left: 0;
+}
+
+body.route-projects .project-viewport::after {
+  right: 0;
+}
+
 body.route-projects .project-item {
   gap: 8px;
   align-content: start;
   padding-top: 2px;
+}
+
+body.route-projects .project-card {
+  cursor: grab;
+}
+
+body.route-projects .project-viewport.is-dragging,
+body.route-projects .project-viewport.is-dragging .project-card {
+  cursor: grabbing;
+}
+
+body.route-projects .project-viewport.is-dragging {
+  user-select: none;
 }
 
 body.route-projects .project-grid {
@@ -789,6 +806,8 @@ body.route-projects .project-index {
 body.route-projects .project-thumb {
   aspect-ratio: 16 / 10;
   height: auto;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 body.route-projects .project-meta {

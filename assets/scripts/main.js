@@ -587,6 +587,11 @@
     projectStepWidth: 0,
     projectSnapTargetX: 0,
     projectTrackReady: false,
+    projectDragPointerId: null,
+    projectDragStartX: 0,
+    projectDragStartProjectX: 0,
+    projectDragMoved: false,
+    projectSuppressClickOnce: false,
     map: null,
     markerLayer: null
   };
@@ -705,6 +710,10 @@
     });
 
     el.projectGrid.addEventListener("click", (event) => {
+      if (state.projectSuppressClickOnce) {
+        state.projectSuppressClickOnce = false;
+        return;
+      }
       const target = event.target.closest("[data-open-search-id]");
       if (!target) return;
       const id = Number(target.dataset.openSearchId);
@@ -720,16 +729,23 @@
       }
     });
 
-    el.projectPage.addEventListener(
-      "wheel",
-      (event) => {
-        if (state.currentRoute !== "projects") return;
-        if (Math.abs(event.deltaY) < 2) return;
-        event.preventDefault();
-        handleProjectWheel(-event.deltaY);
-      },
-      { passive: false }
-    );
+    if (el.projectViewport) {
+      el.projectViewport.addEventListener(
+        "wheel",
+        (event) => {
+          if (state.currentRoute !== "projects") return;
+          if (Math.abs(event.deltaY) < 2) return;
+          event.preventDefault();
+          handleProjectWheel(-event.deltaY);
+        },
+        { passive: false }
+      );
+
+      el.projectViewport.addEventListener("pointerdown", onProjectPointerDown);
+      window.addEventListener("pointermove", onProjectPointerMove);
+      window.addEventListener("pointerup", onProjectPointerUp);
+      window.addEventListener("pointercancel", onProjectPointerUp);
+    }
 
     window.addEventListener(
       "resize",
@@ -956,46 +972,79 @@
   }
 
   function cycleThemeFromBackground() {
-    playBackgroundPullCue();
-    window.setTimeout(() => {
-      const next = getNextTheme(state.theme.tone);
-      applyTheme(next);
-      trackEvent("theme_change", { tone: state.theme.tone, source: "background" });
-    }, 90);
+    const next = getNextTheme(state.theme.tone);
+    applyTheme(next);
+    trackEvent("theme_change", { tone: state.theme.tone, source: "background" });
   }
 
-  function playBackgroundPullCue() {
-    if (!el.projectPage) return;
+  function onProjectPointerDown(event) {
+    if (!el.projectViewport) return;
+    if (state.currentRoute !== "projects" || !state.projectTrackReady) return;
+    if (event.button !== 0) return;
+    if (!(event.target instanceof Element)) return;
+    if (!event.target.closest(".project-card")) return;
 
-    const prevCue = el.projectPage.querySelector(".lamp-control--ghost");
-    if (prevCue) {
-      prevCue.remove();
+    stopProjectFlow();
+    state.projectDragPointerId = event.pointerId;
+    state.projectDragStartX = event.clientX;
+    state.projectDragStartProjectX = state.projectX;
+    state.projectDragMoved = false;
+
+    el.projectViewport.classList.add("is-dragging");
+    if (typeof el.projectViewport.setPointerCapture === "function") {
+      try {
+        el.projectViewport.setPointerCapture(event.pointerId);
+      } catch (_err) {
+        // no-op
+      }
+    }
+  }
+
+  function onProjectPointerMove(event) {
+    if (state.projectDragPointerId !== event.pointerId) return;
+    if (!state.projectTrackReady) return;
+
+    const deltaX = event.clientX - state.projectDragStartX;
+    if (Math.abs(deltaX) > 6) {
+      state.projectDragMoved = true;
     }
 
-    const cue = document.createElement("div");
-    cue.className = "lamp-control lamp-control--ghost";
-    cue.setAttribute("aria-hidden", "true");
+    state.projectX = normalizeProjectX(state.projectDragStartProjectX + deltaX);
+    applyProjectTransform();
 
-    const trigger = document.createElement("span");
-    trigger.className = "lamp-trigger is-pulling";
+    if (state.projectDragMoved) {
+      event.preventDefault();
+    }
+  }
 
-    const line = document.createElement("span");
-    line.className = "cord-line";
-    line.setAttribute("aria-hidden", "true");
+  function onProjectPointerUp(event) {
+    if (!el.projectViewport) return;
+    if (state.projectDragPointerId !== event.pointerId) return;
 
-    const handle = document.createElement("span");
-    handle.className = "cord-handle";
-    handle.setAttribute("aria-hidden", "true");
+    const moved = state.projectDragMoved;
 
-    trigger.append(line, handle);
-    cue.append(trigger);
-    el.projectPage.append(cue);
-
-    window.setTimeout(() => {
-      if (cue.isConnected) {
-        cue.remove();
+    if (typeof el.projectViewport.releasePointerCapture === "function") {
+      try {
+        if (el.projectViewport.hasPointerCapture(event.pointerId)) {
+          el.projectViewport.releasePointerCapture(event.pointerId);
+        }
+      } catch (_err) {
+        // no-op
       }
-    }, 360);
+    }
+
+    state.projectDragPointerId = null;
+    state.projectDragStartX = 0;
+    state.projectDragStartProjectX = state.projectX;
+    state.projectDragMoved = false;
+    el.projectViewport.classList.remove("is-dragging");
+
+    if (!moved) return;
+
+    state.projectSuppressClickOnce = true;
+    state.projectWheelCarry = 0;
+    state.projectSnapTargetX = getNearestProjectSnapTarget(state.projectX);
+    startProjectSnap(true);
   }
 
   function ensureAdminAccess(showPrompt) {
@@ -1580,6 +1629,11 @@
     }
     state.projectVelocity = 0;
     state.projectWheelCarry = 0;
+    state.projectDragPointerId = null;
+    state.projectDragMoved = false;
+    if (el.projectViewport) {
+      el.projectViewport.classList.remove("is-dragging");
+    }
     stopProjectSnap();
   }
 
