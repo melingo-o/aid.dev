@@ -34,6 +34,16 @@ html {
   scrollbar-gutter: auto;
 }
 
+html.route-projects {
+  overflow-y: hidden;
+  scrollbar-gutter: auto;
+  scrollbar-width: none;
+}
+
+html.route-projects::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   margin: 0;
   color: var(--ink);
@@ -731,7 +741,7 @@ body.route-projects .project-stage {
   min-height: 0;
   padding-top: 0;
   padding-bottom: clamp(44px, 6.8vh, 78px);
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 body.route-projects .project-main-typo {
@@ -742,8 +752,7 @@ body.route-projects .project-viewport {
   position: relative;
   margin-top: 0;
   display: block;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: hidden;
   padding-top: clamp(12px, 2vh, 22px);
   padding-bottom: clamp(10px, 1.6vh, 20px);
 }
@@ -790,7 +799,8 @@ body.route-projects .project-viewport.is-dragging {
 body.route-projects .project-grid {
   padding-top: 10px;
   align-items: start;
-  overflow: visible;
+  overflow: hidden;
+  contain: paint;
 }
 
 body.route-projects .project-index {

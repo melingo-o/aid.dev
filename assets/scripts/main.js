@@ -711,7 +711,6 @@
 
     el.projectGrid.addEventListener("click", (event) => {
       if (state.projectSuppressClickOnce) {
-        state.projectSuppressClickOnce = false;
         return;
       }
       const target = event.target.closest("[data-open-search-id]");
@@ -942,8 +941,10 @@
     if (el.projectPage) {
       el.projectPage.addEventListener("click", (event) => {
         if (state.currentRoute !== "projects") return;
+        if (state.projectSuppressClickOnce) return;
         const target = event.target;
         if (!(target instanceof Element)) return;
+        if (target.closest("#projectStage")) return;
         if (target.closest("a, button, input, select, textarea, label, [data-open-search-id]")) return;
         cycleThemeFromBackground();
       });
@@ -1042,6 +1043,9 @@
     if (!moved) return;
 
     state.projectSuppressClickOnce = true;
+    window.setTimeout(() => {
+      state.projectSuppressClickOnce = false;
+    }, 240);
     state.projectWheelCarry = 0;
     state.projectSnapTargetX = getNearestProjectSnapTarget(state.projectX);
     startProjectSnap(true);
@@ -1199,7 +1203,9 @@
     }
 
     state.currentRoute = nextRoute;
-    document.body.classList.toggle("route-projects", state.currentRoute === "projects");
+    const isProjectRoute = state.currentRoute === "projects";
+    document.body.classList.toggle("route-projects", isProjectRoute);
+    document.documentElement.classList.toggle("route-projects", isProjectRoute);
 
     el.pages.forEach((page) => {
       page.classList.toggle("is-active", page.dataset.page === state.currentRoute);
@@ -1727,7 +1733,8 @@
   }
 
   function applyProjectTransform() {
-    el.projectGrid.style.transform = `translate3d(${state.projectX.toFixed(3)}px, 0, 0)`;
+    const displayX = Math.round(state.projectX);
+    el.projectGrid.style.transform = `translate3d(${displayX}px, 0, 0)`;
   }
 
   function getProjectShowcaseSource() {
