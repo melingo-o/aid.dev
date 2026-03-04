@@ -16,7 +16,8 @@
     adminAuth: "aid_admin_auth_v1",
     adminSecret: "aid_admin_secret_v1"
   };
-  const PROJECT_WHEEL_THRESHOLD = 140;
+  const PROJECT_WHEEL_THRESHOLD = 320;
+  const PROJECT_WHEEL_DAMPING = 0.58;
   const ADMIN_PASSWORD = String(APP_CONFIG.adminPassword || "aidadmin");
   const INQUIRY_STAGES = ["new", "contacted", "meeting", "active", "closed", "hold"];
   const INQUIRY_STAGE_LABELS = {
@@ -580,6 +581,7 @@
     projectX: 0,
     projectVelocity: 0,
     projectWheelCarry: 0,
+    projectLandingPlayed: false,
     projectRafId: 0,
     projectSnapRafId: 0,
     projectStepWidth: 0,
@@ -598,7 +600,6 @@
     projectStage: document.getElementById("projectStage"),
     projectViewport: document.getElementById("projectViewport"),
     projectGrid: document.getElementById("projectGrid"),
-    lampTrigger: document.getElementById("lampTrigger"),
     langTrigger: document.getElementById("langTrigger"),
     langCurrent: document.getElementById("langCurrent"),
     langOptions: Array.from(document.querySelectorAll("[data-lang]")),
@@ -922,17 +923,13 @@
       });
     }
 
-    if (el.lampTrigger) {
-      el.lampTrigger.addEventListener("click", () => {
-        const next = getNextTheme(state.theme.tone);
-        el.lampTrigger.classList.remove("is-pulling");
-        void el.lampTrigger.offsetWidth;
-        el.lampTrigger.classList.add("is-pulling");
-        window.setTimeout(() => {
-          el.lampTrigger.classList.remove("is-pulling");
-        }, 280);
-        applyTheme(next);
-        trackEvent("theme_change", { tone: state.theme.tone });
+    if (el.projectPage) {
+      el.projectPage.addEventListener("click", (event) => {
+        if (state.currentRoute !== "projects") return;
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        if (target.closest("a, button, input, select, textarea, label, [data-open-search-id]")) return;
+        cycleThemeFromBackground();
       });
     }
 
@@ -956,6 +953,49 @@
     const raw = String(hashText || "").replace(/^#/, "").trim().toLowerCase();
     if (ROUTES.includes(raw)) return raw;
     return "projects";
+  }
+
+  function cycleThemeFromBackground() {
+    playBackgroundPullCue();
+    window.setTimeout(() => {
+      const next = getNextTheme(state.theme.tone);
+      applyTheme(next);
+      trackEvent("theme_change", { tone: state.theme.tone, source: "background" });
+    }, 90);
+  }
+
+  function playBackgroundPullCue() {
+    if (!el.projectPage) return;
+
+    const prevCue = el.projectPage.querySelector(".lamp-control--ghost");
+    if (prevCue) {
+      prevCue.remove();
+    }
+
+    const cue = document.createElement("div");
+    cue.className = "lamp-control lamp-control--ghost";
+    cue.setAttribute("aria-hidden", "true");
+
+    const trigger = document.createElement("span");
+    trigger.className = "lamp-trigger is-pulling";
+
+    const line = document.createElement("span");
+    line.className = "cord-line";
+    line.setAttribute("aria-hidden", "true");
+
+    const handle = document.createElement("span");
+    handle.className = "cord-handle";
+    handle.setAttribute("aria-hidden", "true");
+
+    trigger.append(line, handle);
+    cue.append(trigger);
+    el.projectPage.append(cue);
+
+    window.setTimeout(() => {
+      if (cue.isConnected) {
+        cue.remove();
+      }
+    }, 360);
   }
 
   function ensureAdminAccess(showPrompt) {
@@ -1135,6 +1175,7 @@
 
     if (state.currentRoute === "projects") {
       renderProjectPage();
+      playProjectLandingIntro();
     } else {
       stopProjectFlow();
     }
@@ -1409,8 +1450,9 @@
 
     for (let copyIndex = 0; copyIndex < loopCopies; copyIndex += 1) {
       source.forEach((item, itemIndex) => {
+        const entryStyle = copyIndex === 0 ? ` style="--entry-index:${itemIndex}"` : "";
         rows.push(`
-          <article class="project-item" data-loop-copy="${copyIndex}">
+          <article class="project-item" data-loop-copy="${copyIndex}"${entryStyle}>
             <p class="project-index">${String(itemIndex + 1).padStart(2, "0")}</p>
             <button class="project-card" type="button" data-open-search-id="${item.id}">
               <img class="project-thumb" src="${escapeHtml(item.image || fallbackImage())}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${fallbackImage()}'" />
@@ -1433,6 +1475,21 @@
         }
       });
     });
+  }
+
+  function playProjectLandingIntro() {
+    if (state.projectLandingPlayed) return;
+    if (!el.projectGrid || !el.projectGrid.children.length || !el.projectPage) return;
+
+    el.projectPage.classList.remove("is-landing");
+    void el.projectPage.offsetWidth;
+    el.projectPage.classList.add("is-landing");
+
+    window.setTimeout(() => {
+      el.projectPage.classList.remove("is-landing");
+    }, 1240);
+
+    state.projectLandingPlayed = true;
   }
 
   function measureProjectLoop() {
@@ -1474,15 +1531,15 @@
   function handleProjectWheel(deltaY) {
     if (!state.projectTrackReady) return;
 
-    state.projectWheelCarry += deltaY;
+    state.projectWheelCarry += deltaY * PROJECT_WHEEL_DAMPING;
     const direction = Math.sign(state.projectWheelCarry);
     if (!direction) return;
 
     const magnitude = Math.abs(state.projectWheelCarry);
     if (magnitude < PROJECT_WHEEL_THRESHOLD) return;
 
-    const steps = Math.max(1, Math.floor(magnitude / PROJECT_WHEEL_THRESHOLD));
-    state.projectWheelCarry -= direction * steps * PROJECT_WHEEL_THRESHOLD;
+    const steps = 1;
+    state.projectWheelCarry -= direction * PROJECT_WHEEL_THRESHOLD;
 
     const base = state.projectSnapRafId ? state.projectSnapTargetX : getNearestProjectSnapTarget(state.projectX);
     stopProjectSnap();
@@ -1575,7 +1632,7 @@
       }
 
       const diff = target - state.projectX;
-      const easing = Math.abs(diff) > 42 ? 0.1 : 0.14;
+      const easing = Math.abs(diff) > 42 ? 0.055 : 0.08;
       state.projectX += diff * easing;
       wrapProjectPosition();
       applyProjectTransform();

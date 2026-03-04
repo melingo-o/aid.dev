@@ -595,6 +595,13 @@ body.route-projects .page[data-page="projects"] {
   z-index: 3;
 }
 
+.lamp-control--ghost {
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0;
+  animation: lampGhostFade 0.36s ease-out forwards;
+}
+
 .lamp-trigger {
   position: relative;
   width: 18px;
@@ -673,6 +680,16 @@ body.route-projects .page[data-page="projects"] {
   }
 }
 
+@keyframes lampGhostFade {
+  0%,
+  74% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 body.route-projects .page[data-page="projects"] .page-head {
   display: grid;
   width: 100%;
@@ -731,6 +748,7 @@ body.route-projects .project-stage {
   min-height: 0;
   padding-top: 0;
   padding-bottom: clamp(44px, 6.8vh, 78px);
+  overflow-x: hidden;
 }
 
 body.route-projects .project-main-typo {
@@ -740,7 +758,8 @@ body.route-projects .project-main-typo {
 body.route-projects .project-viewport {
   margin-top: 0;
   display: block;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: visible;
   padding-top: clamp(12px, 2vh, 22px);
   padding-bottom: clamp(10px, 1.6vh, 20px);
 }
@@ -788,6 +807,60 @@ body.route-projects .project-brief {
   font-size: 13px;
   line-height: 1.45;
   min-width: 0;
+}
+
+.page[data-page="projects"].is-landing .page-head h1 {
+  animation: projectLandingHeadline 0.62s cubic-bezier(0.2, 0.84, 0.3, 1) both;
+}
+
+.page[data-page="projects"].is-landing .project-tagline {
+  animation: projectLandingTagline 0.66s cubic-bezier(0.2, 0.84, 0.3, 1) 0.09s both;
+}
+
+.page[data-page="projects"].is-landing .project-item[data-loop-copy="0"] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  animation: projectLandingCard 0.7s cubic-bezier(0.18, 0.88, 0.28, 1) both;
+  animation-delay: calc((var(--entry-index, 0) * 0.1s) + 0.2s);
+}
+
+@keyframes projectLandingHeadline {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes projectLandingTagline {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes projectLandingCard {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.985);
+  }
+  65% {
+    opacity: 1;
+    transform: translate3d(0, -3px, 0) scale(1.003);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
 }
 
 .card-block {
