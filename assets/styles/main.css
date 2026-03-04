@@ -852,18 +852,18 @@ body.route-projects .project-brief {
 }
 
 .page[data-page="projects"].is-landing .page-head h1 {
-  animation: projectLandingHeadline 0.62s cubic-bezier(0.2, 0.84, 0.3, 1) both;
+  animation: projectLandingHeadline 0.82s cubic-bezier(0.2, 0.84, 0.3, 1) both;
 }
 
 .page[data-page="projects"].is-landing .project-tagline {
-  animation: projectLandingTagline 0.66s cubic-bezier(0.2, 0.84, 0.3, 1) 0.09s both;
+  animation: projectLandingTagline 0.86s cubic-bezier(0.2, 0.84, 0.3, 1) 0.14s both;
 }
 
-.page[data-page="projects"].is-landing .project-item[data-loop-copy="0"] {
+.page[data-page="projects"].is-landing .project-item[data-loop-copy="1"] {
   opacity: 0;
-  transform: translate3d(0, 28px, 0) scale(0.985);
-  animation: projectLandingCard 0.7s cubic-bezier(0.18, 0.88, 0.28, 1) both;
-  animation-delay: calc((var(--entry-index, 0) * 0.1s) + 0.2s);
+  transform: translate3d(0, 34px, 0) scale(0.982);
+  animation: projectLandingCard 0.96s cubic-bezier(0.18, 0.88, 0.28, 1) both;
+  animation-delay: calc((var(--entry-index, 0) * 0.12s) + 0.28s);
 }
 
 @keyframes projectLandingHeadline {
@@ -882,7 +882,7 @@ body.route-projects .project-brief {
 @keyframes projectLandingTagline {
   0% {
     opacity: 0;
-    transform: translate3d(0, 16px, 0);
+    transform: translate3d(0, 20px, 0);
   }
   100% {
     opacity: 1;
@@ -893,11 +893,11 @@ body.route-projects .project-brief {
 @keyframes projectLandingCard {
   0% {
     opacity: 0;
-    transform: translate3d(0, 28px, 0) scale(0.985);
+    transform: translate3d(0, 34px, 0) scale(0.982);
   }
-  65% {
+  68% {
     opacity: 1;
-    transform: translate3d(0, -3px, 0) scale(1.003);
+    transform: translate3d(0, -4px, 0) scale(1.004);
   }
   100% {
     opacity: 1;

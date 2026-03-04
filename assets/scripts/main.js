@@ -1231,7 +1231,6 @@
 
     if (state.currentRoute === "projects") {
       renderProjectPage();
-      playProjectLandingIntro();
     } else {
       stopProjectFlow();
     }
@@ -1520,7 +1519,7 @@
 
     for (let copyIndex = 0; copyIndex < loopCopies; copyIndex += 1) {
       source.forEach((item, itemIndex) => {
-        const entryStyle = copyIndex === 0 ? ` style="--entry-index:${itemIndex}"` : "";
+        const entryStyle = copyIndex === 1 ? ` style="--entry-index:${itemIndex}"` : "";
         rows.push(`
           <article class="project-item" data-loop-copy="${copyIndex}"${entryStyle}>
             <p class="project-index">${String(itemIndex + 1).padStart(2, "0")}</p>
@@ -1542,6 +1541,7 @@
       window.requestAnimationFrame(() => {
         if (state.currentRoute === "projects") {
           measureProjectLoop();
+          playProjectLandingIntro();
         }
       });
     });
@@ -1550,16 +1550,20 @@
   function playProjectLandingIntro() {
     if (state.projectLandingPlayed) return;
     if (!el.projectGrid || !el.projectGrid.children.length || !el.projectPage) return;
-
-    el.projectPage.classList.remove("is-landing");
-    void el.projectPage.offsetWidth;
-    el.projectPage.classList.add("is-landing");
-
-    window.setTimeout(() => {
-      el.projectPage.classList.remove("is-landing");
-    }, 1240);
-
     state.projectLandingPlayed = true;
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        if (state.currentRoute !== "projects") return;
+        el.projectPage.classList.remove("is-landing");
+        void el.projectPage.offsetWidth;
+        el.projectPage.classList.add("is-landing");
+
+        window.setTimeout(() => {
+          el.projectPage.classList.remove("is-landing");
+        }, 1680);
+      });
+    });
   }
 
   function measureProjectLoop() {
