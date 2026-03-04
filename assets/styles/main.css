@@ -35,7 +35,9 @@ html {
 }
 
 html.route-projects {
-  overflow-y: hidden;
+  overflow: hidden;
+  overflow: clip;
+  height: 100dvh;
   scrollbar-gutter: auto;
   scrollbar-width: none;
 }
@@ -54,8 +56,17 @@ body {
 
 body.route-projects {
   overflow: hidden;
+  overflow: clip;
+  height: 100dvh;
   background: var(--content-bg);
   transition: background 0.36s ease;
+  scrollbar-width: none;
+}
+
+body.route-projects::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 a {
