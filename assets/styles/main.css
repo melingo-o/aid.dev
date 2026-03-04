@@ -834,6 +834,15 @@ body.route-projects .project-thumb {
   height: auto;
   -webkit-user-drag: none;
   user-select: none;
+  --project-corner-cut: clamp(8px, 0.65vw, 12px);
+  clip-path: polygon(
+    var(--project-corner-cut) 0,
+    100% 0,
+    100% calc(100% - var(--project-corner-cut)),
+    calc(100% - var(--project-corner-cut)) 100%,
+    0 100%,
+    0 var(--project-corner-cut)
+  );
 }
 
 body.route-projects .project-meta {
