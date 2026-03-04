@@ -21,7 +21,6 @@
   --project-gap: 28px;
   --project-visible: 4;
   --nav-gap: clamp(18px, 1.7vw, 34px);
-  --switch-slide: 10px;
 }
 
 * {
@@ -611,6 +610,8 @@ body.route-projects .page[data-page="projects"] {
 }
 
 .lamp-trigger {
+  width: 46px;
+  height: 58px;
   border: 0;
   background: transparent;
   padding: 0;
@@ -619,121 +620,106 @@ body.route-projects .page[data-page="projects"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.56;
-  transition: opacity 0.18s ease;
+  opacity: 0.64;
+  transition: opacity 0.16s ease;
 }
 
 .lamp-control:hover .lamp-trigger,
 .lamp-trigger:focus-visible {
-  opacity: 0.92;
+  opacity: 0.98;
 }
 
 .lamp-trigger:focus-visible {
-  outline: 1px solid rgba(17, 17, 17, 0.45);
-  outline-offset: 2px;
+  outline: 1px solid rgba(17, 17, 17, 0.38);
+  outline-offset: 3px;
 }
 
 .switch-plate {
   position: relative;
   display: inline-block;
-  width: 42px;
-  height: 16px;
-  border: 1px solid #121212;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #f9f8f3 0%, #e7e3d8 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.88),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.14);
+  width: 30px;
+  height: 46px;
+  border: 1px solid #1d1d1d;
+  border-radius: 3px;
+  background: #f6f6f3;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .switch-plate::before,
 .switch-plate::after {
   content: "";
   position: absolute;
-  top: 3px;
-  width: 14px;
-  height: 9px;
-  border: 1px solid rgba(17, 17, 17, 0.2);
-  border-radius: 1px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.03));
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.16);
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.34);
+  transform: translateX(-50%);
 }
 
 .switch-plate::before {
-  left: 3px;
+  top: 5px;
 }
 
 .switch-plate::after {
-  right: 3px;
+  bottom: 5px;
 }
 
 .switch-toggle {
   position: absolute;
   left: 50%;
-  top: 2px;
+  top: 10px;
   width: 12px;
-  height: 10px;
-  border: 1px solid #121212;
+  height: 26px;
+  border: 1px solid #202020;
   border-radius: 2px;
-  background: linear-gradient(180deg, #ffffff 0%, #d8d5cb 100%);
+  background: #fdfdfa;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    0 2px 2px rgba(0, 0, 0, 0.22);
-  transform-origin: 50% 86%;
-  transform: translateX(-50%) perspective(90px) rotateX(18deg) rotateY(0deg);
+    0 1px 1px rgba(0, 0, 0, 0.14);
+  transform-origin: 50% 10%;
+  transform: translateX(-50%) perspective(80px) rotateX(8deg);
   will-change: transform;
 }
 
 .switch-toggle::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: -8px;
-  width: 9px;
-  height: 8px;
-  transform: translateX(-50%);
-  border: 1px solid #121212;
-  border-bottom: 0;
-  border-radius: 5px 5px 0 0;
-  background: linear-gradient(180deg, #fcfbf8 0%, #dddacf 100%);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+  left: 1px;
+  right: 1px;
+  top: 1px;
+  height: 3px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.78);
 }
 
 .switch-toggle::after {
   content: "";
   position: absolute;
-  left: 1px;
-  right: 1px;
-  top: 1px;
-  height: 2px;
-  border-radius: 1px;
-  background: rgba(255, 255, 255, 0.78);
+  left: 2px;
+  right: 2px;
+  top: 12px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .lamp-trigger.is-pulling .switch-plate {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.88),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
-    0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
 }
 
 .lamp-trigger.is-pulling .switch-toggle {
-  animation: switchToggleClick 0.24s cubic-bezier(0.34, 0.8, 0.34, 1);
+  animation: switchToggleClick 0.24s cubic-bezier(0.26, 0.84, 0.32, 1);
 }
 
 @keyframes switchToggleClick {
   0% {
-    transform: translateX(-50%) perspective(90px) rotateX(18deg) rotateY(0deg);
+    transform: translateX(-50%) perspective(80px) rotateX(8deg);
   }
-  38% {
-    transform: translateX(calc(-50% + var(--switch-slide))) perspective(90px) rotateX(22deg) rotateY(23deg);
-  }
-  56% {
-    transform: translateX(calc(-50% + var(--switch-slide))) perspective(90px) rotateX(20deg) rotateY(18deg);
+  42% {
+    transform: translateX(-50%) translateY(7px) perspective(80px) rotateX(-11deg);
   }
   100% {
-    transform: translateX(-50%) perspective(90px) rotateX(18deg) rotateY(0deg);
+    transform: translateX(-50%) perspective(80px) rotateX(8deg);
   }
 }
 
@@ -1946,7 +1932,6 @@ textarea {
     --header-h: 84px;
     --project-gap: 14px;
     --project-visible: 2;
-    --switch-slide: 8px;
   }
 
   .header-inner {
@@ -2117,38 +2102,31 @@ textarea {
   }
 
   .switch-plate {
-    width: 34px;
-    height: 14px;
-    border-width: 1px;
-  }
-
-  .switch-plate::before,
-  .switch-plate::after {
-    top: 2px;
-    width: 11px;
-    height: 7px;
+    width: 26px;
+    height: 40px;
     border-width: 1px;
   }
 
   .switch-plate::before {
-    left: 2px;
+    top: 4px;
   }
 
   .switch-plate::after {
-    right: 2px;
+    bottom: 4px;
   }
 
   .switch-toggle {
-    top: 2px;
+    top: 8px;
     width: 10px;
-    height: 8px;
+    height: 22px;
     border-width: 1px;
   }
 
   .switch-toggle::before {
-    top: -7px;
-    width: 7px;
-    height: 7px;
+    left: 1px;
+    right: 1px;
+    top: 1px;
+    height: 3px;
   }
 
   body.route-projects .project-stage {
