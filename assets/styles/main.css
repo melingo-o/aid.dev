@@ -40,10 +40,13 @@ html.route-projects {
   height: 100dvh;
   scrollbar-gutter: auto;
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 html.route-projects::-webkit-scrollbar {
   display: none;
+  width: 0;
+  height: 0;
 }
 
 body {
@@ -61,9 +64,27 @@ body.route-projects {
   background: var(--content-bg);
   transition: background 0.36s ease;
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 body.route-projects::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+body.route-projects .page-shell,
+body.route-projects .project-stage,
+body.route-projects .project-viewport,
+body.route-projects .project-grid {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body.route-projects .page-shell::-webkit-scrollbar,
+body.route-projects .project-stage::-webkit-scrollbar,
+body.route-projects .project-viewport::-webkit-scrollbar,
+body.route-projects .project-grid::-webkit-scrollbar {
   display: none;
   width: 0;
   height: 0;
