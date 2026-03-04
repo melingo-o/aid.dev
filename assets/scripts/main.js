@@ -593,6 +593,7 @@
     projectDragMoved: false,
     projectDragPendingX: 0,
     projectDragRafId: 0,
+    projectPointerDownListingId: null,
     projectSuppressClickOnce: false,
     map: null,
     markerLayer: null
@@ -717,16 +718,7 @@
       const target = event.target.closest("[data-open-search-id]");
       if (!target) return;
       const id = Number(target.dataset.openSearchId);
-      if (Number.isFinite(id)) {
-        const listing = state.listings.find((item) => item.id === id);
-        trackEvent("project_card_click", {
-          listingId: id,
-          listingTitle: listing ? listing.title : ""
-        });
-        state.selectedId = id;
-        setRoute("search", true);
-        renderSearch();
-      }
+      openProjectListingById(id, "click");
     });
 
     if (el.projectViewport) {
@@ -984,7 +976,8 @@
     if (state.currentRoute !== "projects" || !state.projectTrackReady) return;
     if (event.button !== 0) return;
     if (!(event.target instanceof Element)) return;
-    if (!event.target.closest(".project-card")) return;
+    const card = event.target.closest("[data-open-search-id]");
+    if (!card) return;
 
     stopProjectFlow();
     state.projectDragPointerId = event.pointerId;
@@ -992,6 +985,7 @@
     state.projectDragStartProjectX = state.projectX;
     state.projectDragMoved = false;
     state.projectDragPendingX = state.projectX;
+    state.projectPointerDownListingId = Number(card.dataset.openSearchId);
 
     el.projectViewport.classList.add("is-dragging");
     setProjectGridAnimating(true);
@@ -1054,9 +1048,18 @@
     state.projectDragStartX = 0;
     state.projectDragStartProjectX = state.projectX;
     state.projectDragMoved = false;
+    const pointerDownId = state.projectPointerDownListingId;
+    state.projectPointerDownListingId = null;
     el.projectViewport.classList.remove("is-dragging");
 
     if (!moved) {
+      if (Number.isFinite(pointerDownId)) {
+        state.projectSuppressClickOnce = true;
+        window.setTimeout(() => {
+          state.projectSuppressClickOnce = false;
+        }, 240);
+        openProjectListingById(pointerDownId, "pointerup");
+      }
       setProjectGridAnimating(false);
       return;
     }
@@ -1680,6 +1683,7 @@
     state.projectDragPointerId = null;
     state.projectDragMoved = false;
     state.projectDragPendingX = state.projectX;
+    state.projectPointerDownListingId = null;
     if (state.projectDragRafId) {
       window.cancelAnimationFrame(state.projectDragRafId);
       state.projectDragRafId = 0;
@@ -1784,6 +1788,19 @@
 
   function applyProjectTransform() {
     el.projectGrid.style.transform = `translate3d(${state.projectX.toFixed(3)}px, 0, 0)`;
+  }
+
+  function openProjectListingById(id, source) {
+    if (!Number.isFinite(id)) return;
+    const listing = state.listings.find((item) => item.id === id);
+    trackEvent("project_card_click", {
+      listingId: id,
+      listingTitle: listing ? listing.title : "",
+      source: String(source || "unknown")
+    });
+    state.selectedId = id;
+    setRoute("search", true);
+    renderSearch();
   }
 
   function setProjectGridAnimating(active) {
