@@ -834,7 +834,8 @@ body.route-projects .project-thumb {
   height: auto;
   -webkit-user-drag: none;
   user-select: none;
-  --project-corner-cut: clamp(8px, 0.65vw, 12px);
+  --project-corner-cut: 18px;
+  --project-corner-cut: clamp(14px, 1.1vw, 22px);
   clip-path: polygon(
     var(--project-corner-cut) 0,
     100% 0,
