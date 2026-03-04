@@ -1503,6 +1503,9 @@
   function renderProjectPage() {
     const locale = getLocale();
     const source = getProjectShowcaseSource();
+    if (el.projectPage && !state.projectLandingPlayed) {
+      el.projectPage.classList.add("is-prelanding");
+    }
     if (!source.length) {
       el.projectGrid.innerHTML = `<p>${escapeHtml(locale.misc.noListingData)}</p>`;
       state.projectTrackReady = false;
@@ -1550,7 +1553,6 @@
   function playProjectLandingIntro() {
     if (state.projectLandingPlayed) return;
     if (!el.projectGrid || !el.projectGrid.children.length || !el.projectPage) return;
-    state.projectLandingPlayed = true;
 
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
@@ -1558,6 +1560,8 @@
         el.projectPage.classList.remove("is-landing");
         void el.projectPage.offsetWidth;
         el.projectPage.classList.add("is-landing");
+        el.projectPage.classList.remove("is-prelanding");
+        state.projectLandingPlayed = true;
 
         window.setTimeout(() => {
           el.projectPage.classList.remove("is-landing");
