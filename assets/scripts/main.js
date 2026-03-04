@@ -591,6 +591,8 @@
     projectDragStartX: 0,
     projectDragStartProjectX: 0,
     projectDragMoved: false,
+    projectDragPendingX: 0,
+    projectDragRafId: 0,
     projectSuppressClickOnce: false,
     map: null,
     markerLayer: null
@@ -989,8 +991,10 @@
     state.projectDragStartX = event.clientX;
     state.projectDragStartProjectX = state.projectX;
     state.projectDragMoved = false;
+    state.projectDragPendingX = state.projectX;
 
     el.projectViewport.classList.add("is-dragging");
+    setProjectGridAnimating(true);
     if (typeof el.projectViewport.setPointerCapture === "function") {
       try {
         el.projectViewport.setPointerCapture(event.pointerId);
@@ -1009,8 +1013,14 @@
       state.projectDragMoved = true;
     }
 
-    state.projectX = normalizeProjectX(state.projectDragStartProjectX + deltaX);
-    applyProjectTransform();
+    state.projectDragPendingX = normalizeProjectX(state.projectDragStartProjectX + deltaX);
+    if (!state.projectDragRafId) {
+      state.projectDragRafId = window.requestAnimationFrame(() => {
+        state.projectDragRafId = 0;
+        state.projectX = state.projectDragPendingX;
+        applyProjectTransform();
+      });
+    }
 
     if (state.projectDragMoved) {
       event.preventDefault();
@@ -1020,6 +1030,13 @@
   function onProjectPointerUp(event) {
     if (!el.projectViewport) return;
     if (state.projectDragPointerId !== event.pointerId) return;
+
+    if (state.projectDragRafId) {
+      window.cancelAnimationFrame(state.projectDragRafId);
+      state.projectDragRafId = 0;
+      state.projectX = state.projectDragPendingX;
+      applyProjectTransform();
+    }
 
     const moved = state.projectDragMoved;
 
@@ -1039,7 +1056,10 @@
     state.projectDragMoved = false;
     el.projectViewport.classList.remove("is-dragging");
 
-    if (!moved) return;
+    if (!moved) {
+      setProjectGridAnimating(false);
+      return;
+    }
 
     state.projectSuppressClickOnce = true;
     window.setTimeout(() => {
@@ -1659,9 +1679,15 @@
     state.projectWheelCarry = 0;
     state.projectDragPointerId = null;
     state.projectDragMoved = false;
+    state.projectDragPendingX = state.projectX;
+    if (state.projectDragRafId) {
+      window.cancelAnimationFrame(state.projectDragRafId);
+      state.projectDragRafId = 0;
+    }
     if (el.projectViewport) {
       el.projectViewport.classList.remove("is-dragging");
     }
+    setProjectGridAnimating(false);
     stopProjectSnap();
   }
 
@@ -1692,6 +1718,7 @@
 
   function startProjectSnap(useExistingTarget = false) {
     if (state.projectSnapRafId || !state.projectTrackReady) return;
+    setProjectGridAnimating(true);
 
     if (!useExistingTarget) {
       state.projectSnapTargetX = getNearestProjectSnapTarget(state.projectX);
@@ -1724,6 +1751,7 @@
         wrapProjectPosition();
         applyProjectTransform();
         state.projectSnapRafId = 0;
+        setProjectGridAnimating(false);
         return;
       }
 
@@ -1756,6 +1784,11 @@
 
   function applyProjectTransform() {
     el.projectGrid.style.transform = `translate3d(${state.projectX.toFixed(3)}px, 0, 0)`;
+  }
+
+  function setProjectGridAnimating(active) {
+    if (!el.projectGrid) return;
+    el.projectGrid.classList.toggle("is-animating", Boolean(active));
   }
 
   function getProjectShowcaseSource() {

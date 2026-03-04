@@ -567,8 +567,11 @@ body.route-projects .page-shell {
   );
   gap: var(--project-gap);
   align-items: end;
-  will-change: transform;
   transform: translate3d(0, 0, 0);
+}
+
+.project-grid.is-animating {
+  will-change: transform;
 }
 
 .project-item {
@@ -746,7 +749,7 @@ body.route-projects .page[data-page="projects"] .page-head {
   content: ".";
   margin-left: 0.02em;
   display: inline-block;
-  animation: none;
+  animation: projectDotBlink 1s steps(1, end) infinite;
 }
 
 .page[data-page="projects"] .project-tagline {
