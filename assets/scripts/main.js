@@ -671,7 +671,6 @@
     applyTheme(state.theme);
     refreshRegionOptions();
     applyFilters();
-    renderProjectPage();
     renderAdminList();
     migrateInquiries();
     renderInquiryList();

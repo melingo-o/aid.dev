@@ -746,7 +746,7 @@ body.route-projects .page[data-page="projects"] .page-head {
   content: ".";
   margin-left: 0.02em;
   display: inline-block;
-  animation: projectDotBlink 1s steps(1, end) infinite;
+  animation: none;
 }
 
 .page[data-page="projects"] .project-tagline {
