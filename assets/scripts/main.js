@@ -74,13 +74,13 @@
     partners: "PARTNERS",
     contact: "LOCATION"
   };
-  const STATIC_HERO_TITLE = "브랜드에 맞는 입지와 공간을 제안합니다.";
+  const STATIC_HERO_TITLE = "Where visibility becomes value";
   const I18N = {
     ko: {
       nav: { projects: "HOME", company: "COMPANY", search: "ARCHIVE", partners: "PARTNERS", contact: "LOCATION" },
       ui: { languageMenu: "언어 선택", admin: "관리자" },
-      hero: { title: "브랜드에 맞는 입지와 공간을 제안합니다.", tagline: "상권 검토부터 매물 제안, 조건 협의까지 AID가 실무 중심으로 함께합니다." },
-      project: { viewDetail: "상세 보기", parking: "주차" },
+      hero: { title: "Where visibility becomes value", tagline: "공간의 인상을 설계하고 브랜드의 가치를 높입니다." },
+      project: { viewDetail: "VIEW DETAIL", parking: "Parking" },
       company: {
         eyebrow: "회사 소개",
         title: "입지 검토부터 계약 협의까지, 실무 중심으로 자문합니다.",
