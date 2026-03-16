@@ -607,6 +607,8 @@
     routes: Array.from(document.querySelectorAll("[data-route]")),
     logoText: document.getElementById("logoText"),
     logoImage: document.getElementById("logoImage"),
+    footerLogoText: document.getElementById("footerLogoText"),
+    footerLogoImage: document.getElementById("footerLogoImage"),
     signatureBox: document.getElementById("signatureBox"),
     signaturePlaceholder: document.getElementById("signaturePlaceholder"),
     signatureImage: document.getElementById("signatureImage"),
@@ -1402,7 +1404,17 @@
         item.innerHTML = locale.company.meta[index];
       }
     });
-    setNodeTexts('.page[data-page="company"] .social-row a', locale.company.socials);
+    const companySocialLinks = Array.from(document.querySelectorAll('.page[data-page="company"] .social-row .social-link'));
+    companySocialLinks.forEach((link, index) => {
+      const label = locale.company.socials[index];
+      if (!label) return;
+      link.setAttribute("aria-label", label);
+      link.setAttribute("title", label);
+      const text = link.querySelector(".social-label");
+      if (text) {
+        text.textContent = label;
+      }
+    });
 
     setNodeText('.page[data-page="search"] .page-head .eyebrow', locale.search.eyebrow);
     setNodeText("#page-search-title", locale.search.title);
@@ -2465,8 +2477,13 @@
       el.logoText.textContent = logoText;
       el.logoText.classList.toggle("is-hidden", Boolean(logoImage));
     }
+    if (el.footerLogoText) {
+      el.footerLogoText.textContent = logoText;
+      el.footerLogoText.classList.toggle("is-hidden", Boolean(logoImage));
+    }
 
     syncImageNode(el.logoImage, logoImage, "AID logo");
+    syncImageNode(el.footerLogoImage, logoImage, "AID logo");
     syncImageNode(el.signatureImage, signatureImage, getLocale().company.signEyebrow);
 
     if (el.signatureBox) {
