@@ -2,6 +2,7 @@
   "use strict";
 
   const INCLUDE_SELECTOR = "[data-include]";
+  const ASSET_VERSION = "20260311-1";
   const RUNTIME_SCRIPTS = [
     "assets/scripts/cloud-api.js",
     "assets/scripts/main.js"
@@ -29,7 +30,7 @@
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = src;
+      script.src = `${src}?v=${ASSET_VERSION}`;
       script.defer = true;
       script.onload = () => resolve();
       script.onerror = () => reject(new Error(`Script load failed: ${src}`));

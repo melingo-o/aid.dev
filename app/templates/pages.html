@@ -29,7 +29,10 @@
 
         <article class="card-block">
           <p class="eyebrow">대표 서명</p>
-          <div class="signature-box">서명</div>
+          <div id="signatureBox" class="signature-box">
+            <span id="signaturePlaceholder" class="signature-placeholder">서명</span>
+            <img id="signatureImage" class="signature-image is-hidden" alt="대표 서명" />
+          </div>
           <ul class="meta-list">
             <li><strong>회사명</strong>부동산 중개법인 에이드청담</li>
             <li><strong>대표자</strong>홍길동</li>
@@ -293,12 +296,30 @@
               <div class="asset-manager">
                 <label><span>로고 텍스트</span><input id="logoTextInput" type="text" maxlength="24" placeholder="AID" /></label>
                 <label><span>로고 파일 업로드</span><input id="logoFileInput" type="file" accept="image/*" /></label>
+                <label><span>대표님 서명 업로드</span><input id="signatureFileInput" type="file" accept="image/*" /></label>
+                <label><span>favicon 업로드</span><input id="faviconFileInput" type="file" accept="image/png,image/jpeg,image/svg+xml,image/x-icon,image/vnd.microsoft.icon,image/webp" /></label>
+              </div>
+              <div class="asset-preview-grid" aria-label="현재 사이트 자산 미리보기">
+                <div class="asset-preview">
+                  <span class="asset-preview-label">현재 로고</span>
+                  <img id="logoAssetPreview" class="is-hidden" alt="현재 로고 미리보기" />
+                  <div id="logoTextPreview" class="asset-preview-text">AID</div>
+                </div>
+                <div class="asset-preview asset-preview-signature">
+                  <span class="asset-preview-label">현재 대표 서명</span>
+                  <img id="signatureAssetPreview" class="is-hidden" alt="현재 대표 서명 미리보기" />
+                  <div id="signatureAssetEmpty" class="asset-preview-empty">서명 없음</div>
+                </div>
+                <div class="asset-preview asset-preview-favicon">
+                  <span class="asset-preview-label">현재 favicon</span>
+                  <img id="faviconAssetPreview" class="is-hidden" alt="현재 favicon 미리보기" />
+                </div>
               </div>
               <div class="form-row">
-                <button id="saveAssets" type="button">로고 적용</button>
+                <button id="saveAssets" type="button">자산 적용</button>
                 <button id="resetAssets" type="button">기본값 복원</button>
               </div>
-              <p id="assetStatus" class="status">로고 텍스트를 수정하거나 파일을 업로드하세요.</p>
+              <p id="assetStatus" class="status">로고, 대표 서명, favicon을 수정하거나 파일을 업로드하세요.</p>
             </article>
           </section>
 

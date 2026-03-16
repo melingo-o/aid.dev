@@ -33,9 +33,13 @@
   const ALERT_WEBHOOK_URL = String(APP_CONFIG.alertWebhookUrl || "");
 
   const number = new Intl.NumberFormat("en-US");
+  const DEFAULT_FAVICON_PATH = "assets/favicon/favicon.svg?v=20260311-1";
+  const DEFAULT_SIGNATURE_PATH = "assets/images/ceo-signature.png?v=20260316-1";
   const DEFAULT_SITE_SETTINGS = {
     logoText: "AID",
-    logoImage: ""
+    logoImage: "",
+    signatureImage: DEFAULT_SIGNATURE_PATH,
+    faviconImage: ""
   };
   const DEFAULT_ANALYTICS = {
     events: []
@@ -603,6 +607,9 @@
     routes: Array.from(document.querySelectorAll("[data-route]")),
     logoText: document.getElementById("logoText"),
     logoImage: document.getElementById("logoImage"),
+    signatureBox: document.getElementById("signatureBox"),
+    signaturePlaceholder: document.getElementById("signaturePlaceholder"),
+    signatureImage: document.getElementById("signatureImage"),
     pages: Array.from(document.querySelectorAll(".page")),
     projectPage: document.querySelector('.page[data-page="projects"]'),
     projectStage: document.getElementById("projectStage"),
@@ -633,9 +640,17 @@
     clearInquiries: document.getElementById("clearInquiries"),
     logoTextInput: document.getElementById("logoTextInput"),
     logoFileInput: document.getElementById("logoFileInput"),
+    signatureFileInput: document.getElementById("signatureFileInput"),
+    faviconFileInput: document.getElementById("faviconFileInput"),
+    logoAssetPreview: document.getElementById("logoAssetPreview"),
+    logoTextPreview: document.getElementById("logoTextPreview"),
+    signatureAssetPreview: document.getElementById("signatureAssetPreview"),
+    signatureAssetEmpty: document.getElementById("signatureAssetEmpty"),
+    faviconAssetPreview: document.getElementById("faviconAssetPreview"),
     saveAssets: document.getElementById("saveAssets"),
     resetAssets: document.getElementById("resetAssets"),
     assetStatus: document.getElementById("assetStatus"),
+    faviconLinks: Array.from(document.querySelectorAll("[data-favicon]")),
     adminLoginLink: document.getElementById("adminLoginLink"),
     adminLogout: document.getElementById("adminLogout"),
     adminAuthModal: document.getElementById("adminAuthModal"),
@@ -1171,10 +1186,7 @@
       }
 
       if (remote.siteSettings && typeof remote.siteSettings === "object") {
-        state.siteSettings = {
-          logoText: String(remote.siteSettings.logoText || DEFAULT_SITE_SETTINGS.logoText),
-          logoImage: String(remote.siteSettings.logoImage || "")
-        };
+        state.siteSettings = normalizeSiteSettings(remote.siteSettings);
         saveSiteSettingsLocal(state.siteSettings);
         applySiteSettings();
         syncAssetForm();
@@ -1380,7 +1392,10 @@
     setNodeText('.page[data-page="company"] .copy', locale.company.copy);
     setNodeTexts('.page[data-page="company"] .plain-list li', locale.company.bullets);
     setNodeText('.page[data-page="company"] .card-block:nth-child(2) .eyebrow', locale.company.signEyebrow);
-    setNodeText('.page[data-page="company"] .signature-box', locale.company.signBox);
+    setNodeText("#signaturePlaceholder", locale.company.signBox);
+    if (el.signatureImage) {
+      el.signatureImage.alt = locale.company.signEyebrow;
+    }
     const companyMetaItems = Array.from(document.querySelectorAll('.page[data-page="company"] .meta-list li'));
     companyMetaItems.forEach((item, index) => {
       if (index < locale.company.meta.length) {
@@ -2367,60 +2382,159 @@
     renderAnalytics();
   }
 
+  function normalizeSiteSettings(input) {
+    const source = input && typeof input === "object" ? input : {};
+    return {
+      logoText: String(source.logoText || DEFAULT_SITE_SETTINGS.logoText).trim() || DEFAULT_SITE_SETTINGS.logoText,
+      logoImage: String(source.logoImage || "").trim(),
+      signatureImage: String(source.signatureImage || DEFAULT_SITE_SETTINGS.signatureImage).trim() || DEFAULT_SITE_SETTINGS.signatureImage,
+      faviconImage: String(source.faviconImage || "").trim()
+    };
+  }
+
+  function syncImageNode(node, source, alt) {
+    if (!node) return;
+    const value = String(source || "").trim();
+    if (alt) {
+      node.alt = alt;
+    }
+    if (value) {
+      node.src = value;
+      node.classList.remove("is-hidden");
+      return;
+    }
+    node.removeAttribute("src");
+    node.classList.add("is-hidden");
+  }
+
+  function guessImageMimeType(source) {
+    const value = String(source || "").trim();
+    if (!value) return "image/svg+xml";
+    const lowered = value.toLowerCase();
+    if (lowered.startsWith("data:image/")) {
+      const match = lowered.match(/^data:(image\/[^;,]+)/);
+      return match ? match[1] : "image/png";
+    }
+    if (lowered.endsWith(".png")) return "image/png";
+    if (lowered.endsWith(".jpg") || lowered.endsWith(".jpeg")) return "image/jpeg";
+    if (lowered.endsWith(".webp")) return "image/webp";
+    if (lowered.endsWith(".ico")) return "image/x-icon";
+    return "image/svg+xml";
+  }
+
+  function getEffectiveFavicon(settingsInput) {
+    const settings = normalizeSiteSettings(settingsInput || state.siteSettings);
+    return settings.faviconImage || DEFAULT_FAVICON_PATH;
+  }
+
+  function applyFavicon(source) {
+    if (!el.faviconLinks.length) return;
+    const href = String(source || DEFAULT_FAVICON_PATH).trim() || DEFAULT_FAVICON_PATH;
+    const type = guessImageMimeType(href);
+    el.faviconLinks.forEach((link) => {
+      link.setAttribute("href", href);
+      link.setAttribute("type", type);
+    });
+  }
+
+  function renderAssetPreviews() {
+    const settings = normalizeSiteSettings(state.siteSettings);
+    syncImageNode(el.logoAssetPreview, settings.logoImage, "현재 로고 미리보기");
+    if (el.logoTextPreview) {
+      el.logoTextPreview.textContent = settings.logoText;
+      el.logoTextPreview.classList.toggle("is-hidden", Boolean(settings.logoImage));
+    }
+
+    syncImageNode(el.signatureAssetPreview, settings.signatureImage, "현재 대표 서명 미리보기");
+    if (el.signatureAssetEmpty) {
+      el.signatureAssetEmpty.classList.toggle("is-hidden", Boolean(settings.signatureImage));
+    }
+
+    syncImageNode(el.faviconAssetPreview, getEffectiveFavicon(settings), "현재 favicon 미리보기");
+  }
+
   function applySiteSettings() {
-    const logoText = String(state.siteSettings.logoText || DEFAULT_SITE_SETTINGS.logoText).trim() || "AID";
-    const logoImage = String(state.siteSettings.logoImage || "").trim();
+    const settings = normalizeSiteSettings(state.siteSettings);
+    const logoText = settings.logoText;
+    const logoImage = settings.logoImage;
+    const signatureImage = settings.signatureImage;
+
+    state.siteSettings = settings;
 
     if (el.logoText) {
       el.logoText.textContent = logoText;
+      el.logoText.classList.toggle("is-hidden", Boolean(logoImage));
     }
 
-    if (el.logoImage) {
-      if (logoImage) {
-        el.logoImage.src = logoImage;
-        el.logoImage.classList.remove("is-hidden");
-        if (el.logoText) el.logoText.classList.add("is-hidden");
-      } else {
-        el.logoImage.removeAttribute("src");
-        el.logoImage.classList.add("is-hidden");
-        if (el.logoText) el.logoText.classList.remove("is-hidden");
-      }
+    syncImageNode(el.logoImage, logoImage, "AID logo");
+    syncImageNode(el.signatureImage, signatureImage, getLocale().company.signEyebrow);
+
+    if (el.signatureBox) {
+      el.signatureBox.classList.toggle("has-image", Boolean(signatureImage));
     }
+    if (el.signaturePlaceholder) {
+      el.signaturePlaceholder.classList.toggle("is-hidden", Boolean(signatureImage));
+    }
+
+    applyFavicon(getEffectiveFavicon(settings));
+    renderAssetPreviews();
   }
 
   function syncAssetForm() {
     if (el.logoTextInput) {
-      el.logoTextInput.value = String(state.siteSettings.logoText || "AID");
+      el.logoTextInput.value = normalizeSiteSettings(state.siteSettings).logoText;
     }
     if (el.logoFileInput) {
       el.logoFileInput.value = "";
     }
+    if (el.signatureFileInput) {
+      el.signatureFileInput.value = "";
+    }
+    if (el.faviconFileInput) {
+      el.faviconFileInput.value = "";
+    }
   }
 
   async function onSaveAssets() {
-    const next = {
-      logoText: String(el.logoTextInput ? el.logoTextInput.value : "").trim() || "AID",
-      logoImage: String(state.siteSettings.logoImage || "")
-    };
+    const next = normalizeSiteSettings(state.siteSettings);
+    next.logoText = String(el.logoTextInput ? el.logoTextInput.value : "").trim() || DEFAULT_SITE_SETTINGS.logoText;
 
-    const file = el.logoFileInput && el.logoFileInput.files ? el.logoFileInput.files[0] : null;
+    const logoFile = el.logoFileInput && el.logoFileInput.files ? el.logoFileInput.files[0] : null;
+    const signatureFile = el.signatureFileInput && el.signatureFileInput.files ? el.signatureFileInput.files[0] : null;
+    const faviconFile = el.faviconFileInput && el.faviconFileInput.files ? el.faviconFileInput.files[0] : null;
 
-    if (file && file.size > 0) {
+    if (logoFile && logoFile.size > 0) {
       try {
-        next.logoImage = await readFileAsDataUrl(file);
+        next.logoImage = await readFileAsDataUrl(logoFile);
       } catch (_err) {
         setStatus(el.assetStatus, "로고 업로드에 실패했습니다. 다른 파일로 시도하세요.", "error");
         return;
       }
-    } else if (next.logoText) {
-      next.logoImage = "";
     }
 
-    state.siteSettings = next;
+    if (signatureFile && signatureFile.size > 0) {
+      try {
+        next.signatureImage = await readFileAsDataUrl(signatureFile);
+      } catch (_err) {
+        setStatus(el.assetStatus, "대표 서명 업로드에 실패했습니다. 다른 파일로 시도하세요.", "error");
+        return;
+      }
+    }
+
+    if (faviconFile && faviconFile.size > 0) {
+      try {
+        next.faviconImage = await readFileAsDataUrl(faviconFile);
+      } catch (_err) {
+        setStatus(el.assetStatus, "favicon 업로드에 실패했습니다. 다른 파일로 시도하세요.", "error");
+        return;
+      }
+    }
+
+    state.siteSettings = normalizeSiteSettings(next);
     saveSiteSettings(state.siteSettings);
     applySiteSettings();
     syncAssetForm();
-    setStatus(el.assetStatus, "로고 설정을 저장했습니다.", "ok");
+    setStatus(el.assetStatus, "사이트 자산을 저장했습니다.", "ok");
   }
 
   function onResetAssets() {
@@ -2428,7 +2542,7 @@
     saveSiteSettings(state.siteSettings);
     applySiteSettings();
     syncAssetForm();
-    setStatus(el.assetStatus, "로고를 기본값으로 복원했습니다.", "ok");
+    setStatus(el.assetStatus, "사이트 자산을 기본값으로 복원했습니다.", "ok");
   }
 
   function clearAdminForm() {
@@ -3029,20 +3143,18 @@
       const raw = localStorage.getItem(STORAGE_KEYS.siteSettings);
       if (!raw) return structuredClone(DEFAULT_SITE_SETTINGS);
       const parsed = JSON.parse(raw);
-      return {
-        logoText: String(parsed.logoText || DEFAULT_SITE_SETTINGS.logoText),
-        logoImage: String(parsed.logoImage || "")
-      };
+      return normalizeSiteSettings(parsed);
     } catch (_err) {
       return structuredClone(DEFAULT_SITE_SETTINGS);
     }
   }
 
   function saveSiteSettings(settings) {
-    saveSiteSettingsLocal(settings);
+    const next = normalizeSiteSettings(settings);
+    saveSiteSettingsLocal(next);
     if (!canUseCloudAdmin() || typeof cloudStore.setSiteSettings !== "function") return;
     cloudStore
-      .setSiteSettings(settings)
+      .setSiteSettings(next)
       .then((ok) => {
         if (!ok) {
           // Keep local settings if remote save fails.
@@ -3054,7 +3166,7 @@
   }
 
   function saveSiteSettingsLocal(settings) {
-    localStorage.setItem(STORAGE_KEYS.siteSettings, JSON.stringify(settings));
+    localStorage.setItem(STORAGE_KEYS.siteSettings, JSON.stringify(normalizeSiteSettings(settings)));
   }
 
   function createInquiryId() {
