@@ -3,7 +3,7 @@
 
   const APP_CONFIG = window.__AID_APP_CONFIG__ && typeof window.__AID_APP_CONFIG__ === "object" ? window.__AID_APP_CONFIG__ : {};
   const cloudStore = window.aidCloudStore && typeof window.aidCloudStore === "object" ? window.aidCloudStore : null;
-  const ROUTES = ["projects", "company", "search", "partners", "contact", "inquiry", "admin"];
+  const ROUTES = ["projects", "company", "archive", "partners", "contact", "inquiry", "admin"];
   const STORAGE_KEYS = {
     listings: "aid_listings_v2",
     inquiries: "aid_inquiries_v2",
@@ -69,7 +69,8 @@
   const STATIC_NAV_LABELS = {
     projects: "HOME",
     company: "COMPANY",
-    search: "SEARCH",
+    archive: "ARCHIVE",
+    search: "ARCHIVE",
     partners: "PARTNERS",
     contact: "LOCATION"
   };
@@ -97,8 +98,12 @@
         socials: ["인스타그램", "유튜브"]
       },
       search: {
-        eyebrow: "매물 검색",
-        title: "조건 기반 매물 검색",
+        eyebrow: "ARCHIVE",
+        title: "조건 검색 대신, AID가 보유한 공간 아카이브를 보여줍니다.",
+        description: "HOME에서 사진을 클릭하면 해당 매물 아카이브로 바로 이동합니다. 이곳에서 공간의 다양한 컷과 핵심 정보를 한 번에 확인할 수 있습니다.",
+        overviewLabel: "보유 아카이브",
+        overviewText: "AID가 현재 다루는 공간들을 큐레이션해 보여줍니다.",
+        noteLabel: "핵심 요약",
         typeLabel: "매물 유형",
         types: ["오피스", "리테일", "주거", "빌딩"],
         filters: ["지역", "카테고리", "최소 면적 (m²)", "최대 면적 (m²)", "최대 보증금 (백만원)", "최대 월세 (백만원)", "최대 권리금 (백만원)", "최소 층수", "최소 주차대수", "정렬"],
@@ -107,10 +112,10 @@
         apply: "필터 적용",
         reset: "초기화",
         modes: { list: "목록", map: "지도" },
-        emptyTitle: "현재 조건에 맞는 매물이 없습니다.",
-        emptyDesc: "조건을 완화하거나 오프마켓 추천을 요청해보세요.",
-        emptyCta: "추천 요청하기",
-        result: "{count}개 결과"
+        emptyTitle: "현재 보여줄 아카이브가 없습니다.",
+        emptyDesc: "관리자 페이지에서 매물을 등록하면 이곳에 바로 쌓입니다.",
+        emptyCta: "문의 남기기",
+        result: "{count}개 아카이브"
       },
       partners: { eyebrow: "파트너", title: "파트너사 전용 소개 영역입니다.", slots: ["파트너 슬롯 01", "파트너 슬롯 02", "파트너 슬롯 03", "파트너 슬롯 04"] },
       location: {
@@ -179,8 +184,12 @@
         socials: ["Instagram", "YouTube"]
       },
       search: {
-        eyebrow: "SEARCH",
-        title: "Filter-based listing search",
+        eyebrow: "ARCHIVE",
+        title: "An edited archive of spaces currently represented by AID.",
+        description: "Click a photo on HOME to jump straight into the matching archive. Each archive surfaces multiple views and a concise brief.",
+        overviewLabel: "Current Archive",
+        overviewText: "A curated view of the spaces AID is actively handling.",
+        noteLabel: "Quick Brief",
         typeLabel: "Property Type",
         types: ["Office", "Retail", "Residential", "Building"],
         filters: ["Region", "Category", "Area Min (m²)", "Area Max (m²)", "Deposit Max (M KRW)", "Monthly Max (M KRW)", "Premium Max (M KRW)", "Floor Min", "Parking Min", "Sort"],
@@ -189,10 +198,10 @@
         apply: "Apply Filter",
         reset: "Reset",
         modes: { list: "List", map: "Map" },
-        emptyTitle: "No listing matched your conditions.",
-        emptyDesc: "Try wider ranges or request off-market recommendations.",
-        emptyCta: "Request Recommendation",
-        result: "{count} results"
+        emptyTitle: "There is no archive to display yet.",
+        emptyDesc: "Add listings from admin and they will appear here as an archive.",
+        emptyCta: "Send Inquiry",
+        result: "{count} ARCHIVES"
       },
       partners: { eyebrow: "PARTNERS", title: "Reserved area for partner assets.", slots: ["Partner Slot 01", "Partner Slot 02", "Partner Slot 03", "Partner Slot 04"] },
       location: {
@@ -261,8 +270,12 @@
         socials: ["Instagram", "YouTube"]
       },
       search: {
-        eyebrow: "?索",
-        title: "?件別物件?索",
+        eyebrow: "ARCHIVE",
+        title: "A curated archive of AID spaces.",
+        description: "Click a photo on HOME to open the matching archive entry.",
+        overviewLabel: "Current Archive",
+        overviewText: "A curated view of the spaces AID is actively handling.",
+        noteLabel: "Quick Brief",
         typeLabel: "物件タイプ",
         types: ["オフィス", "リテ?ル", "住居", "ビル"],
         filters: ["地域", "カテゴリ", "最小面積 (m²)", "最大面積 (m²)", "最大保?金 (百万KRW)", "最大月賃料 (百万KRW)", "最大?利金 (百万KRW)", "最小階?", "最小駐車台?", "?び替え"],
@@ -271,10 +284,10 @@
         apply: "適用",
         reset: "リセット",
         modes: { list: "リスト", map: "地?" },
-        emptyTitle: "?件に一致する物件がありません。",
-        emptyDesc: "?件を?げるか、オフマ?ケット推薦をご依?ください。",
-        emptyCta: "推薦を依?",
-        result: "{count}件"
+        emptyTitle: "No archive is available yet.",
+        emptyDesc: "Add listings from admin and they will appear here as an archive.",
+        emptyCta: "Send Inquiry",
+        result: "{count} ARCHIVES"
       },
       partners: { eyebrow: "パ?トナ?", title: "パ?トナ?紹介エリアです。", slots: ["パ?トナ?? 01", "パ?トナ?? 02", "パ?トナ?? 03", "パ?トナ?? 04"] },
       location: {
@@ -343,8 +356,12 @@
         socials: ["Instagram", "YouTube"]
       },
       search: {
-        eyebrow: "搜索",
-        title: "按?件??房源",
+        eyebrow: "ARCHIVE",
+        title: "A curated archive of AID spaces.",
+        description: "Click a photo on HOME to open the matching archive entry.",
+        overviewLabel: "Current Archive",
+        overviewText: "A curated view of the spaces AID is actively handling.",
+        noteLabel: "Quick Brief",
         typeLabel: "房源?型",
         types: ["?公", "零?", "住宅", "整??"],
         filters: ["?域", "??", "最小面? (m²)", "最大面? (m²)", "最高保?金 (百万?元)", "最高月租 (百万?元)", "最高??? (百万?元)", "最小??", "最小?位", "排序"],
@@ -353,10 +370,10 @@
         apply: "?用??",
         reset: "重置",
         modes: { list: "列表", map: "地?" },
-        emptyTitle: "?有符合?件的房源。",
-        emptyDesc: "?放??件或申??下推?。",
-        emptyCta: "申?推?",
-        result: "{count}??果"
+        emptyTitle: "No archive is available yet.",
+        emptyDesc: "Add listings from admin and they will appear here as an archive.",
+        emptyCta: "Send Inquiry",
+        result: "{count} ARCHIVES"
       },
       partners: { eyebrow: "合作?伴", title: "合作?伴展示?域。", slots: ["合作位 01", "合作位 02", "合作位 03", "合作位 04"] },
       location: {
@@ -568,6 +585,29 @@
     }
   ];
 
+  const GALLERY_FALLBACKS = {
+    Office: [
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80"
+    ],
+    Retail: [
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1481437156560-3205f6a55735?auto=format&fit=crop&w=1400&q=80"
+    ],
+    Residential: [
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80"
+    ],
+    Building: [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1400&q=80"
+    ]
+  };
+
   const state = {
     listings: loadListings(),
     siteSettings: loadSiteSettings(),
@@ -680,7 +720,7 @@
 
   function init() {
     if (!Array.isArray(state.listings) || state.listings.length === 0) {
-      state.listings = structuredClone(DEFAULT_LISTINGS);
+      state.listings = normalizeListings(structuredClone(DEFAULT_LISTINGS));
       saveListings(state.listings);
     }
 
@@ -768,21 +808,25 @@
       }, 120)
     );
 
-    el.filterForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      applyFilters();
-    });
-
-    el.filterForm.addEventListener("change", applyFilters);
-    el.filterForm.addEventListener("input", debounce(applyFilters, 120));
-
-    el.resetFilters.addEventListener("click", () => {
-      el.filterForm.reset();
-      Array.from(el.filterForm.querySelectorAll('input[name="type"]')).forEach((checkbox) => {
-        checkbox.checked = true;
+    if (el.filterForm) {
+      el.filterForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        applyFilters();
       });
-      applyFilters();
-    });
+
+      el.filterForm.addEventListener("change", applyFilters);
+      el.filterForm.addEventListener("input", debounce(applyFilters, 120));
+    }
+
+    if (el.resetFilters && el.filterForm) {
+      el.resetFilters.addEventListener("click", () => {
+        el.filterForm.reset();
+        Array.from(el.filterForm.querySelectorAll('input[name="type"]')).forEach((checkbox) => {
+          checkbox.checked = true;
+        });
+        applyFilters();
+      });
+    }
 
     el.listPane.addEventListener("click", (event) => {
       const card = event.target.closest("[data-id]");
@@ -824,7 +868,7 @@
         return;
       }
 
-      state.listings = structuredClone(DEFAULT_LISTINGS);
+      state.listings = normalizeListings(structuredClone(DEFAULT_LISTINGS));
       saveListings(state.listings);
       refreshRegionOptions();
       applyFilters();
@@ -980,10 +1024,15 @@
     });
   }
 
-  function resolveRoute(hashText) {
-    const raw = String(hashText || "").replace(/^#/, "").trim().toLowerCase();
+  function normalizeRouteKey(value) {
+    const raw = String(value || "").replace(/^#/, "").trim().toLowerCase();
+    if (raw === "search") return "archive";
     if (ROUTES.includes(raw)) return raw;
     return "projects";
+  }
+
+  function resolveRoute(hashText) {
+    return normalizeRouteKey(hashText);
   }
 
   function cycleThemeFromBackground() {
@@ -1184,7 +1233,7 @@
       let changed = false;
 
       if (remote.hasListingsDoc && Array.isArray(remote.listings)) {
-        state.listings = [...remote.listings];
+        state.listings = normalizeListings(remote.listings);
         saveListingsLocal(state.listings);
         changed = true;
       }
@@ -1233,7 +1282,7 @@
 
   function setRoute(route, updateHash) {
     const previousRoute = state.currentRoute;
-    let nextRoute = ROUTES.includes(route) ? route : "projects";
+    let nextRoute = normalizeRouteKey(route);
 
     if (nextRoute === "admin" && !ensureAdminAccess(updateHash)) {
       if (!updateHash && String(location.hash || "").toLowerCase() === "#admin") {
@@ -1273,16 +1322,6 @@
       renderProjectPage();
     } else {
       stopProjectFlow();
-    }
-
-    if (state.currentRoute === "search" && state.mode === "map") {
-      ensureMap();
-      if (state.map) {
-        window.setTimeout(() => {
-          state.map.invalidateSize();
-          renderMap();
-        }, 40);
-      }
     }
 
     if (state.currentRoute === "admin") {
@@ -1378,7 +1417,7 @@
     }
 
     const navMap = STATIC_NAV_LABELS;
-    const navRoutes = ["projects", "company", "search", "partners", "contact"];
+    const navRoutes = ["projects", "company", "archive", "partners", "contact"];
     navRoutes.forEach((route) => {
       const link = document.querySelector(`.main-nav a[data-route="${route}"]`);
       if (!link) return;
@@ -1418,27 +1457,30 @@
       }
     });
 
-    setNodeText('.page[data-page="search"] .page-head .eyebrow', locale.search.eyebrow);
-    setNodeText("#page-search-title", locale.search.title);
-    setNodeText('.page[data-page="search"] .field-label', locale.search.typeLabel);
-    const typeLabels = Array.from(document.querySelectorAll('.page[data-page="search"] .type-row label'));
+    setNodeText('.page[data-page="archive"] .page-head .eyebrow', locale.search.eyebrow);
+    setNodeText("#page-archive-title", locale.search.title);
+    setNodeText("#archiveDescription", locale.search.description);
+    setNodeText("#archiveStatLabel", locale.search.overviewLabel);
+    setNodeText("#archiveLead", locale.search.overviewText);
+    setNodeText('.page[data-page="archive"] .field-label', locale.search.typeLabel);
+    const typeLabels = Array.from(document.querySelectorAll('.page[data-page="archive"] .type-row label'));
     typeLabels.forEach((label, index) => setCheckboxLabel(label, locale.search.types[index] || ""));
-    setNodeTexts('.page[data-page="search"] .filter-grid label > span', locale.search.filters);
-    const categoryInput = document.querySelector('.page[data-page="search"] input[name="category"]');
+    setNodeTexts('.page[data-page="archive"] .filter-grid label > span', locale.search.filters);
+    const categoryInput = document.querySelector('.page[data-page="archive"] input[name="category"]');
     if (categoryInput) {
       categoryInput.placeholder = locale.search.categoryPlaceholder;
     }
-    const sortSelect = document.querySelector('.page[data-page="search"] select[name="sort"]');
+    const sortSelect = document.querySelector('.page[data-page="archive"] select[name="sort"]');
     if (sortSelect) {
       const sortMap = locale.search.sort;
       Array.from(sortSelect.options).forEach((option) => {
         if (sortMap[option.value]) option.textContent = sortMap[option.value];
       });
     }
-    setNodeText('.page[data-page="search"] button[type="submit"]', locale.search.apply);
+    setNodeText('.page[data-page="archive"] button[type="submit"]', locale.search.apply);
     if (el.resetFilters) el.resetFilters.textContent = locale.search.reset;
-    const listModeBtn = document.querySelector('.page[data-page="search"] [data-mode="list"]');
-    const mapModeBtn = document.querySelector('.page[data-page="search"] [data-mode="map"]');
+    const listModeBtn = document.querySelector('.page[data-page="archive"] [data-mode="list"]');
+    const mapModeBtn = document.querySelector('.page[data-page="archive"] [data-mode="map"]');
     if (listModeBtn) listModeBtn.textContent = locale.search.modes.list;
     if (mapModeBtn) mapModeBtn.textContent = locale.search.modes.map;
     setNodeText("#emptyState h3", locale.search.emptyTitle);
@@ -1830,7 +1872,7 @@
       source: String(source || "unknown")
     });
     state.selectedId = id;
-    setRoute("search", true);
+    setRoute("archive", true);
     renderSearch();
   }
 
@@ -1846,39 +1888,16 @@
   }
 
   function applyFilters() {
-    const filters = readFilters();
-
-    let filtered = state.listings.filter((item) => {
-      const hasType = filters.types.has(item.type);
-      const matchRegion = !filters.region || item.region.toLowerCase() === filters.region;
-      const matchCategory = !filters.category || item.category.toLowerCase().includes(filters.category);
-      const matchAreaMin = filters.areaMin === null || item.area >= filters.areaMin;
-      const matchAreaMax = filters.areaMax === null || item.area <= filters.areaMax;
-      const matchDeposit = filters.depositMax === null || item.deposit <= filters.depositMax;
-      const matchMonthly = filters.monthlyMax === null || item.monthly <= filters.monthlyMax;
-      const matchPremium = filters.premiumMax === null || item.premium <= filters.premiumMax;
-      const matchFloor = filters.floorMin === null || item.floor >= filters.floorMin;
-      const matchParking = filters.parkingMin === null || item.parking >= filters.parkingMin;
-
-      return (
-        hasType &&
-        matchRegion &&
-        matchCategory &&
-        matchAreaMin &&
-        matchAreaMax &&
-        matchDeposit &&
-        matchMonthly &&
-        matchPremium &&
-        matchFloor &&
-        matchParking
-      );
+    const sorted = [...state.listings].sort((a, b) => {
+      if (Boolean(a.featured) !== Boolean(b.featured)) {
+        return Number(b.featured) - Number(a.featured);
+      }
+      return String(b.createdAt || "").localeCompare(String(a.createdAt || ""));
     });
 
-    filtered = sortListings(filtered, filters.sort);
-
-    state.filtered = filtered;
-    if (!filtered.some((item) => item.id === state.selectedId)) {
-      state.selectedId = filtered.length ? filtered[0].id : null;
+    state.filtered = sorted;
+    if (!sorted.some((item) => item.id === state.selectedId)) {
+      state.selectedId = sorted.length ? sorted[0].id : null;
     }
 
     renderSearch();
@@ -1898,7 +1917,6 @@
     if (!hasData) {
       el.listPane.innerHTML = "";
       el.detailPane.innerHTML = "";
-      clearMapMarkers();
       return;
     }
 
@@ -1907,16 +1925,18 @@
         const active = item.id === state.selectedId ? "is-active" : "";
         const ariaLabel = locale.misc.openDetailAria.replace("{title}", item.title);
         return `
-          <article class="list-card ${active}" data-id="${item.id}" role="button" tabindex="0" aria-label="${escapeHtml(ariaLabel)}">
-            <img class="list-thumb" src="${escapeHtml(item.image || fallbackImage())}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${fallbackImage()}'" />
+          <article class="list-card archive-card ${active}" data-id="${item.id}" role="button" tabindex="0" aria-label="${escapeHtml(ariaLabel)}">
+            <div class="archive-card-visual">
+              <img class="list-thumb" src="${escapeHtml(item.image || fallbackImage())}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.src='${fallbackImage()}'" />
+              <span class="archive-card-index">ARCHIVE ${String(item.id).padStart(2, "0")}</span>
+            </div>
             <div class="list-body">
+              <p class="archive-card-kicker">${escapeHtml(item.region)} · ${escapeHtml(formatTypeLabel(item.type))}</p>
               <h4>${escapeHtml(item.title)}</h4>
-              <p>${escapeHtml(item.region)} | ${escapeHtml(item.category)} | ${escapeHtml(item.type)}</p>
-              <p>${escapeHtml(item.summary)}</p>
+              <p class="archive-card-summary">${escapeHtml(item.summary)}</p>
               <div class="list-tags">
+                <span>${escapeHtml(item.category)}</span>
                 <span>${number.format(item.area)} m²</span>
-                <span>${escapeHtml(locale.misc.deposit)} ${number.format(item.deposit)}M</span>
-                <span>${escapeHtml(locale.misc.monthly)} ${number.format(item.monthly)}M</span>
                 <span>${escapeHtml(locale.misc.parking)} ${number.format(item.parking)}</span>
               </div>
             </div>
@@ -1926,7 +1946,6 @@
       .join("");
 
     renderDetail();
-    renderMap();
   }
 
   function renderDetail() {
@@ -1937,10 +1956,33 @@
       return;
     }
 
+    const gallery = getListingGallery(item);
+    const heroImage = gallery[0] || item.image || fallbackImage();
+    const galleryItems = gallery.slice(1, 4);
+
     el.detailPane.innerHTML = `
       <p class="eyebrow">${escapeHtml(locale.misc.detailEyebrow)}</p>
       <h3>${escapeHtml(item.title)}</h3>
-      <img class="detail-image" src="${escapeHtml(item.image || fallbackImage())}" alt="${escapeHtml(item.title)}" onerror="this.src='${fallbackImage()}'" />
+      <div class="archive-hero">
+        <p class="archive-summary">${escapeHtml(item.summary)}</p>
+        <img class="detail-image" src="${escapeHtml(heroImage)}" alt="${escapeHtml(item.title)}" onerror="this.src='${fallbackImage()}'" />
+      </div>
+      ${
+        galleryItems.length
+          ? `<div class="archive-gallery">${galleryItems
+              .map(
+                (image, index) =>
+                  `<img src="${escapeHtml(image)}" alt="${escapeHtml(item.title)} view ${index + 2}" loading="lazy" onerror="this.src='${fallbackImage()}'" />`
+              )
+              .join("")}</div>`
+          : ""
+      }
+      <div class="archive-note">
+        <span class="archive-note-label">${escapeHtml(locale.search.noteLabel)}</span>
+        <p>${escapeHtml(
+          `${item.region} · ${item.category} · ${number.format(item.area)} m² · ${escapeHtml(locale.misc.parking)} ${number.format(item.parking)}`
+        )}</p>
+      </div>
       <ul class="detail-meta">
         <li><strong>${escapeHtml(locale.misc.detail.region)}</strong>${escapeHtml(item.region)}</li>
         <li><strong>${escapeHtml(locale.misc.detail.address)}</strong>${escapeHtml(item.address)}</li>
@@ -2118,7 +2160,7 @@
       }
     }
 
-    const record = {
+    const record = normalizeListing({
       id: isEdit ? Number(idRaw) : nextId(state.listings),
       title: String(formData.get("title") || "").trim(),
       type: String(formData.get("type") || "Office"),
@@ -2137,7 +2179,7 @@
       summary: String(formData.get("summary") || "").trim(),
       featured: formData.get("featured") === "on",
       createdAt: new Date().toISOString().slice(0, 10)
-    };
+    }, state.listings.length);
 
     if (!isValidListing(record)) {
       setStatus(el.adminStatus, "필수값을 확인하세요. 면적, 좌표, 텍스트 항목이 모두 유효해야 합니다.", "error");
@@ -2147,12 +2189,12 @@
     if (isEdit) {
       state.listings = state.listings.map((item) => {
         if (item.id !== record.id) return item;
-        return { ...item, ...record, createdAt: item.createdAt };
+        return normalizeListing({ ...item, ...record, createdAt: item.createdAt }, 0);
       });
       setStatus(el.adminStatus, `매물 #${record.id} 수정 완료`, "ok");
       trackEvent("listing_update", { listingId: record.id });
     } else {
-      state.listings = [record, ...state.listings];
+      state.listings = [record, ...state.listings].map((item, index) => normalizeListing(item, index));
       setStatus(el.adminStatus, `매물 #${record.id} 등록 완료`, "ok");
       trackEvent("listing_create", { listingId: record.id });
     }
@@ -2587,6 +2629,7 @@
   }
 
   function refreshRegionOptions() {
+    if (!el.filterRegion) return;
     const locale = getLocale();
     const current = String(el.filterRegion.value || "");
 
@@ -2926,6 +2969,7 @@
     const map = {
       projects: STATIC_NAV_LABELS.projects,
       company: STATIC_NAV_LABELS.company,
+      archive: STATIC_NAV_LABELS.archive,
       search: STATIC_NAV_LABELS.search,
       partners: STATIC_NAV_LABELS.partners,
       contact: STATIC_NAV_LABELS.contact,
@@ -3065,22 +3109,75 @@
     };
   }
 
+  function buildGalleryList(rawGallery, type, heroImage) {
+    const typeKey = Object.keys(GALLERY_FALLBACKS).find((key) => key.toLowerCase() === String(type || "").trim().toLowerCase()) || "";
+    const manualGallery = Array.isArray(rawGallery)
+      ? rawGallery
+      : String(rawGallery || "")
+          .split(/\r?\n|,/)
+          .map((item) => item.trim())
+          .filter(Boolean);
+    const fallbackGallery = Array.isArray(GALLERY_FALLBACKS[typeKey]) ? GALLERY_FALLBACKS[typeKey] : [];
+    return [...new Set([heroImage, ...manualGallery, ...fallbackGallery].map((item) => String(item || "").trim()).filter(Boolean))].slice(0, 4);
+  }
+
+  function normalizeListing(item, index) {
+    const source = item && typeof item === "object" ? item : {};
+    const image = String(source.image || "").trim() || fallbackImage();
+    const type = String(source.type || "Office").trim() || "Office";
+    const fallbackDate = new Date().toISOString().slice(0, 10);
+
+    return {
+      id: Number.isFinite(Number(source.id)) ? Number(source.id) : index + 1,
+      title: String(source.title || "").trim(),
+      type,
+      region: String(source.region || "").trim(),
+      category: String(source.category || "").trim(),
+      area: Number(source.area || 0),
+      deposit: Number(source.deposit || 0),
+      monthly: Number(source.monthly || 0),
+      premium: Number(source.premium || 0),
+      floor: Number(source.floor || 0),
+      parking: Number(source.parking || 0),
+      address: String(source.address || "").trim(),
+      lat: Number(source.lat || 0),
+      lng: Number(source.lng || 0),
+      summary: String(source.summary || "").trim(),
+      image,
+      gallery: buildGalleryList(source.gallery, type, image),
+      featured: Boolean(source.featured),
+      createdAt: String(source.createdAt || fallbackDate)
+    };
+  }
+
+  function normalizeListings(items) {
+    return Array.isArray(items) ? items.map((item, index) => normalizeListing(item, index)).filter((item) => item.title) : [];
+  }
+
+  function getListingGallery(item) {
+    if (!item || typeof item !== "object") return [fallbackImage()];
+    const gallery = buildGalleryList(item.gallery, item.type, item.image || fallbackImage());
+    return gallery.length ? gallery : [fallbackImage()];
+  }
+
   function loadListings() {
     try {
       const raw = localStorage.getItem(STORAGE_KEYS.listings);
-      if (!raw) return structuredClone(DEFAULT_LISTINGS);
+      if (!raw) return normalizeListings(structuredClone(DEFAULT_LISTINGS));
       const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) && parsed.length ? parsed : structuredClone(DEFAULT_LISTINGS);
+      const normalized = normalizeListings(parsed);
+      return normalized.length ? normalized : normalizeListings(structuredClone(DEFAULT_LISTINGS));
     } catch (_err) {
-      return structuredClone(DEFAULT_LISTINGS);
+      return normalizeListings(structuredClone(DEFAULT_LISTINGS));
     }
   }
 
   function saveListings(listings) {
-    saveListingsLocal(listings);
+    const normalized = normalizeListings(listings);
+    saveListingsLocal(normalized);
     if (!canUseCloudAdmin() || typeof cloudStore.setListings !== "function") return;
     cloudStore
-      .setListings(listings)
+      .setListings(normalized)
       .then((ok) => {
         if (!ok) {
           // Keep local data if remote save fails.
@@ -3092,7 +3189,7 @@
   }
 
   function saveListingsLocal(listings) {
-    localStorage.setItem(STORAGE_KEYS.listings, JSON.stringify(listings));
+    localStorage.setItem(STORAGE_KEYS.listings, JSON.stringify(normalizeListings(listings)));
   }
 
   function loadInquiries() {
@@ -3248,9 +3345,3 @@
       .replaceAll("'", "&#39;");
   }
 })();
-
-
-
-
-
-

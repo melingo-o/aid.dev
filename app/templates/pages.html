@@ -61,56 +61,28 @@
       </div>
     </section>
 
-    <section class="page" data-page="search" aria-labelledby="page-search-title">
+    <section class="page" data-page="archive" aria-labelledby="page-archive-title">
       <div class="page-head compact">
-        <p class="eyebrow">매물 검색</p>
-        <h2 id="page-search-title">조건 기반 매물 검색</h2>
+        <p class="eyebrow">ARCHIVE</p>
+        <h2 id="page-archive-title">조건 검색 대신, AID가 보유한 공간 아카이브를 보여줍니다.</h2>
       </div>
 
-      <form id="filterForm" class="filter-box" autocomplete="off">
-        <div>
-          <p class="field-label">매물 유형</p>
-          <div class="type-row">
-            <label><input type="checkbox" name="type" value="Office" checked />오피스</label>
-            <label><input type="checkbox" name="type" value="Retail" checked />리테일</label>
-            <label><input type="checkbox" name="type" value="Residential" checked />주거</label>
-            <label><input type="checkbox" name="type" value="Building" checked />빌딩</label>
-          </div>
-        </div>
-
-        <div class="filter-grid">
-          <label><span>지역</span><select name="region" id="filterRegion"><option value="">전체 지역</option></select></label>
-          <label><span>카테고리</span><input type="text" name="category" placeholder="뷰티, F&B" /></label>
-          <label><span>최소 면적 (m²)</span><input type="number" name="areaMin" min="0" step="1" /></label>
-          <label><span>최대 면적 (m²)</span><input type="number" name="areaMax" min="0" step="1" /></label>
-          <label><span>최대 보증금 (백만원)</span><input type="number" name="depositMax" min="0" step="1" /></label>
-          <label><span>최대 월세 (백만원)</span><input type="number" name="monthlyMax" min="0" step="1" /></label>
-          <label><span>최대 권리금 (백만원)</span><input type="number" name="premiumMax" min="0" step="1" /></label>
-          <label><span>최소 층수</span><input type="number" name="floorMin" min="0" step="1" /></label>
-          <label><span>최소 주차대수</span><input type="number" name="parkingMin" min="0" step="1" /></label>
-          <label><span>정렬</span><select name="sort"><option value="new">최신순</option><option value="monthlyAsc">월세 낮은순</option><option value="depositAsc">보증금 낮은순</option><option value="areaDesc">면적 큰순</option></select></label>
-        </div>
-
-        <div class="form-row">
-          <button type="submit">필터 적용</button>
-          <button type="button" id="resetFilters">초기화</button>
-        </div>
-      </form>
-
-      <div class="search-head">
-        <p id="resultCount">0개 결과</p>
-        <div class="toggle-row">
-          <button type="button" class="is-active" data-mode="list">목록</button>
-          <button type="button" data-mode="map">지도</button>
-        </div>
+      <div class="archive-overview">
+        <p id="archiveDescription" class="archive-copy">
+          HOME에서 사진을 클릭하면 해당 매물 아카이브로 바로 이동합니다. 이곳에서 공간의 다양한 컷과 핵심 정보를 한 번에 확인할 수 있습니다.
+        </p>
+        <article class="archive-summary-card">
+          <span id="archiveStatLabel" class="archive-summary-label">Current Archive</span>
+          <strong id="resultCount">0 ARCHIVES</strong>
+          <p id="archiveLead">AID가 현재 다루는 공간들을 큐레이션해 보여줍니다.</p>
+        </article>
       </div>
 
-      <div class="search-layout" id="searchLayout" data-mode="list">
-        <div class="primary-panel">
-          <div id="listPane" class="list-pane" aria-live="polite"></div>
-          <div id="mapPane" class="map-pane is-hidden"><div id="mapCanvas"></div></div>
+      <div class="search-layout archive-layout" id="searchLayout">
+        <div class="primary-panel archive-list-panel">
+          <div id="listPane" class="list-pane archive-list" aria-live="polite"></div>
         </div>
-        <aside id="detailPane" class="detail-pane" aria-live="polite"></aside>
+        <aside id="detailPane" class="detail-pane archive-detail" aria-live="polite"></aside>
       </div>
 
       <div id="emptyState" class="empty-state is-hidden">
