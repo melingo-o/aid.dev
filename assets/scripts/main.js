@@ -33,8 +33,8 @@
   const ALERT_WEBHOOK_URL = String(APP_CONFIG.alertWebhookUrl || "");
 
   const number = new Intl.NumberFormat("en-US");
-  const DEFAULT_FAVICON_PATH = "assets/favicon/favicon.svg?v=20260311-1";
-  const DEFAULT_SIGNATURE_PATH = "assets/images/ceo-signature.png?v=20260316-1";
+  const DEFAULT_FAVICON_PATH = "assets/favicon/favicon.svg?v=20260316-2";
+  const DEFAULT_SIGNATURE_PATH = "assets/images/ceo-signature.png?v=20260316-2";
   const DEFAULT_SITE_SETTINGS = {
     logoText: "AID",
     logoImage: "",

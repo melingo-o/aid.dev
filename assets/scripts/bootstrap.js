@@ -2,7 +2,7 @@
   "use strict";
 
   const INCLUDE_SELECTOR = "[data-include]";
-  const ASSET_VERSION = "20260311-1";
+  const ASSET_VERSION = "20260316-2";
   const RUNTIME_SCRIPTS = [
     "assets/scripts/cloud-api.js",
     "assets/scripts/main.js"
