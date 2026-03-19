@@ -3075,37 +3075,7 @@ textarea {
   min-height: 0;
 }
 
-.company-hero {
-  width: min(78%, 1320px);
-  min-height: clamp(86px, 12vh, 170px);
-  display: grid;
-  align-content: center;
-  gap: 8px;
-  padding: 8px 0;
-}
-
-.company-hero-title {
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(42px, 6.4vw, 102px);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  font-weight: 500;
-  color: #1a1a1a;
-  white-space: nowrap;
-}
-
-.company-intro {
-  margin: 0;
-  max-width: 35ch;
-  font-size: clamp(13px, 0.98vw, 15px);
-  line-height: 1.6;
-  letter-spacing: 0.003em;
-  color: #5d5851;
-}
-
 .company-viewport {
-  position: relative;
   display: grid;
   gap: clamp(28px, 3vh, 42px);
   min-height: 0;
@@ -3113,67 +3083,68 @@ textarea {
   padding-bottom: clamp(10px, 1.6vh, 18px);
 }
 
-.company-editorial-visual {
-  margin: 0;
+.company-main-typo {
+  width: min(78%, 1320px);
+}
+
+.company-copy-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  gap: clamp(28px, 3vw, 52px);
+  align-items: start;
+  padding-top: clamp(8px, 1.4vh, 16px);
+  border-top: 1px solid var(--line-soft);
+}
+
+.company-copy-lead,
+.company-copy-notes {
   display: grid;
   gap: 12px;
+  align-content: start;
 }
 
-.company-editorial-visual .company-visual-main-frame {
-  position: relative;
-  overflow: hidden;
-  min-height: clamp(430px, 62svh, 700px);
-  aspect-ratio: 16 / 9;
-  background: #ece8de;
-}
-
-.company-editorial-visual .company-visual-image {
-  min-height: 100%;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.company-visual-caption-row {
-  display: grid;
-  grid-template-columns: 112px minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
-  max-width: 760px;
-}
-
-.company-visual-caption-row .company-visual-kicker {
-  margin-top: 2px;
-}
-
-.company-visual-caption-row .company-visual-copy {
+.company-intro {
   margin: 0;
-  max-width: 42ch;
-  font-size: 13px;
+  max-width: 38ch;
+  font-size: clamp(13px, 0.98vw, 15px);
+  line-height: 1.62;
+  letter-spacing: 0.003em;
+  color: #5d5851;
+}
+
+.company-copy-notes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.company-copy-note {
+  display: grid;
+  gap: 8px;
+  align-items: start;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.company-note-copy {
+  margin: 0;
+  max-width: 30ch;
+  font-size: 12px;
   line-height: 1.62;
   color: #5b564d;
 }
 
+.company-note-copy-strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
 .company-editorial-grid {
   display: grid;
-  grid-template-columns: minmax(250px, 0.82fr) minmax(0, 1.18fr);
-  gap: clamp(26px, 3vw, 52px);
-  align-items: start;
-  padding-top: clamp(12px, 1.8vh, 22px);
+  gap: 0;
+  padding-top: clamp(12px, 1.8vh, 20px);
   border-top: 1px solid var(--line-soft);
-}
-
-.company-manifesto-card {
-  padding: 0;
-}
-
-.company-manifesto {
-  margin: 10px 0 0;
-  max-width: 260px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(30px, 2.9vw, 48px);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
 }
 
 .company-principles {
@@ -3181,40 +3152,40 @@ textarea {
   padding-top: 0;
   border-top: 0;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
 }
 
 .company-principle {
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: 4px 18px;
-  padding: 15px 0;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding-top: 12px;
   border-top: 1px solid var(--line-soft);
 }
 
 .company-principle:first-child {
-  padding-top: 0;
-  border-top: 0;
+  border-top: 1px solid var(--line-soft);
 }
 
 .company-principle-index {
-  font-size: clamp(21px, 1.8vw, 28px);
-  line-height: 0.9;
-  color: #26231f;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: #7b756b;
 }
 
 .company-principle h3 {
   margin: 0;
-  font-size: 17px;
-  line-height: 1.14;
+  font-size: 15px;
+  line-height: 1.18;
   letter-spacing: -0.018em;
   font-weight: 500;
 }
 
 .company-principle p {
   margin: 0;
-  max-width: 34ch;
+  max-width: 28ch;
   font-size: 12px;
   line-height: 1.62;
   color: #5b564d;
@@ -3351,22 +3322,21 @@ textarea {
 }
 
 @media (max-width: 980px) {
-  .company-hero {
-    width: min(100%, 960px);
+  .company-main-typo {
+    width: 100%;
   }
 
-  .company-editorial-grid {
+  .company-copy-grid {
     grid-template-columns: 1fr;
     gap: 22px;
   }
 
-  .company-manifesto {
-    max-width: 100%;
+  .company-copy-notes {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .company-visual-caption-row {
+  .company-principles {
     grid-template-columns: 1fr;
-    gap: 8px;
   }
 
   .company-foot-grid {
@@ -3389,17 +3359,8 @@ textarea {
     gap: 24px;
   }
 
-  .company-hero {
+  .company-main-typo {
     width: 100%;
-    min-height: 0;
-    gap: 8px;
-    padding: 0;
-  }
-
-  .company-hero-title {
-    font-size: clamp(18px, 5.3vw, 24px);
-    line-height: 0.98;
-    white-space: nowrap;
   }
 
   .company-intro {
@@ -3413,28 +3374,27 @@ textarea {
     padding-top: 0;
   }
 
-  .company-editorial-visual {
-    gap: 10px;
+  .company-copy-grid {
+    gap: 18px;
+    padding-top: 12px;
   }
 
-  .company-editorial-visual .company-visual-main-frame {
-    min-height: 250px;
-    aspect-ratio: 16 / 10;
+  .company-copy-notes {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .company-note-copy-strong {
+    font-size: clamp(20px, 6.2vw, 28px);
   }
 
   .company-editorial-grid {
-    gap: 18px;
     padding-top: 14px;
   }
 
-  .company-manifesto {
-    font-size: clamp(23px, 7.6vw, 34px);
-  }
-
   .company-principle {
-    grid-template-columns: 30px 1fr;
-    gap: 3px 10px;
-    padding: 11px 0;
+    gap: 5px;
+    padding-top: 10px;
   }
 
   .company-principle h3 {
