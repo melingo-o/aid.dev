@@ -949,18 +949,248 @@ body.route-projects .project-brief {
   padding: 20px;
 }
 
-.company-layout {
-  margin-top: 20px;
+.company-page {
+  position: relative;
+}
+
+.company-hero {
+  position: relative;
+  margin-top: clamp(42px, 6.6vh, 94px);
+  max-width: 960px;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
   gap: 16px;
 }
 
-.copy {
+.company-hero-title {
   margin: 0;
-  font-size: 17px;
-  line-height: 1.62;
-  color: #232323;
+  max-width: 18ch;
+  display: grid;
+  gap: 2px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(46px, 5.2vw, 82px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+.company-intro {
+  margin: 0;
+  max-width: 760px;
+  font-size: clamp(17px, 1.45vw, 22px);
+  line-height: 1.72;
+  color: #3f392f;
+}
+
+.company-principles {
+  margin-top: clamp(32px, 4.4vh, 58px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.company-principle {
+  display: grid;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.company-principle-index {
+  display: inline-block;
+  font-size: 34px;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  color: #171717;
+}
+
+.company-principle h3 {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.company-principle p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.68;
+  color: #5f584e;
+}
+
+.company-visual-story {
+  margin-top: clamp(34px, 4.6vh, 64px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.72fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.company-visual-main-panel,
+.company-side-card,
+.company-identity-block,
+.company-signature-card {
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: var(--surface-elevated);
+}
+
+.company-visual-main-panel {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at top left, rgba(199, 184, 154, 0.2), transparent 46%),
+    linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(244, 239, 230, 0.98));
+}
+
+.company-visual-main-frame {
+  position: relative;
+  overflow: hidden;
+  min-height: 440px;
+  border-radius: 18px;
+  background: #e8e2d8;
+}
+
+.company-visual-main-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 13, 13, 0.04), rgba(13, 13, 13, 0.12));
+  pointer-events: none;
+}
+
+.company-visual-image {
+  display: block;
+  width: 100%;
+  min-height: 440px;
+  height: 100%;
+  object-fit: cover;
+  clip-path: polygon(26px 0, 100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0 100%, 0 26px);
+}
+
+.company-visual-caption {
+  display: grid;
+  gap: 10px;
+  max-width: 620px;
+}
+
+.company-visual-kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 28px;
+  padding: 0 12px;
+  border: 1px solid rgba(24, 24, 24, 0.16);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6f675c;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.company-visual-copy {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.72;
+  color: #4d463b;
+}
+
+.company-side-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.company-side-card {
+  padding: 18px;
+}
+
+.company-manifesto-card {
+  background:
+    linear-gradient(180deg, rgba(252, 250, 245, 0.98), rgba(244, 239, 230, 0.98));
+}
+
+.company-manifesto {
+  margin: 12px 0 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(30px, 2.6vw, 40px);
+  line-height: 0.96;
+  letter-spacing: -0.028em;
+  color: #181614;
+}
+
+.company-mini-gallery-card {
+  padding: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 250, 0.98), rgba(244, 239, 232, 0.98));
+}
+
+.company-mini-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.company-mini-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 0.82;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.company-identity-row {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+  gap: 18px;
+}
+
+.company-identity-block,
+.company-signature-card {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  align-content: start;
+}
+
+.company-signature-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.company-meta-list {
+  margin-top: 0;
+  gap: 10px;
+}
+
+.company-meta-list li {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.58;
+  color: #2c2720;
+}
+
+.meta-list strong {
+  display: inline-block;
+  min-width: 120px;
+}
+
+.company-meta-list strong {
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7d7569;
 }
 
 .plain-list {
@@ -990,9 +1220,26 @@ body.route-projects .project-brief {
   min-height: 0;
 }
 
+.company-signature-box {
+  width: 100%;
+  min-height: 132px;
+  margin-top: 0;
+  padding: 18px;
+  background: linear-gradient(180deg, #fbfaf6 0%, #efe9dd 100%);
+}
+
+.company-signature-box.has-image {
+  min-height: 132px;
+  background: linear-gradient(180deg, #fdfcf8 0%, #f3eee3 100%);
+}
+
 .signature-placeholder {
   font-family: "Cormorant Garamond", serif;
   font-size: 44px;
+}
+
+.company-signature-box .signature-placeholder {
+  font-size: 34px;
 }
 
 .signature-image {
@@ -1011,9 +1258,11 @@ body.route-projects .project-brief {
   gap: 7px;
 }
 
-.meta-list strong {
-  display: inline-block;
-  min-width: 120px;
+.company-signature-box .signature-image {
+  width: auto;
+  max-width: 100%;
+  max-height: 86px;
+  object-fit: contain;
 }
 
 .social-row {
@@ -1021,6 +1270,69 @@ body.route-projects .project-brief {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.company-social-row {
+  margin-top: 0;
+}
+
+.company-cta-row {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.company-cta {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  padding: 20px 22px;
+  border: 1px solid #1a1a1a;
+  border-radius: 18px;
+  background: #fffdfa;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.company-cta::after {
+  content: "↗";
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.company-cta:hover,
+.company-cta:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(28, 23, 14, 0.08);
+}
+
+.company-cta-label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7b7368;
+}
+
+.company-cta strong {
+  max-width: 17ch;
+  font-size: 19px;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.company-cta-primary {
+  border-color: #171614;
+  background: #171614;
+  color: #f8f4ec;
+}
+
+.company-cta-primary .company-cta-label {
+  color: rgba(248, 244, 236, 0.68);
 }
 
 .social-link,
@@ -2267,8 +2579,21 @@ textarea {
   .search-layout,
   .contact-layout,
   .admin-layout,
-  .company-layout {
+  .company-layout,
+  .company-visual-story,
+  .company-identity-row,
+  .company-cta-row {
     grid-template-columns: 1fr;
+  }
+
+  .company-principles {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .company-visual-main-frame,
+  .company-visual-image {
+    min-height: 360px;
   }
 
   .signature-box {
@@ -2344,6 +2669,91 @@ textarea {
   .archive-copy {
     font-size: 16px;
     padding: 16px;
+  }
+
+  .company-hero {
+    margin-top: 22px;
+    gap: 14px;
+  }
+
+  .company-hero-title {
+    max-width: 16ch;
+    font-size: clamp(30px, 10.4vw, 50px);
+    gap: 0;
+  }
+
+  .company-intro {
+    font-size: 15px;
+    line-height: 1.66;
+  }
+
+  .company-principles {
+    margin-top: 28px;
+  }
+
+  .company-principle {
+    padding-top: 14px;
+    gap: 10px;
+  }
+
+  .company-principle h3 {
+    font-size: 19px;
+  }
+
+  .company-visual-story {
+    margin-top: 28px;
+    gap: 14px;
+  }
+
+  .company-visual-main-panel,
+  .company-side-card,
+  .company-identity-block,
+  .company-signature-card,
+  .company-cta {
+    border-radius: 16px;
+  }
+
+  .company-visual-main-panel {
+    padding: 14px;
+  }
+
+  .company-visual-main-frame,
+  .company-visual-image {
+    min-height: 280px;
+  }
+
+  .company-visual-image {
+    clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  }
+
+  .company-manifesto {
+    font-size: clamp(28px, 10vw, 42px);
+  }
+
+  .company-mini-gallery {
+    gap: 10px;
+  }
+
+  .company-meta-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .company-signature-box {
+    min-height: 108px;
+  }
+
+  .company-signature-box.has-image {
+    min-height: 108px;
+  }
+
+  .company-cta {
+    padding: 18px;
+  }
+
+  .company-cta strong {
+    max-width: 100%;
+    font-size: 17px;
   }
 
   .archive-card {

@@ -82,10 +82,20 @@
       hero: { title: "Where visibility becomes value", tagline: "공간의 인상을 설계하고 브랜드의 가치를 높입니다." },
       project: { viewDetail: "VIEW DETAIL", parking: "Parking" },
       company: {
-        eyebrow: "회사 소개",
-        title: "입지 검토부터 계약 협의까지, 실무 중심으로 자문합니다.",
-        copy: "AID는 리테일, 사옥, 복합 상업시설을 중심으로 브랜드와 법인의 운영 목적에 맞는 공간을 검토하고 제안합니다. 현장 조사, 매물 비교, 조건 협의, 계약 검토까지 한 흐름으로 지원합니다.",
-        bullets: ["브랜드와 운영 목적에 맞는 입지 검토", "매물 비교, 조건 협의, 계약 진행 지원", "사옥 이전, 확장, 상업시설 자문"],
+        eyebrow: "COMPANY",
+        titleLine1: "공간을 중개하지 않습니다.",
+        titleLine2: "기준을 제안합니다.",
+        intro: "브랜드가 오래 머물 위치는 조건표만으로 정해지지 않습니다. AID는 가시성, 동선, 운영 밀도, 협의 현실까지 함께 읽으며 공간을 정리합니다.",
+        principles: [
+          { title: "위치를 읽습니다", copy: "유동과 가시성만 보지 않습니다. 브랜드가 어떤 장면으로 운영될지부터 검토합니다." },
+          { title: "선택지를 정리합니다", copy: "보기 좋은 제안보다 맞는 후보를 좁혀 비교하고, 의사결정의 언어를 명확하게 만듭니다." },
+          { title: "조건을 맞춥니다", copy: "협의와 계약 검토를 실무 기준으로 정돈해 다음 단계까지 매끄럽게 연결합니다." }
+        ],
+        visualEyebrow: "SPATIAL READING",
+        visualCopy: "좋은 공간은 사진보다 운영 문맥에서 먼저 설득되어야 합니다. AID는 실제 사용의 장면이 자연스럽게 그려지는 위치를 우선합니다.",
+        manifestoEyebrow: "OUR VIEW",
+        manifesto: "리테일, 사옥, 복합 상업 공간을 다루되 결과보다 기준이 먼저 읽히는 제안을 지향합니다.",
+        identityEyebrow: "IDENTITY",
         signEyebrow: "대표 서명",
         signBox: "서명",
         meta: [
@@ -95,7 +105,9 @@
           "<strong>대표번호</strong>02-0000-0000",
           "<strong>사업자번호</strong>000-00-00000"
         ],
-        socials: ["인스타그램", "유튜브"]
+        socials: ["인스타그램", "유튜브"],
+        ctaPrimary: "현재 소개 중인 공간 보기",
+        ctaSecondary: "우리와 맞는 위치 검토하기"
       },
       search: {
         eyebrow: "ARCHIVE",
@@ -169,9 +181,19 @@
       project: { viewDetail: "VIEW DETAIL", parking: "Parking" },
       company: {
         eyebrow: "COMPANY",
-        title: "Practical advisory from site review to lease negotiation.",
-        copy: "AID reviews and proposes retail, headquarters, and mixed-use properties based on how each brand or company plans to operate. We support site visits, shortlist comparison, term negotiation, and contract review in one workflow.",
-        bullets: ["Location review aligned with brand and operating goals", "Property comparison, term negotiation, and transaction support", "Advisory for headquarters relocation, expansion, and commercial assets"],
+        titleLine1: "We do not list space.",
+        titleLine2: "We set the standard.",
+        intro: "A long-term address for a brand cannot be reduced to a spreadsheet. AID reads visibility, circulation, operational density, and deal reality before narrowing the field.",
+        principles: [
+          { title: "We read the location", copy: "We go beyond traffic and frontage and ask what kind of operating scene the brand can realistically hold." },
+          { title: "We frame the options", copy: "Rather than presenting more listings, we reduce the field and give the decision a sharper language." },
+          { title: "We align the terms", copy: "Negotiation and contract review are structured with practical rigor so the next move feels deliberate." }
+        ],
+        visualEyebrow: "SPATIAL READING",
+        visualCopy: "A convincing space should make sense in operation before it looks good in a deck. We prioritize places where the real use case can already be pictured.",
+        manifestoEyebrow: "OUR VIEW",
+        manifesto: "AID works across retail, headquarters, and mixed-use assets, but the proposal should reveal a standard before it reveals a result.",
+        identityEyebrow: "IDENTITY",
         signEyebrow: "CEO Signature",
         signBox: "Signature",
         meta: [
@@ -181,7 +203,9 @@
           "<strong>Phone</strong>02-0000-0000",
           "<strong>Business No.</strong>000-00-00000"
         ],
-        socials: ["Instagram", "YouTube"]
+        socials: ["Instagram", "YouTube"],
+        ctaPrimary: "View Current Spaces",
+        ctaSecondary: "Review a Potential Location"
       },
       search: {
         eyebrow: "ARCHIVE",
@@ -254,20 +278,32 @@
       hero: { title: "Where visibility becomes value", tagline: "空間の印象を設計し、ブランド?値を高めます。" },
       project: { viewDetail: "詳細を見る", parking: "駐車" },
       company: {
-        eyebrow: "?社情報",
-        title: "?なる仲介ではなく、空間?略を設計します。",
-        copy: "AIDはブランドに合う立地を選定し、本社開??略を設計し、インフルエンサ?資産運用モデルまで連携します。",
-        bullets: ["可視性重視の立地企?", "本社開??運用モデル設計", "インフルエンサ?/IP基盤の空間資産管理"],
+        eyebrow: "COMPANY",
+        titleLine1: "仲介より前に、",
+        titleLine2: "空間の基準を整えます。",
+        intro: "ブランドが長く留まる場所は、条件表だけでは決まりません。AIDは視認性、導線、運用密度、協議の現実まで含めて空間を整理します。",
+        principles: [
+          { title: "立地を読みます", copy: "人通りや視認性だけでなく、ブランドがどのような場面で運用されるかまで検討します。" },
+          { title: "選択肢を絞ります", copy: "見栄えの良い提案を増やすより、合う候補を整理し、判断の言葉を明確にします。" },
+          { title: "条件を整えます", copy: "協議と契約確認を実務基準で整え、次の段階まで自然につなげます。" }
+        ],
+        visualEyebrow: "SPATIAL READING",
+        visualCopy: "良い空間は写真より先に、運用の文脈で納得できるべきだと考えています。AIDは実際の使い方が自然に描ける場所を優先します。",
+        manifestoEyebrow: "OUR VIEW",
+        manifesto: "リテール、本社、複合商業を扱いますが、結果より先に基準が伝わる提案を目指します。",
+        identityEyebrow: "IDENTITY",
         signEyebrow: "代表署名",
         signBox: "署名",
         meta: [
-          "<strong>?社名</strong>부동산 중개법인 에이드청담",
+          "<strong>会社名</strong>부동산 중개법인 에이드청담",
           "<strong>代表者</strong>Hong Gil-dong",
-          "<strong>住所</strong>ソウル特別市 江南? 江南大路126キル 76 1~3階",
+          "<strong>住所</strong>ソウル特別市 江南区 江南大路126ギル 76 1~3階",
           "<strong>電話</strong>02-0000-0000",
-          "<strong>事業者番?</strong>000-00-00000"
+          "<strong>事業者番号</strong>000-00-00000"
         ],
-        socials: ["Instagram", "YouTube"]
+        socials: ["Instagram", "YouTube"],
+        ctaPrimary: "公開中の空間を見る",
+        ctaSecondary: "立地を一緒に検討する"
       },
       search: {
         eyebrow: "ARCHIVE",
@@ -340,20 +376,32 @@
       hero: { title: "Where visibility becomes value", tagline: "我???空?印象，提升品牌价?。" },
       project: { viewDetail: "?看?情", parking: "停?" },
       company: {
-        eyebrow: "公司介?",
-        title: "我?不?做中介，更做空??略。",
-        copy: "AID?品牌??匹配?址，???部??策略，??接??????模型。",
-        bullets: ["以可?性?核心的?址??", "?部?????模型??", "基于??/IP的空???管理"],
-        signEyebrow: "代表?名",
-        signBox: "?名",
+        eyebrow: "COMPANY",
+        titleLine1: "我们不只是连接空间，",
+        titleLine2: "更提出判断标准。",
+        intro: "品牌长期停留的位置，不能只靠条件表决定。AID会同时阅读可见性、动线、运营密度与协商现实。",
+        principles: [
+          { title: "先读位置", copy: "我们不只看人流与曝光，也判断品牌会以什么样的场景真正运转。" },
+          { title: "整理选项", copy: "不是把更多房源堆给客户，而是收窄范围，让决策语言更清晰。" },
+          { title: "校准条件", copy: "把协商与合同审阅放进实际运营的尺度里，确保下一步可以顺畅展开。" }
+        ],
+        visualEyebrow: "SPATIAL READING",
+        visualCopy: "真正成立的空间，不该先在资料里好看，而该先在运营逻辑里站得住。AID优先选择那些能自然想象真实使用场景的位置。",
+        manifestoEyebrow: "OUR VIEW",
+        manifesto: "我们处理零售、总部与复合商业空间，但希望方案先让人读到标准，再读到结果。",
+        identityEyebrow: "IDENTITY",
+        signEyebrow: "代表签名",
+        signBox: "签名",
         meta: [
           "<strong>公司</strong>부동산 중개법인 에이드청담",
           "<strong>代表</strong>Hong Gil-dong",
-          "<strong>地址</strong>首?市 江南? 江南大路126街 76? 1~3?",
-          "<strong>??</strong>02-0000-0000",
-          "<strong>???照?</strong>000-00-00000"
+          "<strong>地址</strong>首尔市 江南区 江南大路126街 76号 1~3层",
+          "<strong>电话</strong>02-0000-0000",
+          "<strong>营业执照号</strong>000-00-00000"
         ],
-        socials: ["Instagram", "YouTube"]
+        socials: ["Instagram", "YouTube"],
+        ctaPrimary: "查看当前空间",
+        ctaSecondary: "一起判断合适位置"
       },
       search: {
         eyebrow: "ARCHIVE",
@@ -654,6 +702,9 @@
     signatureBox: document.getElementById("signatureBox"),
     signaturePlaceholder: document.getElementById("signaturePlaceholder"),
     signatureImage: document.getElementById("signatureImage"),
+    companyVisualMain: document.getElementById("companyVisualMain"),
+    companyVisualSecondaryA: document.getElementById("companyVisualSecondaryA"),
+    companyVisualSecondaryB: document.getElementById("companyVisualSecondaryB"),
     pages: Array.from(document.querySelectorAll(".page")),
     projectPage: document.querySelector('.page[data-page="projects"]'),
     projectStage: document.getElementById("projectStage"),
@@ -1430,22 +1481,35 @@
     setNodeText("#page-projects-title", locale.hero.title || STATIC_HERO_TITLE);
     setNodeText(".project-tagline", locale.hero.tagline);
 
-    setNodeText('.page[data-page="company"] .page-head .eyebrow', locale.company.eyebrow);
-    setNodeText("#page-company-title", locale.company.title);
-    setNodeText('.page[data-page="company"] .copy', locale.company.copy);
-    setNodeTexts('.page[data-page="company"] .plain-list li', locale.company.bullets);
-    setNodeText('.page[data-page="company"] .card-block:nth-child(2) .eyebrow', locale.company.signEyebrow);
+    setNodeText('.page[data-page="company"] .company-hero .eyebrow', locale.company.eyebrow);
+    setNodeText("#companyTitleLine1", locale.company.titleLine1);
+    setNodeText("#companyTitleLine2", locale.company.titleLine2);
+    setNodeText("#companyIntro", locale.company.intro);
+    const companyPrinciples = Array.isArray(locale.company.principles) ? locale.company.principles : [];
+    companyPrinciples.forEach((item, index) => {
+      const position = index + 1;
+      setNodeText(`#companyPrincipleTitle${position}`, item && item.title ? item.title : "");
+      setNodeText(`#companyPrincipleCopy${position}`, item && item.copy ? item.copy : "");
+    });
+    setNodeText("#companyVisualEyebrow", locale.company.visualEyebrow);
+    setNodeText("#companyVisualCopy", locale.company.visualCopy);
+    setNodeText("#companyManifestoEyebrow", locale.company.manifestoEyebrow);
+    setNodeText("#companyManifesto", locale.company.manifesto);
+    setNodeText("#companyIdentityEyebrow", locale.company.identityEyebrow);
+    setNodeText("#companySignatureEyebrow", locale.company.signEyebrow);
     setNodeText("#signaturePlaceholder", locale.company.signBox);
+    setNodeText("#companyCtaPrimary", locale.company.ctaPrimary);
+    setNodeText("#companyCtaSecondary", locale.company.ctaSecondary);
     if (el.signatureImage) {
       el.signatureImage.alt = locale.company.signEyebrow;
     }
-    const companyMetaItems = Array.from(document.querySelectorAll('.page[data-page="company"] .meta-list li'));
+    const companyMetaItems = Array.from(document.querySelectorAll('.page[data-page="company"] .company-meta-list li'));
     companyMetaItems.forEach((item, index) => {
       if (index < locale.company.meta.length) {
         item.innerHTML = locale.company.meta[index];
       }
     });
-    const companySocialLinks = Array.from(document.querySelectorAll('.page[data-page="company"] .social-row .social-link'));
+    const companySocialLinks = Array.from(document.querySelectorAll('.page[data-page="company"] .company-social-row .social-link'));
     companySocialLinks.forEach((link, index) => {
       const label = locale.company.socials[index];
       if (!label) return;
@@ -1456,6 +1520,7 @@
         text.textContent = label;
       }
     });
+    renderCompanyShowcase();
 
     setNodeText('.page[data-page="archive"] .page-head .eyebrow', locale.search.eyebrow);
     setNodeText("#page-archive-title", locale.search.title);
@@ -1598,6 +1663,7 @@
   function renderProjectPage() {
     const locale = getLocale();
     const source = getProjectShowcaseSource();
+    renderCompanyShowcase();
     if (el.projectPage && !state.projectLandingPlayed) {
       el.projectPage.classList.add("is-prelanding");
     }
@@ -1642,6 +1708,27 @@
           playProjectLandingIntro();
         }
       });
+    });
+  }
+
+  function renderCompanyShowcase() {
+    const curated = [
+      { image: GALLERY_FALLBACKS.Retail[0], title: "AID retail perspective" },
+      { image: GALLERY_FALLBACKS.Building[0], title: "AID building perspective" },
+      { image: GALLERY_FALLBACKS.Building[1], title: "AID city perspective" }
+    ];
+    const picks = curated;
+    const fallbackAlt = `${getLocale().company.eyebrow || "COMPANY"} visual`;
+    const targets = [
+      { node: el.companyVisualMain, item: picks[0] || null },
+      { node: el.companyVisualSecondaryA, item: picks[1] || picks[0] || null },
+      { node: el.companyVisualSecondaryB, item: picks[2] || picks[1] || picks[0] || null }
+    ];
+
+    targets.forEach(({ node, item }) => {
+      const src = item && String(item.image || "").trim() ? item.image : fallbackImage();
+      const alt = item && item.title ? item.title : fallbackAlt;
+      syncImageNode(node, src, alt);
     });
   }
 
