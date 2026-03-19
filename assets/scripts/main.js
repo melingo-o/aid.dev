@@ -83,18 +83,19 @@
       project: { viewDetail: "VIEW DETAIL", parking: "Parking" },
       company: {
         eyebrow: "COMPANY",
-        titleLine1: "공간을 중개하지 않습니다.",
-        titleLine2: "기준을 제안합니다.",
-        intro: "브랜드가 오래 머물 위치는 조건표만으로 정해지지 않습니다. AID는 가시성, 동선, 운영 밀도, 협의 현실까지 함께 읽으며 공간을 정리합니다.",
+        title: "공간보다 기준을 제안합니다.",
+        titleLine1: "공간보다 기준을",
+        titleLine2: "제안합니다.",
+        intro: "브랜드가 오래 머물 주소는 조건표만으로 정해지지 않습니다. AID는 가시성, 동선, 운영 리듬을 함께 읽고 후보를 좁힙니다.",
         principles: [
-          { title: "위치를 읽습니다", copy: "유동과 가시성만 보지 않습니다. 브랜드가 어떤 장면으로 운영될지부터 검토합니다." },
-          { title: "선택지를 정리합니다", copy: "보기 좋은 제안보다 맞는 후보를 좁혀 비교하고, 의사결정의 언어를 명확하게 만듭니다." },
-          { title: "조건을 맞춥니다", copy: "협의와 계약 검토를 실무 기준으로 정돈해 다음 단계까지 매끄럽게 연결합니다." }
+          { title: "장면을 읽습니다", copy: "브랜드가 실제로 운영될 순간부터 먼저 상상합니다." },
+          { title: "후보를 줄입니다", copy: "많은 제안보다 맞는 선택지만 남기고 판단을 가볍게 만듭니다." },
+          { title: "조건을 정리합니다", copy: "협의와 계약을 실무 언어로 정돈해 다음 단계까지 연결합니다." }
         ],
         visualEyebrow: "SPATIAL READING",
-        visualCopy: "좋은 공간은 사진보다 운영 문맥에서 먼저 설득되어야 합니다. AID는 실제 사용의 장면이 자연스럽게 그려지는 위치를 우선합니다.",
+        visualCopy: "한 장의 사진보다 실제 운영의 장면이 먼저 그려지는 공간을 우선합니다.",
         manifestoEyebrow: "OUR VIEW",
-        manifesto: "리테일, 사옥, 복합 상업 공간을 다루되 결과보다 기준이 먼저 읽히는 제안을 지향합니다.",
+        manifesto: "기준이 먼저 보이는 제안을 지향합니다.",
         identityEyebrow: "IDENTITY",
         signEyebrow: "대표 서명",
         signBox: "서명",
@@ -181,18 +182,19 @@
       project: { viewDetail: "VIEW DETAIL", parking: "Parking" },
       company: {
         eyebrow: "COMPANY",
-        titleLine1: "We do not list space.",
-        titleLine2: "We set the standard.",
-        intro: "A long-term address for a brand cannot be reduced to a spreadsheet. AID reads visibility, circulation, operational density, and deal reality before narrowing the field.",
+        title: "We propose standards, not just space.",
+        titleLine1: "We propose standards,",
+        titleLine2: "not just space.",
+        intro: "A lasting address for a brand is not chosen from a sheet alone. AID reads visibility, circulation, and operating rhythm before narrowing the field.",
         principles: [
-          { title: "We read the location", copy: "We go beyond traffic and frontage and ask what kind of operating scene the brand can realistically hold." },
-          { title: "We frame the options", copy: "Rather than presenting more listings, we reduce the field and give the decision a sharper language." },
-          { title: "We align the terms", copy: "Negotiation and contract review are structured with practical rigor so the next move feels deliberate." }
+          { title: "We read the scene", copy: "We begin with how a brand will actually live in the space." },
+          { title: "We reduce the field", copy: "Instead of showing more options, we keep only the ones that fit." },
+          { title: "We clarify the terms", copy: "Negotiation and contract review are organized so the next move stays clean." }
         ],
         visualEyebrow: "SPATIAL READING",
-        visualCopy: "A convincing space should make sense in operation before it looks good in a deck. We prioritize places where the real use case can already be pictured.",
+        visualCopy: "We prioritize spaces that make operational sense before they look persuasive in a deck.",
         manifestoEyebrow: "OUR VIEW",
-        manifesto: "AID works across retail, headquarters, and mixed-use assets, but the proposal should reveal a standard before it reveals a result.",
+        manifesto: "We favor proposals where the standard appears before the result.",
         identityEyebrow: "IDENTITY",
         signEyebrow: "CEO Signature",
         signBox: "Signature",
@@ -1482,8 +1484,8 @@
     setNodeText(".project-tagline", locale.hero.tagline);
 
     setNodeText('.page[data-page="company"] .company-hero .eyebrow', locale.company.eyebrow);
-    setNodeText("#companyTitleLine1", locale.company.titleLine1);
-    setNodeText("#companyTitleLine2", locale.company.titleLine2);
+    const companyTitle = locale.company.title || [locale.company.titleLine1, locale.company.titleLine2].filter(Boolean).join(" ").trim();
+    setNodeText("#companyTitle", companyTitle);
     setNodeText("#companyIntro", locale.company.intro);
     const companyPrinciples = Array.isArray(locale.company.principles) ? locale.company.principles : [];
     companyPrinciples.forEach((item, index) => {
