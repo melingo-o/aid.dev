@@ -86,7 +86,7 @@
         title: "공간보다 기준을 제안합니다.",
         titleLine1: "공간보다 기준을",
         titleLine2: "제안합니다.",
-        intro: "브랜드가 오래 머물 주소는 조건표만으로 정해지지 않습니다. AID는 가시성, 동선, 운영 리듬을 함께 읽고 후보를 좁힙니다.",
+        intro: "브랜드가 오래 머물 주소는 조건표만으로 정해지지 않습니다. AID는 가시성과 동선, 운영의 리듬을 함께 읽고 오래 남을 선택을 정리합니다.",
         principles: [
           { title: "장면을 읽습니다", copy: "브랜드가 실제로 운영될 순간부터 먼저 상상합니다." },
           { title: "후보를 줄입니다", copy: "많은 제안보다 맞는 선택지만 남기고 판단을 가볍게 만듭니다." },
@@ -185,7 +185,7 @@
         title: "We propose standards, not just space.",
         titleLine1: "We propose standards,",
         titleLine2: "not just space.",
-        intro: "A lasting address for a brand is not chosen from a sheet alone. AID reads visibility, circulation, and operating rhythm before narrowing the field.",
+        intro: "A lasting address for a brand is not chosen from a sheet alone. AID reads visibility, circulation, and operating rhythm before shaping the final selection.",
         principles: [
           { title: "We read the scene", copy: "We begin with how a brand will actually live in the space." },
           { title: "We reduce the field", copy: "Instead of showing more options, we keep only the ones that fit." },
