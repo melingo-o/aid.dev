@@ -1483,9 +1483,9 @@
     setNodeText("#page-projects-title", locale.hero.title || STATIC_HERO_TITLE);
     setNodeText(".project-tagline", locale.hero.tagline);
 
-    setNodeText('.page[data-page="company"] .company-hero .eyebrow', locale.company.eyebrow);
+    setNodeText('.page[data-page="company"] .page-head .eyebrow', locale.company.eyebrow);
     const companyTitle = locale.company.title || [locale.company.titleLine1, locale.company.titleLine2].filter(Boolean).join(" ").trim();
-    setNodeText("#companyTitle", companyTitle);
+    setNodeText("#page-company-title", companyTitle);
     setNodeText("#companyIntro", locale.company.intro);
     const companyPrinciples = Array.isArray(locale.company.principles) ? locale.company.principles : [];
     companyPrinciples.forEach((item, index) => {
@@ -1505,13 +1505,13 @@
     if (el.signatureImage) {
       el.signatureImage.alt = locale.company.signEyebrow;
     }
-    const companyMetaItems = Array.from(document.querySelectorAll('.page[data-page="company"] .company-meta-list li'));
+    const companyMetaItems = Array.from(document.querySelectorAll("#companyMetaList li"));
     companyMetaItems.forEach((item, index) => {
       if (index < locale.company.meta.length) {
         item.innerHTML = locale.company.meta[index];
       }
     });
-    const companySocialLinks = Array.from(document.querySelectorAll('.page[data-page="company"] .company-social-row .social-link'));
+    const companySocialLinks = Array.from(document.querySelectorAll('.page[data-page="company"] .social-row .social-link'));
     companySocialLinks.forEach((link, index) => {
       const label = locale.company.socials[index];
       if (!label) return;
@@ -1556,7 +1556,7 @@
 
     setNodeText('.page[data-page="partners"] .page-head .eyebrow', locale.partners.eyebrow);
     setNodeText("#page-partners-title", locale.partners.title);
-    setNodeTexts('.page[data-page="partners"] .partner-grid article', locale.partners.slots);
+    setNodeTexts('.page[data-page="partners"] .partner-slot-copy', locale.partners.slots);
 
     const locationLocale = locale.location || I18N.en.location;
     setNodeText('.page[data-page="contact"] .page-head .eyebrow', locationLocale.eyebrow);
@@ -1600,8 +1600,8 @@
     const telLink = document.querySelector("#contactForm .tel-link");
     if (telLink) telLink.textContent = locale.contact.call;
     setNodeText("#contactStatus", locale.contact.status);
-    setNodeText('.page[data-page="inquiry"] .card-block h3', locale.contact.checklistTitle);
-    setNodeTexts('.page[data-page="inquiry"] .card-block .plain-list li', locale.contact.checklist);
+    setNodeText("#inquiryGuideTitle", locale.contact.checklistTitle);
+    setNodeTexts("#inquiryChecklistList li", locale.contact.checklist);
 
     if (locale.footer) {
       setNodeText("#footerCompanyName", locale.footer.company);
@@ -2080,13 +2080,13 @@
         <li><strong>${escapeHtml(locale.misc.detail.terms)}</strong>${escapeHtml(locale.misc.deposit)} ${number.format(item.deposit)}M | ${escapeHtml(locale.misc.monthly)} ${number.format(item.monthly)}M | ${escapeHtml(locale.misc.premium)} ${number.format(item.premium)}M</li>
         <li><strong>${escapeHtml(locale.misc.detail.floorParking)}</strong>${number.format(item.floor)}F | ${escapeHtml(locale.misc.parking)} ${number.format(item.parking)}</li>
       </ul>
-      <div class="detail-actions">
-        <a href="tel:02-0000-0000">${escapeHtml(locale.misc.cta.call)}</a>
-        <a href="#inquiry" data-route="inquiry">${escapeHtml(locale.misc.cta.form)}</a>
+      <div class="form-row detail-actions">
+        <a class="action-chip" href="tel:02-0000-0000">${escapeHtml(locale.misc.cta.call)}</a>
+        <a class="action-chip action-chip--secondary" href="#inquiry" data-route="inquiry">${escapeHtml(locale.misc.cta.form)}</a>
       </div>
     `;
 
-    const contactLink = el.detailPane.querySelector('a[data-route="contact"]');
+    const contactLink = el.detailPane.querySelector('a[data-route="inquiry"]');
     if (contactLink) {
       contactLink.addEventListener("click", (event) => {
         event.preventDefault();
